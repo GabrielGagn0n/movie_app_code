@@ -4,6 +4,7 @@ using System;
 public partial class MainControl : Control
 {
 	Vector2 windowSize = default(Vector2);
+	movie_app backend = new();
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
