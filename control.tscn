@@ -1,0 +1,46 @@
+[gd_scene load_steps=3 format=3 uid="uid://cmc1me0lxbihi"]
+
+[ext_resource type="Script" path="res://MainControl.cs" id="1_52xpq"]
+[ext_resource type="Theme" uid="uid://5t1dp5n81crm" path="res://Default_theme.tres" id="2_0s810"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_52xpq")
+
+[node name="TextEdit" type="TextEdit" parent="."]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 910.0
+offset_bottom = 50.0
+theme = ExtResource("2_0s810")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 920.0
+offset_top = 10.0
+offset_right = 1138.0
+offset_bottom = 50.0
+theme = ExtResource("2_0s810")
+text = "Ajouter"
+
+[node name="TextBox" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 60.0
+offset_right = 1136.0
+offset_bottom = 638.0
+theme = ExtResource("2_0s810")
+
+[node name="TestLabel" type="Label" parent="TextBox"]
+layout_mode = 2
+text = "Test"
+
+[connection signal="resized" from="." to="." method="_on_resized"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
