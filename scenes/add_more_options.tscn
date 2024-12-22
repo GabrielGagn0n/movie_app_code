@@ -1,0 +1,63 @@
+[gd_scene load_steps=2 format=3 uid="uid://cgbmvsqlrjlj1"]
+
+[ext_resource type="Theme" uid="uid://5t1dp5n81crm" path="res://Default_theme.tres" id="1_4wngo"]
+
+[node name="AddMoreOptions" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -552.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_4wngo")
+
+[node name="adding-more-options-scrolling-container" type="ScrollContainer" parent="."]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 15.0
+offset_right = 565.0
+offset_bottom = 565.0
+
+[node name="more-opt-vcontainer" type="VBoxContainer" parent="adding-more-options-scrolling-container"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="adding-more-options-scrolling-container/more-opt-vcontainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Label" type="Label" parent="adding-more-options-scrolling-container/more-opt-vcontainer/HBoxContainer"]
+layout_mode = 2
+text = "Number of season :"
+
+[node name="TextEdit" type="TextEdit" parent="adding-more-options-scrolling-container/more-opt-vcontainer/HBoxContainer"]
+custom_minimum_size = Vector2(250, 50)
+layout_mode = 2
+placeholder_text = "1"
+editable = false
+
+[node name="info-season-1" type="HBoxContainer" parent="adding-more-options-scrolling-container/more-opt-vcontainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="adding-more-options-scrolling-container/more-opt-vcontainer/info-season-1"]
+layout_mode = 2
+text = "Season 1 : "
+
+[node name="TextEdit" type="TextEdit" parent="adding-more-options-scrolling-container/more-opt-vcontainer/info-season-1"]
+custom_minimum_size = Vector2(250, 50)
+layout_mode = 2
+placeholder_text = "Number of episode
+"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="adding-more-options-scrolling-container/more-opt-vcontainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="btn-add" type="Button" parent="adding-more-options-scrolling-container/more-opt-vcontainer/HBoxContainer3"]
+layout_mode = 2
+text = "Add"
+
+[node name="btn-remove" type="Button" parent="adding-more-options-scrolling-container/more-opt-vcontainer/HBoxContainer3"]
+layout_mode = 2
+text = "Remove"

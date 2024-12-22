@@ -8,7 +8,7 @@ class movie_app
     public movie_app()
     {
         GD.Print("BACKEND ON!");
-        load_data();
+        //load_data();
     }
 
     public void update_serials_add_watched(int id, string name)
