@@ -3,6 +3,10 @@ using System;
 
 public partial class AddSingle : Control
 {
+	[Signal]
+	public delegate void OnBtnAddPressedEventHandler();
+	[Signal]
+	public delegate void OnBtnCancelPressedEventHandler();
 	ScrollContainer scrollContainer;
 	VBoxContainer vBoxContainer;
 	ItemList serialList;
@@ -30,5 +34,15 @@ public partial class AddSingle : Control
 	{
 		var more_container = vBoxContainer.GetNode<Control>("more-controls");
 		more_container.Visible = toggle_on;
+	}
+
+	private void _on_btnaddadd_pressed()
+	{
+		EmitSignal(SignalName.OnBtnAddPressed);
+	}
+
+	private void _on_btnaddcancel_pressed()
+	{
+		EmitSignal(SignalName.OnBtnCancelPressed);
 	}
 }

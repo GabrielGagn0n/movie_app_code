@@ -111,3 +111,5 @@ text = "Cancel
 "
 
 [connection signal="toggled" from="adding-scrolling-container/MContain/adding-vcontainer/CheckButton" to="." method="_on_check_button_toggled"]
+[connection signal="pressed" from="adding-scrolling-container/MContain/adding-vcontainer/validation-container/btn-add-add" to="." method="_on_btnaddadd_pressed"]
+[connection signal="pressed" from="adding-scrolling-container/MContain/adding-vcontainer/validation-container/btn-add-cancel" to="." method="_on_btnaddcancel_pressed"]
