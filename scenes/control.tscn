@@ -1,55 +1,78 @@
-[gd_scene load_steps=4 format=3 uid="uid://cmc1me0lxbihi"]
+[gd_scene load_steps=5 format=3 uid="uid://cmc1me0lxbihi"]
 
 [ext_resource type="Script" path="res://MainControl.cs" id="1_k1ok3"]
 [ext_resource type="Theme" uid="uid://5t1dp5n81crm" path="res://Default_theme.tres" id="2_52f5v"]
-[ext_resource type="PackedScene" uid="uid://bgcetwqqh6p3v" path="res://scenes/add_single.tscn" id="3_ohrm6"]
+[ext_resource type="PackedScene" uid="uid://bkjlnae6yrd3i" path="res://scenes/simple_view.tscn" id="3_3ivpp"]
+[ext_resource type="PackedScene" uid="uid://bgcetwqqh6p3v" path="res://scenes/add_single.tscn" id="3_hb730"]
 
-[node name="Control" type="Control"]
+[node name="MainControl" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 4.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_52f5v")
 script = ExtResource("1_k1ok3")
 
-[node name="TextEdit" type="TextEdit" parent="."]
-layout_mode = 0
-offset_left = 10.0
-offset_top = 10.0
-offset_right = 910.0
-offset_bottom = 50.0
-theme = ExtResource("2_52f5v")
-
-[node name="Button" type="Button" parent="."]
-layout_mode = 0
-offset_left = 920.0
-offset_top = 10.0
-offset_right = 1138.0
-offset_bottom = 50.0
-theme = ExtResource("2_52f5v")
-text = "Ajouter"
-
-[node name="TextBox" type="VBoxContainer" parent="."]
-layout_mode = 0
-offset_left = 10.0
-offset_top = 60.0
-offset_right = 1136.0
-offset_bottom = 638.0
-theme = ExtResource("2_52f5v")
-
-[node name="TestLabel" type="Label" parent="TextBox"]
-layout_mode = 2
-text = "Test"
-
-[node name="AddSingle" parent="." instance=ExtResource("3_ohrm6")]
+[node name="BColor" type="ColorRect" parent="."]
 layout_mode = 1
-offset_left = 5.0
-offset_top = 70.0
-offset_right = 5.0
-offset_bottom = 70.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.259294, 0.259294, 0.259294, 1)
+
+[node name="MMainContain" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="VContain" type="VBoxContainer" parent="MMainContain"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MMainContain/VContain"]
+layout_mode = 2
+text = "BIG TEST
+"
+
+[node name="SimpleView" parent="MMainContain/VContain" instance=ExtResource("3_3ivpp")]
+layout_mode = 2
+
+[node name="SimpleView2" parent="MMainContain/VContain" instance=ExtResource("3_3ivpp")]
+layout_mode = 2
+
+[node name="AddNewBtn" type="Button" parent="MMainContain/VContain"]
+layout_mode = 2
+size_flags_vertical = 10
+text = "Add new"
+
+[node name="MAddContain" type="MarginContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="AddSingle" parent="MAddContain" instance=ExtResource("3_hb730")]
+custom_minimum_size = Vector2(0, 700)
+layout_mode = 2
+size_flags_horizontal = 1
+size_flags_vertical = 3
 
 [connection signal="resized" from="." to="." method="_on_resized"]
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="MMainContain/VContain/AddNewBtn" to="." method="_on_add_new_btn_pressed"]

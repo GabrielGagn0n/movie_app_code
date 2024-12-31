@@ -1,0 +1,114 @@
+[gd_scene load_steps=8 format=3 uid="uid://bkjlnae6yrd3i"]
+
+[ext_resource type="Theme" uid="uid://5t1dp5n81crm" path="res://Default_theme.tres" id="1_mwpq1"]
+[ext_resource type="Texture2D" uid="uid://caf5l8m77jfjy" path="res://ressource/simpleview-text.png" id="2_8u2ol"]
+[ext_resource type="Texture2D" uid="uid://ljwmch0s4stn" path="res://ressource/2minus-red.png" id="3_ynivm"]
+[ext_resource type="Texture2D" uid="uid://dvrbmg6yedptd" path="res://ressource/2plus-green.png" id="4_0r07n"]
+[ext_resource type="Texture2D" uid="uid://dn4ef10m6ahai" path="res://ressource/minus-red.png" id="5_ataq1"]
+[ext_resource type="Texture2D" uid="uid://dsgewyck02hl6" path="res://ressource/plus-green.png" id="6_fyyj7"]
+[ext_resource type="Texture2D" uid="uid://bl8082qbahyu5" path="res://ressource/down-arrow.png" id="7_fom7d"]
+
+[node name="SimpleView" type="Control"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -850.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_mwpq1")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_mwpq1")
+texture = ExtResource("2_8u2ol")
+region_rect = Rect2(0, 0, 15, 15)
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 5
+
+[node name="MContain" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 1.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+
+[node name="HContain" type="HBoxContainer" parent="MContain"]
+layout_mode = 2
+theme = ExtResource("1_mwpq1")
+theme_override_constants/separation = 50
+
+[node name="OpenBtn" type="Button" parent="MContain/HContain"]
+custom_minimum_size = Vector2(0, 20.355)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme = ExtResource("1_mwpq1")
+text = "Open"
+
+[node name="HLblContain" type="HBoxContainer" parent="MContain/HContain"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="AliasLbl" type="Label" parent="MContain/HContain/HLblContain"]
+layout_mode = 2
+theme = ExtResource("1_mwpq1")
+text = "Placeholder                                                                            "
+
+[node name="SeasonLbl" type="Label" parent="MContain/HContain/HLblContain"]
+layout_mode = 2
+text = "Season X - Episode X                                                                             "
+
+[node name="ModifiedLbl" type="Label" parent="MContain/HContain/HLblContain"]
+layout_mode = 2
+text = "Modified last : X"
+
+[node name="BtnContain" type="HBoxContainer" parent="MContain/HContain"]
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="RmvSeasonBtn" type="Button" parent="MContain/HContain/BtnContain"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+tooltip_text = "Remove a season"
+icon = ExtResource("3_ynivm")
+
+[node name="AddSeasonBtn" type="Button" parent="MContain/HContain/BtnContain"]
+layout_mode = 2
+size_flags_vertical = 4
+tooltip_text = "Add a season"
+icon = ExtResource("4_0r07n")
+
+[node name="RmvEpBtn" type="Button" parent="MContain/HContain/BtnContain"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+tooltip_text = "Remove an episode"
+icon = ExtResource("5_ataq1")
+
+[node name="AddEpBtn" type="Button" parent="MContain/HContain/BtnContain"]
+layout_mode = 2
+size_flags_vertical = 4
+tooltip_text = "Add an episode"
+icon = ExtResource("6_fyyj7")
+
+[node name="MoreInfoBtn" type="Button" parent="MContain/HContain/BtnContain"]
+layout_mode = 2
+size_flags_vertical = 4
+tooltip_text = "More info"
+icon = ExtResource("7_fom7d")

@@ -9,66 +9,74 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -552.0
-offset_bottom = 2.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 theme = ExtResource("1_qyk8v")
 script = ExtResource("1_y21yx")
 
 [node name="adding-scrolling-container" type="ScrollContainer" parent="."]
 custom_minimum_size = Vector2(0, 75)
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -275.0
-offset_right = 275.0
-offset_bottom = 550.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
+grow_vertical = 2
 
-[node name="adding-vcontainer" type="VBoxContainer" parent="adding-scrolling-container"]
+[node name="MContain" type="MarginContainer" parent="adding-scrolling-container"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 25
+
+[node name="adding-vcontainer" type="VBoxContainer" parent="adding-scrolling-container/MContain"]
 custom_minimum_size = Vector2(0, 75)
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 3
+size_flags_vertical = 3
 theme = ExtResource("1_qyk8v")
 
-[node name="Label" type="Label" parent="adding-scrolling-container/adding-vcontainer"]
+[node name="Label" type="Label" parent="adding-scrolling-container/MContain/adding-vcontainer"]
 layout_mode = 2
 text = "Name of the thing :"
 
-[node name="name-textbox" type="TextEdit" parent="adding-scrolling-container/adding-vcontainer"]
-custom_minimum_size = Vector2(500, 45)
+[node name="name-textbox" type="TextEdit" parent="adding-scrolling-container/MContain/adding-vcontainer"]
+custom_minimum_size = Vector2(500, 35)
 layout_mode = 2
 theme = ExtResource("1_qyk8v")
 placeholder_text = "Name
 "
 
-[node name="Label2" type="Label" parent="adding-scrolling-container/adding-vcontainer"]
+[node name="Label2" type="Label" parent="adding-scrolling-container/MContain/adding-vcontainer"]
 layout_mode = 2
 text = "Alias :"
 
-[node name="alias-textbox" type="TextEdit" parent="adding-scrolling-container/adding-vcontainer"]
-custom_minimum_size = Vector2(0, 45)
+[node name="alias-textbox" type="TextEdit" parent="adding-scrolling-container/MContain/adding-vcontainer"]
+custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
 theme = ExtResource("1_qyk8v")
 placeholder_text = "Alias (optional)"
 
-[node name="Label3" type="Label" parent="adding-scrolling-container/adding-vcontainer"]
+[node name="Label3" type="Label" parent="adding-scrolling-container/MContain/adding-vcontainer"]
 layout_mode = 2
 text = "Link :"
 
-[node name="link-textbox" type="TextEdit" parent="adding-scrolling-container/adding-vcontainer"]
-custom_minimum_size = Vector2(0, 45)
+[node name="link-textbox" type="TextEdit" parent="adding-scrolling-container/MContain/adding-vcontainer"]
+custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
 theme = ExtResource("1_qyk8v")
 placeholder_text = "Link (optional)"
 
-[node name="Label4" type="Label" parent="adding-scrolling-container/adding-vcontainer"]
+[node name="Label4" type="Label" parent="adding-scrolling-container/MContain/adding-vcontainer"]
 layout_mode = 2
 text = "Type of entertainement :"
 
-[node name="ItemList" type="ItemList" parent="adding-scrolling-container/adding-vcontainer"]
+[node name="ItemList" type="ItemList" parent="adding-scrolling-container/MContain/adding-vcontainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme = ExtResource("1_qyk8v")
@@ -76,26 +84,30 @@ item_count = 2
 item_0/text = "Tv-show"
 item_1/text = "Anime"
 
-[node name="validation-container" type="HBoxContainer" parent="adding-scrolling-container/adding-vcontainer"]
+[node name="CheckButton" type="CheckButton" parent="adding-scrolling-container/MContain/adding-vcontainer"]
 layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 8
+text = "More options"
 
-[node name="btn-add-add" type="Button" parent="adding-scrolling-container/adding-vcontainer/validation-container"]
+[node name="more-controls" parent="adding-scrolling-container/MContain/adding-vcontainer" instance=ExtResource("3_jvddk")]
+visible = false
+custom_minimum_size = Vector2(0, 250)
+layout_mode = 2
+
+[node name="validation-container" type="HBoxContainer" parent="adding-scrolling-container/MContain/adding-vcontainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+theme = ExtResource("1_qyk8v")
+
+[node name="btn-add-add" type="Button" parent="adding-scrolling-container/MContain/adding-vcontainer/validation-container"]
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 text = "Add"
 
-[node name="btn-add-cancel" type="Button" parent="adding-scrolling-container/adding-vcontainer/validation-container"]
+[node name="btn-add-cancel" type="Button" parent="adding-scrolling-container/MContain/adding-vcontainer/validation-container"]
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 text = "Cancel
 "
 
-[node name="CheckButton" type="CheckButton" parent="adding-scrolling-container/adding-vcontainer"]
-layout_mode = 2
-text = "More options"
-
-[node name="more-controls" parent="adding-scrolling-container/adding-vcontainer" instance=ExtResource("3_jvddk")]
-visible = false
-layout_mode = 2
-
-[connection signal="toggled" from="adding-scrolling-container/adding-vcontainer/CheckButton" to="." method="_on_check_button_toggled"]
+[connection signal="toggled" from="adding-scrolling-container/MContain/adding-vcontainer/CheckButton" to="." method="_on_check_button_toggled"]
