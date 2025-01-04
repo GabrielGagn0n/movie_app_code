@@ -46,6 +46,7 @@ public partial class AddSingle : Control
 	{
 		textBoxName.Clear();
 		textBoxAlias.Clear();
+		textBoxLink.Clear();
 		serialList.Select(0);
 		cBtnMoreOpt.ButtonPressed = false;
 		clearMoreOption();
