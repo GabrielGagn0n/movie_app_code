@@ -41,8 +41,6 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="MMainContain/VContain"]
 layout_mode = 2
-text = "BIG TEST
-"
 
 [node name="SimpleView" parent="MMainContain/VContain" instance=ExtResource("3_3ivpp")]
 layout_mode = 2

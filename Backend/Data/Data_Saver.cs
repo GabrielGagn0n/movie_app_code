@@ -2,12 +2,12 @@ using System;
 
 class Data_Saver
 {
-    internal static void Save_Data(Serials[] serials_list)
+    internal static void SaveData(Serials[] serials_list)
     {
         throw new NotImplementedException();
     }
 
-    internal static void Single_Save_Data(Serials serial)
+    internal static void SingleSaveData(Serials serial)
     {
         throw new NotImplementedException();
     }

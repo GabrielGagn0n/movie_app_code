@@ -11,12 +11,17 @@ public class Serials
     private DateTime latest_update;
     private int id;
     private SerialType type;
+    private Status status;
 
-    public Serials(string name)
+    public Serials(string name, string alias = null, string link = null, SerialType type = SerialType.None)
     {
         set_name(name);
+        set_alias(alias);
+        set_link(link);
+        set_type(type);
     }
 
+    #region "Set - Get"
     public void set_name(string name)
     {
         this.name = name;
@@ -62,18 +67,29 @@ public class Serials
         return this.id;
     }
 
-    public int set_Id()
+    public void set_Id(int id)
     {
-        return this.id;
+        this.id = id;
     }
 
-    public void add_watched_episode()
+    public void set_type(SerialType type)
+    {
+        this.type = type;
+    }
+
+    public void set_Status(Status status)
+    {
+        this.status = status;
+    }
+
+    #endregion
+    public void AddWatchedEpisode()
     {
         int index = get_index_latest_watched_episode();
         did_watch[index + 1] = true;
     }
 
-    public void removed_watched_episode()
+    public void RemovedWatchedEpisode()
     {
         int index = get_index_latest_watched_episode();
         did_watch[index] = false;

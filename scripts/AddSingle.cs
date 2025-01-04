@@ -10,24 +10,68 @@ public partial class AddSingle : Control
 	ScrollContainer scrollContainer;
 	VBoxContainer vBoxContainer;
 	ItemList serialList;
+	CheckButton cBtnMoreOpt;
+	TextEdit textBoxName;
+	TextEdit textBoxAlias;
+	TextEdit textBoxLink;
+	int selectedID;
+
+	const string NAME_TEXTBOX = "name-textbox";
+	const string ALIAS_TEXTBOX = "alias-textbox";
+	const string LINK_TEXTBOX = "link-textbox";
+	const string GENRE_ITEMLIST = "ItemList";
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		scrollContainer = GetNode<ScrollContainer>("adding-scrolling-container");
 		vBoxContainer = scrollContainer.GetNode<VBoxContainer>("MContain/adding-vcontainer");
-		serialList = vBoxContainer.GetNode<ItemList>("ItemList");
+		cBtnMoreOpt = vBoxContainer.GetNode<CheckButton>("cBtnMoreOpt");
+
+		textBoxName = vBoxContainer.GetNode<TextEdit>(NAME_TEXTBOX);
+		textBoxAlias = vBoxContainer.GetNode<TextEdit>(ALIAS_TEXTBOX);
+		textBoxLink = vBoxContainer.GetNode<TextEdit>(LINK_TEXTBOX);
+		serialList = vBoxContainer.GetNode<ItemList>(GENRE_ITEMLIST);
+
 		serialList.Clear();
 
-		foreach (var item in Enum.GetValues(typeof(TypeSerial)))
+		foreach (var item in Enum.GetValues(typeof(SerialType)))
 		{
 			serialList.AddItem(item.ToString());
 		}
+		serialList.Select(0);
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
+	public void ClearData()
 	{
+		textBoxName.Clear();
+		textBoxAlias.Clear();
+		serialList.Select(0);
+		cBtnMoreOpt.ButtonPressed = false;
+		clearMoreOption();
+	}
+
+	// Get the data of every text box and other
+	public Serials GetSerial()
+	{
+		string name = textBoxName.Text;
+		string alias = textBoxAlias.Text;
+		string link = textBoxLink.Text;
+		string genre = serialList.GetItemText(selectedID);
+
+		if (cBtnMoreOpt.ButtonPressed)
+		{
+			// TODO
+		}
+
+		Serials serial = new Serials(name, alias, link, Enum.Parse<SerialType>(genre));
+		return serial;
+	}
+
+	// Change the color of the required textbox
+	public void ChangeColorRequired()
+	{
+		textBoxName.AddThemeColorOverride("background_color", Color.FromHtml("#620000"));
 	}
 
 	private void _on_check_button_toggled(bool toggle_on)
@@ -44,5 +88,29 @@ public partial class AddSingle : Control
 	private void _on_btnaddcancel_pressed()
 	{
 		EmitSignal(SignalName.OnBtnCancelPressed);
+	}
+
+	private void _on_item_list_item_selected(int index)
+	{
+		selectedID = index;
+	}
+
+	// Change the color of the textbox if its empty
+	private void _on_nametextbox_focus_exited()
+	{
+		if (string.IsNullOrEmpty(textBoxName.Text))
+		{
+			textBoxName.AddThemeColorOverride("background_color", Color.FromHtml("#620000"));
+		}
+		else
+		{
+			textBoxName.RemoveThemeColorOverride("background_color");
+		}
+	}
+
+	// TODO
+	private void clearMoreOption()
+	{
+
 	}
 }

@@ -84,7 +84,7 @@ item_count = 2
 item_0/text = "Tv-show"
 item_1/text = "Anime"
 
-[node name="CheckButton" type="CheckButton" parent="adding-scrolling-container/MContain/adding-vcontainer"]
+[node name="cBtnMoreOpt" type="CheckButton" parent="adding-scrolling-container/MContain/adding-vcontainer"]
 layout_mode = 2
 text = "More options"
 
@@ -110,6 +110,8 @@ layout_mode = 2
 text = "Cancel
 "
 
-[connection signal="toggled" from="adding-scrolling-container/MContain/adding-vcontainer/CheckButton" to="." method="_on_check_button_toggled"]
+[connection signal="focus_exited" from="adding-scrolling-container/MContain/adding-vcontainer/name-textbox" to="." method="_on_nametextbox_focus_exited"]
+[connection signal="item_selected" from="adding-scrolling-container/MContain/adding-vcontainer/ItemList" to="." method="_on_item_list_item_selected"]
+[connection signal="toggled" from="adding-scrolling-container/MContain/adding-vcontainer/cBtnMoreOpt" to="." method="_on_check_button_toggled"]
 [connection signal="pressed" from="adding-scrolling-container/MContain/adding-vcontainer/validation-container/btn-add-add" to="." method="_on_btnaddadd_pressed"]
 [connection signal="pressed" from="adding-scrolling-container/MContain/adding-vcontainer/validation-container/btn-add-cancel" to="." method="_on_btnaddcancel_pressed"]

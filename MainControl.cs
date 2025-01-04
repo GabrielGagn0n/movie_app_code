@@ -7,23 +7,18 @@ public partial class MainControl : Control
 	movie_app backend = new();
 	MarginContainer mainContainer;
 	MarginContainer addContainer;
-	Node addSingle;
+	AddSingle addSingle;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		windowSize = GetViewport().GetVisibleRect().Size;
+		// windowSize = GetViewport().GetVisibleRect().Size;
 		mainContainer = GetNode<MarginContainer>("MMainContain");
 		addContainer = GetNode<MarginContainer>("MAddContain");
-		addSingle = addContainer.GetNode<Node>("AddSingle");
+		addSingle = addContainer.GetNode<AddSingle>("AddSingle");
 
 		addSingle.Connect("OnBtnAddPressed", new Callable(this, MethodName.OnBtnAddPressedSignalReceived));
 		addSingle.Connect("OnBtnCancelPressed", new Callable(this, MethodName.OnBtnCancelPressedSignalReceived));
-	}
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
 	}
 
 	public void _on_add_new_btn_pressed()
@@ -33,11 +28,22 @@ public partial class MainControl : Control
 
 	public void OnBtnAddPressedSignalReceived()
 	{
-		ChangeScreen();
+		Serials toAdd = addSingle.GetSerial();
+		if (!string.IsNullOrEmpty(toAdd.get_name()))
+		{
+			backend.AddSerial(toAdd);
+			addSingle.ClearData();
+			ChangeScreen();
+		}
+		else
+		{
+			addSingle.ChangeColorRequired();
+		}
 	}
 
 	public void OnBtnCancelPressedSignalReceived()
 	{
+		addSingle.ClearData();
 		ChangeScreen();
 	}
 
@@ -54,15 +60,4 @@ public partial class MainControl : Control
 			addContainer.Visible = false;
 		}
 	}
-	// private void _on_button_pressed()
-	// {
-	// 	var TextContainer = GetNode<BoxContainer>("TextBox");
-	// 	var message = TextContainer.GetNode<Label>("TestLabel");
-	// 	message.Text = windowSize.X + " " + windowSize.Y;
-	// }
-
-	// private void _on_resized()
-	// {
-	// 	windowSize = GetViewport().GetVisibleRect().Size;
-	// }
 }

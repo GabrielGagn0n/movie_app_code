@@ -1,9 +1,10 @@
 using System;
+using System.Linq;
 using Godot;
 
 class movie_app 
 {
-    private Serials[] serials_list;
+    private Serials[] serials_list = Array.Empty<Serials>();
 
     public movie_app()
     {
@@ -11,7 +12,17 @@ class movie_app
         //load_data();
     }
 
-    public void update_serials_add_watched(int id, string name)
+    public void AddSerial(Serials serial)
+    {
+        int id = GenerateID();
+        serial.set_Id(id);
+        serial.set_Status(Status.NotStarted);
+        serials_list.Append(serial);
+
+        SaveData();
+    }
+
+    public void UpdateSerialsAddWatched(int id, string name)
     {
         Serials serial;
         for (int i = 0; i < serials_list.Length - 1; i++)
@@ -19,14 +30,15 @@ class movie_app
             if (serials_list[i].get_Id() == id || serials_list[i].get_name() == name)
             {
                 serial = serials_list[i];
-                serial.add_watched_episode();
-                Data_Saver.Single_Save_Data(serial);
+                serial.AddWatchedEpisode();
+                serial.set_Status(Status.Watching);
+                Data_Saver.SingleSaveData(serial);
                 break;
             }
         }
     }
 
-    public void update_serials_removed_watched(int id, string name)
+    public void UpdateSerialsRemovedWatched(int id, string name)
     {
         Serials serial;
         for (int i = 0; i < serials_list.Length - 1; i++)
@@ -34,20 +46,26 @@ class movie_app
             if (serials_list[i].get_Id() == id || serials_list[i].get_name() == name)
             {
                 serial = serials_list[i];
-                serial.removed_watched_episode();
-                Data_Saver.Single_Save_Data(serial);
+                serial.RemovedWatchedEpisode();
+                Data_Saver.SingleSaveData(serial);
                 break;
             }
         }
     }
 
-    private void load_data()
+    private void LoadData()
     {
-        serials_list = Data_Loader.Get_Data();
+        serials_list = Data_Loader.GetData();
     }
 
-    private void save_data()
+    private void SaveData()
     {
-        Data_Saver.Save_Data(serials_list);
+        Data_Saver.SaveData(serials_list);
     }
+
+    // TODO : Find a better way to generate ids
+    private int GenerateID()
+    {
+        return serials_list.Count();
+    } 
 }
