@@ -9,16 +9,16 @@ class movie_app
     public movie_app()
     {
         GD.Print("BACKEND ON!");
-        //load_data();
+        //LoadData();
     }
 
     public void AddSerial(Serials serial)
     {
         int id = GenerateID();
-        serial.set_Id(id);
-        serials_list.Append(serial);
+        serial.Id = id;
 
-        SaveData();
+        AddData(serial);
+        //LoadData();
     }
 
     public void UpdateSerialsAddWatched(int id, string name)
@@ -26,12 +26,12 @@ class movie_app
         Serials serial;
         for (int i = 0; i < serials_list.Length - 1; i++)
         {
-            if (serials_list[i].get_Id() == id || serials_list[i].get_name() == name)
+            if (serials_list[i].Id == id || serials_list[i].Name == name)
             {
                 serial = serials_list[i];
                 serial.AddWatchedEpisode();
-                serial.set_Status(Status.Watching);
-                Data_Saver.SingleSaveData(serial);
+                serial.Status = Status.Watching;
+                Data_Saver.SaveSingleData(serial);
                 break;
             }
         }
@@ -42,11 +42,11 @@ class movie_app
         Serials serial;
         for (int i = 0; i < serials_list.Length - 1; i++)
         {
-            if (serials_list[i].get_Id() == id || serials_list[i].get_name() == name)
+            if (serials_list[i].Id == id || serials_list[i].Name == name)
             {
                 serial = serials_list[i];
-                serial.RemovedWatchedEpisode();
-                Data_Saver.SingleSaveData(serial);
+                serial.RemoveWatchedEpisode();
+                Data_Saver.SaveSingleData(serial);
                 break;
             }
         }
@@ -59,7 +59,12 @@ class movie_app
 
     private void SaveData()
     {
-        Data_Saver.SaveData(serials_list);
+        Data_Saver.SaveAllData(serials_list);
+    }
+
+    private void AddData(Serials serial)
+    {
+        Data_Saver.AddData(serial);
     }
 
     // TODO : Find a better way to generate ids

@@ -29,11 +29,11 @@ public partial class MainControl : Control
 	public void OnBtnAddPressedSignalReceived()
 	{
 		Serials toAdd = addSingle.GetSerial();
-		if (!string.IsNullOrEmpty(toAdd.get_name()))
+		if (!string.IsNullOrEmpty(toAdd.Name))
 		{
-        	toAdd.set_Status(Status.NotStarted);
-			toAdd.set_episode_seasons(addSingle.GetNbrEpiSeason());
-			
+        	toAdd.Status = Status.NotStarted;
+			toAdd.EpisodeSeasons = addSingle.GetNbrEpiSeason();
+
 			backend.AddSerial(toAdd);
 			addSingle.ClearData();
 			ChangeScreen();

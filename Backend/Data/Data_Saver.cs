@@ -1,13 +1,51 @@
 using System;
+using System.Linq;
+using System.IO;
+using System.Text.Json;
+using System.Collections.Generic;
+using Godot;
 
 class Data_Saver
 {
-    internal static void SaveData(Serials[] serials_list)
+    const string DIRECTORY = "./Backend/Data/SavedData";
+    internal static void SaveAllData(Serials[] serials_list)
     {
-        throw new NotImplementedException();
+        foreach (SerialType type in Enum.GetValues(typeof(SerialType)))
+        {
+            Serials[] serialToSave = serials_list.Where(serial => serial.Type == type).ToArray();
+            if (serialToSave.Length > 0)
+            {
+                
+            }
+        }
     }
 
-    internal static void SingleSaveData(Serials serial)
+    internal static void AddData(Serials serial)
+    {
+        if (!Directory.Exists(DIRECTORY))
+        {
+            Directory.CreateDirectory(DIRECTORY);
+        }
+
+        string filePath = Path.Combine(DIRECTORY, $"{serial.Type}.json");
+
+        List<Serials> existingSerials = File.Exists(filePath)
+            ? JsonSerializer.Deserialize<List<Serials>>(File.ReadAllText(filePath))
+            : new List<Serials>();
+        
+        if (!existingSerials.Any(s => s.Name == serial.Name))
+        {
+            existingSerials.Add(serial);
+
+            File.WriteAllText(filePath, JsonSerializer.Serialize(existingSerials, new JsonSerializerOptions { WriteIndented = true }));
+        }
+        else
+        {
+            GD.Print($"Serial with Name '{serial.Name}' and Id '{serial.Id}' already exists.");
+        }
+    }
+
+    internal static void SaveSingleData(Serials serial)
     {
         throw new NotImplementedException();
     }
