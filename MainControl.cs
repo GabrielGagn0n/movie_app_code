@@ -31,6 +31,9 @@ public partial class MainControl : Control
 		Serials toAdd = addSingle.GetSerial();
 		if (!string.IsNullOrEmpty(toAdd.get_name()))
 		{
+        	toAdd.set_Status(Status.NotStarted);
+			toAdd.set_episode_seasons(addSingle.GetNbrEpiSeason());
+			
 			backend.AddSerial(toAdd);
 			addSingle.ClearData();
 			ChangeScreen();

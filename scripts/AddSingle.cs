@@ -60,13 +60,18 @@ public partial class AddSingle : Control
 		string link = textBoxLink.Text;
 		string genre = serialList.GetItemText(selectedID);
 
-		if (cBtnMoreOpt.ButtonPressed)
-		{
-			// TODO
-		}
-
 		Serials serial = new Serials(name, alias, link, Enum.Parse<SerialType>(genre));
 		return serial;
+	}
+
+	public int[] GetNbrEpiSeason()
+	{
+		// TODO
+		if (cBtnMoreOpt.ButtonPressed)
+		{
+			return new int[] {1};
+		}
+		return new int[] {1};
 	}
 
 	// Change the color of the required textbox

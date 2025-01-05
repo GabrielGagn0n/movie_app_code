@@ -5,8 +5,8 @@ public class Serials
 {
     private string name;
     private string alias;
-    private int[] episode_seasons;
-    private bool[] did_watch;
+    private int[] episode_seasons = Array.Empty<int>();
+    private bool[] did_watch = Array.Empty<bool>();
     private string link;
     private DateTime latest_update;
     private int id;

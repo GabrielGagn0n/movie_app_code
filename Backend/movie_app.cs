@@ -16,7 +16,6 @@ class movie_app
     {
         int id = GenerateID();
         serial.set_Id(id);
-        serial.set_Status(Status.NotStarted);
         serials_list.Append(serial);
 
         SaveData();
