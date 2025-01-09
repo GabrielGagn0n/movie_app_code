@@ -53,14 +53,14 @@ public partial class AddSingle : Control
 	}
 
 	// Get the data of every text box and other
-	public Serials GetSerial()
+	public Serial GetSerial()
 	{
 		string name = textBoxName.Text;
 		string alias = textBoxAlias.Text;
 		string link = textBoxLink.Text;
 		string genre = serialList.GetItemText(selectedID);
 
-		Serials serial = new Serials(name, alias, link, Enum.Parse<SerialType>(genre));
+		Serial serial = new Serial(name, alias, link, Enum.Parse<SerialType>(genre));
 		return serial;
 	}
 

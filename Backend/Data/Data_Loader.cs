@@ -2,7 +2,7 @@ using System;
 
 class Data_Loader
 {
-    internal static Serials[] GetData()
+    internal static Serial[] GetData()
     {
         throw new NotImplementedException();
     }

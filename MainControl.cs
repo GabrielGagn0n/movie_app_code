@@ -28,7 +28,7 @@ public partial class MainControl : Control
 
 	public void OnBtnAddPressedSignalReceived()
 	{
-		Serials toAdd = addSingle.GetSerial();
+		Serial toAdd = addSingle.GetSerial();
 		if (!string.IsNullOrEmpty(toAdd.Name))
 		{
         	toAdd.Status = Status.NotStarted;

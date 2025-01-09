@@ -4,7 +4,7 @@ using Godot;
 
 class movie_app 
 {
-    private Serials[] serials_list = Array.Empty<Serials>();
+    private Serial[] serials_list = Array.Empty<Serial>();
 
     public movie_app()
     {
@@ -12,7 +12,7 @@ class movie_app
         //LoadData();
     }
 
-    public void AddSerial(Serials serial)
+    public void AddSerial(Serial serial)
     {
         int id = GenerateID();
         serial.Id = id;
@@ -24,7 +24,7 @@ class movie_app
 
     public void UpdateSerialsAddWatched(int id, string name)
     {
-        Serials serial;
+        Serial serial;
         for (int i = 0; i < serials_list.Length - 1; i++)
         {
             if (serials_list[i].Id == id || serials_list[i].Name == name)
@@ -40,7 +40,7 @@ class movie_app
 
     public void UpdateSerialsRemovedWatched(int id, string name)
     {
-        Serials serial;
+        Serial serial;
         for (int i = 0; i < serials_list.Length - 1; i++)
         {
             if (serials_list[i].Id == id || serials_list[i].Name == name)
@@ -63,7 +63,7 @@ class movie_app
         Data_Saver.SaveAllData(serials_list);
     }
 
-    private void AddData(Serials serial)
+    private void AddData(Serial serial)
     {
         Data_Saver.AddData(serial);
     }

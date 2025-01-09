@@ -3,7 +3,7 @@ using System.Linq;
 using System.Text.Json;
 
 // TODO : Update the DidWatch from the EpisodeSeason, if I add more should add the difference
-public class Serials
+public class Serial
 {
     public string Name { get; set; }
     public string Alias { get; set; }
@@ -15,7 +15,7 @@ public class Serials
     public SerialType Type { get; set; }
     public Status Status { get; set; } = Status.NotStarted;
 
-    public Serials(string name, string alias = null, string link = null, SerialType type = SerialType.None)
+    public Serial(string name, string alias = null, string link = null, SerialType type = SerialType.None)
     {
         Name = name;
         Alias = alias;

@@ -8,11 +8,11 @@ using Godot;
 class Data_Saver
 {
     const string DIRECTORY = "./Backend/Data/SavedData";
-    internal static void SaveAllData(Serials[] serials_list)
+    internal static void SaveAllData(Serial[] serials_list)
     {
         foreach (SerialType type in Enum.GetValues(typeof(SerialType)))
         {
-            Serials[] serialToSave = serials_list.Where(serial => serial.Type == type).ToArray();
+            Serial[] serialToSave = serials_list.Where(serial => serial.Type == type).ToArray();
             if (serialToSave.Length > 0)
             {
                 
@@ -20,7 +20,7 @@ class Data_Saver
         }
     }
 
-    internal static void AddData(Serials serial)
+    internal static void AddData(Serial serial)
     {
         if (!Directory.Exists(DIRECTORY))
         {
@@ -29,9 +29,9 @@ class Data_Saver
 
         string filePath = Path.Combine(DIRECTORY, $"{serial.Type}.json");
 
-        List<Serials> existingSerials = File.Exists(filePath)
-            ? JsonSerializer.Deserialize<List<Serials>>(File.ReadAllText(filePath))
-            : new List<Serials>();
+        List<Serial> existingSerials = File.Exists(filePath)
+            ? JsonSerializer.Deserialize<List<Serial>>(File.ReadAllText(filePath))
+            : new List<Serial>();
         
         if (!existingSerials.Any(s => s.Name == serial.Name))
         {
@@ -45,7 +45,7 @@ class Data_Saver
         }
     }
 
-    internal static void SaveSingleData(Serials serial)
+    internal static void SaveSingleData(Serial serial)
     {
         throw new NotImplementedException();
     }
