@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cgbmvsqlrjlj1"]
 
-[ext_resource type="Theme" uid="uid://5t1dp5n81crm" path="res://Default_theme.tres" id="1_4wngo"]
+[ext_resource type="Theme" uid="uid://5t1dp5n81crm" path="res://theme/Default_theme.tres" id="1_4wngo"]
 [ext_resource type="Script" path="res://scripts/AddMoreOptions.cs" id="2_lvw2u"]
 
 [node name="AddMoreOptions" type="Control"]
