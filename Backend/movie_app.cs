@@ -17,6 +17,7 @@ class movie_app
         int id = GenerateID();
         serial.Id = id;
 
+        // TODO : If it exist already, show something
         AddData(serial);
         //LoadData();
     }

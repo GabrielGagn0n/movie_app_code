@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://bkjlnae6yrd3i"]
+[gd_scene load_steps=9 format=3 uid="uid://bkjlnae6yrd3i"]
 
 [ext_resource type="Theme" uid="uid://5t1dp5n81crm" path="res://Default_theme.tres" id="1_mwpq1"]
 [ext_resource type="Texture2D" uid="uid://caf5l8m77jfjy" path="res://ressource/simpleview-text.png" id="2_8u2ol"]
+[ext_resource type="Script" path="res://scripts/SimpleView.cs" id="2_fb7yn"]
 [ext_resource type="Texture2D" uid="uid://ljwmch0s4stn" path="res://ressource/2minus-red.png" id="3_ynivm"]
 [ext_resource type="Texture2D" uid="uid://dvrbmg6yedptd" path="res://ressource/2plus-green.png" id="4_0r07n"]
 [ext_resource type="Texture2D" uid="uid://dn4ef10m6ahai" path="res://ressource/minus-red.png" id="5_ataq1"]
@@ -18,6 +19,7 @@ offset_bottom = -850.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_mwpq1")
+script = ExtResource("2_fb7yn")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
 layout_mode = 1
@@ -77,38 +79,52 @@ text = "Season X - Episode X                                                    
 layout_mode = 2
 text = "Modified last : X"
 
-[node name="BtnContain" type="HBoxContainer" parent="MContain/HContain"]
+[node name="HBtnContain" type="HBoxContainer" parent="MContain/HContain"]
 layout_mode = 2
 size_flags_horizontal = 10
+theme = ExtResource("1_mwpq1")
 
-[node name="RmvSeasonBtn" type="Button" parent="MContain/HContain/BtnContain"]
+[node name="RmvSeasonBtn" type="Button" parent="MContain/HContain/HBtnContain"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
 tooltip_text = "Remove a season"
 icon = ExtResource("3_ynivm")
 
-[node name="AddSeasonBtn" type="Button" parent="MContain/HContain/BtnContain"]
-layout_mode = 2
-size_flags_vertical = 4
-tooltip_text = "Add a season"
-icon = ExtResource("4_0r07n")
-
-[node name="RmvEpBtn" type="Button" parent="MContain/HContain/BtnContain"]
+[node name="RmvEpBtn" type="Button" parent="MContain/HContain/HBtnContain"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
 tooltip_text = "Remove an episode"
 icon = ExtResource("5_ataq1")
 
-[node name="AddEpBtn" type="Button" parent="MContain/HContain/BtnContain"]
+[node name="NbrTextBox" type="TextEdit" parent="MContain/HContain/HBtnContain"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+tooltip_text = "Number of season or episode to add"
+theme = ExtResource("1_mwpq1")
+text = "1"
+drag_and_drop_selection_enabled = false
+scroll_fit_content_height = true
+
+[node name="AddEpBtn" type="Button" parent="MContain/HContain/HBtnContain"]
 layout_mode = 2
 size_flags_vertical = 4
 tooltip_text = "Add an episode"
 icon = ExtResource("6_fyyj7")
 
-[node name="MoreInfoBtn" type="Button" parent="MContain/HContain/BtnContain"]
+[node name="AddSeasonBtn" type="Button" parent="MContain/HContain/HBtnContain"]
+layout_mode = 2
+size_flags_vertical = 4
+tooltip_text = "Add a season"
+icon = ExtResource("4_0r07n")
+
+[node name="MoreInfoBtn" type="Button" parent="MContain/HContain/HBtnContain"]
 layout_mode = 2
 size_flags_vertical = 4
 tooltip_text = "More info"
 icon = ExtResource("7_fom7d")
+
+[connection signal="focus_exited" from="MContain/HContain/HBtnContain/NbrTextBox" to="." method="_on_nbr_text_box_focus_exited"]
