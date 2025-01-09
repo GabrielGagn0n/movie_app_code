@@ -64,7 +64,7 @@ text = "Open"
 
 [node name="HLblContain" type="HBoxContainer" parent="MContain/HContain"]
 layout_mode = 2
-theme_override_constants/separation = 0
+theme_override_constants/separation = 50
 
 [node name="AliasLbl" type="Label" parent="MContain/HContain/HLblContain"]
 layout_mode = 2
@@ -75,7 +75,7 @@ text = "Placeholder                                                             
 layout_mode = 2
 text = "Season X - Episode X                                                                             "
 
-[node name="ModifiedLbl" type="Label" parent="MContain/HContain/HLblContain"]
+[node name="ModifiedDateLbl" type="Label" parent="MContain/HContain/HLblContain"]
 layout_mode = 2
 text = "Modified last : X"
 
@@ -127,4 +127,5 @@ size_flags_vertical = 4
 tooltip_text = "More info"
 icon = ExtResource("7_fom7d")
 
+[connection signal="pressed" from="MContain/HContain/OpenBtn" to="." method="_on_open_btn_pressed"]
 [connection signal="focus_exited" from="MContain/HContain/HBtnContain/NbrTextBox" to="." method="_on_nbr_text_box_focus_exited"]
