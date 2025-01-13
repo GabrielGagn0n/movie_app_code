@@ -43,8 +43,6 @@ public class Serial
 		    for (int i = 0; i < EpisodeSeasons.Length; i++)
             {
                 episodeCounter += EpisodeSeasons[i];
-                GD.Print(episodeCounter);
-                GD.Print(index);
 
                 if (index <= episodeCounter)
                 {

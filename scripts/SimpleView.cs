@@ -110,9 +110,9 @@ public partial class SimpleView : Control
 	    }
 	    else
 	    {
-	        text = "Completed";
+	        text = string.Format("Season {0} - Episode {1}", serial.EpisodeSeasons.Length, serial.EpisodeSeasons[^1]) + " (Completed)";
 	    }
-	    seasonLbl.Text = text.PadRight(MAX_LENGTH_ALIAS + EMPTY_SPACE).Substring(0, MAX_LENGTH_ALIAS + EMPTY_SPACE);
+	    seasonLbl.Text = text.PadRight(MAX_LENGTH_ALIAS + EMPTY_SPACE);
 	}
 
 
