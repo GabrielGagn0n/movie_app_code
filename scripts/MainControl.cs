@@ -92,7 +92,19 @@ public partial class MainControl : Control
 				newSimpleView.LoadDataIntoView(serial);
 				vContainSimpleView.AddChild(newSimpleView);
 				simpleViews.Append(newSimpleView);
+				newSimpleView.Connect("OnBtnAddEpPressed", new Callable(this, MethodName.OnBtnAddEpPressedSignalReceived));
+				newSimpleView.Connect("OnBtnRmvEpPressed", new Callable(this, MethodName.OnBtnRmvEpPressedSignalReceived));
 			}
 		}
+	}
+
+	private void OnBtnAddEpPressedSignalReceived(int id)
+	{
+		
+	}
+
+	private void OnBtnRmvEpPressedSignalReceived(int id)
+	{
+		
 	}
 }

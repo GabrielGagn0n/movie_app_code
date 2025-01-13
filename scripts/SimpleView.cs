@@ -3,6 +3,10 @@ using System;
 
 public partial class SimpleView : Control
 {
+	[Signal]
+	public delegate void OnBtnAddEpPressedEventHandler(int id);
+	[Signal]
+	public delegate void OnBtnRmvEpPressedEventHandler(int id);
 	private MarginContainer mContainer;
 	private HBoxContainer hContainer;
 	private HBoxContainer hLblContainer;
@@ -119,5 +123,15 @@ public partial class SimpleView : Control
 	private void _on_open_btn_pressed()
 	{
 		OS.ShellOpen(link);
+	}
+
+	private void _on_add_ep_btn_pressed()
+	{
+		EmitSignal(SignalName.OnBtnAddEpPressed, serial.Id);
+	}
+
+	private void _on_rmv_ep_btn_pressed()
+	{
+		EmitSignal(SignalName.OnBtnRmvEpPressed, serial.Id);
 	}
 }

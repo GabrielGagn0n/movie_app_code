@@ -99,6 +99,7 @@ tooltip_text = "Remove an episode"
 icon = ExtResource("5_ataq1")
 
 [node name="NbrTextBox" type="TextEdit" parent="MContain/HContain/HBtnContain"]
+visible = false
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -128,4 +129,6 @@ tooltip_text = "More info"
 icon = ExtResource("7_fom7d")
 
 [connection signal="pressed" from="MContain/HContain/OpenBtn" to="." method="_on_open_btn_pressed"]
+[connection signal="pressed" from="MContain/HContain/HBtnContain/RmvEpBtn" to="." method="_on_rmv_ep_btn_pressed"]
 [connection signal="focus_exited" from="MContain/HContain/HBtnContain/NbrTextBox" to="." method="_on_nbr_text_box_focus_exited"]
+[connection signal="pressed" from="MContain/HContain/HBtnContain/AddEpBtn" to="." method="_on_add_ep_btn_pressed"]

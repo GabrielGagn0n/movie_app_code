@@ -30,7 +30,7 @@ class movie_app
         LoadData();
     }
 
-    public void UpdateSerialsAddWatched(int id, string name)
+    public void UpdateSerialsAddWatched(int id = -1, string name = "")
     {
         Serial serial;
         for (int i = 0; i < serials_list.Length - 1; i++)
@@ -46,7 +46,7 @@ class movie_app
         }
     }
 
-    public void UpdateSerialsRemovedWatched(int id, string name)
+    public void UpdateSerialsRemovedWatched(int id = -1, string name = "")
     {
         Serial serial;
         for (int i = 0; i < serials_list.Length - 1; i++)
@@ -69,11 +69,6 @@ class movie_app
     private void LoadData()
     {
         serials_list = Data_Loader.GetAllData();
-    }
-
-    private void SaveData()
-    {
-        Data_Saver.SaveAllData(serials_list);
     }
 
     private void AddData(Serial serial)
