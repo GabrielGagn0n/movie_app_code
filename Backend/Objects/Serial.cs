@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
+using Godot;
 
 // TODO : Update the DidWatch from the EpisodeSeason, if I add more should add the difference
 public class Serial
@@ -27,20 +29,36 @@ public class Serial
     public void AddWatchedEpisode()
     {
         int index = GetIndexLatestWatchedEpisode();
-        if (index + 1 < DidWatch.Length)
+        if (index < DidWatch.Length)
         {
-            DidWatch[index + 1] = true;
+            DidWatch[index] = true;
         }
         else
         {
-            throw new IndexOutOfRangeException("No more episodes to mark as watched.");
+            var updatedDidWatch = new List<bool>(DidWatch);
+            updatedDidWatch.Insert(index, true);
+            DidWatch = updatedDidWatch.ToArray();
+            
+            int episodeCounter = 0;
+		    for (int i = 0; i < EpisodeSeasons.Length; i++)
+            {
+                episodeCounter += EpisodeSeasons[i];
+                GD.Print(episodeCounter);
+                GD.Print(index);
+
+                if (index <= episodeCounter)
+                {
+                    EpisodeSeasons[i]++;
+                    break;
+                }
+        }
         }
     }
 
     // Remove the last watched episode
     public void RemoveWatchedEpisode()
     {
-        int index = GetIndexLatestWatchedEpisode();
+        int index = GetIndexLatestWatchedEpisode() - 1;
         if (index >= 0)
         {
             DidWatch[index] = false;
@@ -54,7 +72,8 @@ public class Serial
     // Get the index of the last watched episode
     public int GetIndexLatestWatchedEpisode()
     {
-        return LastTrue(0, DidWatch.Length - 1, DidWatch);
+        //return LastTrue(0, DidWatch.Length - 1, DidWatch);
+        return FirstFalse();
     }
 
     // Binary search for the last true in a boolean array
@@ -76,5 +95,17 @@ public class Serial
         {
             return LastTrue(l, m - 1, array);
         }
+    }
+
+    private int FirstFalse()
+    {
+        for (int i = 0; i <= DidWatch.Length - 1; i++)
+        {
+            if (!DidWatch[i])
+            {
+                return i;
+            }
+        }
+        return DidWatch.Length;
     }
 }

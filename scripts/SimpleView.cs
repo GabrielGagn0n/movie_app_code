@@ -36,6 +36,11 @@ public partial class SimpleView : Control
 		ChangeLink();
 	}
 
+	public Serial GetSerial()
+	{
+		return serial;
+	}
+
 	private void ChangeLink()
 	{
 		if(!string.IsNullOrEmpty(serial.Link))
@@ -59,8 +64,8 @@ public partial class SimpleView : Control
 
 		int latestEpisode = serial.GetIndexLatestWatchedEpisode();
 		int episodePerSeason = 0;
-		int season = 1;
-		int episode = 1;
+		int season = -1;
+		int episode = -1;
 		for (int i = 0; i <= serial.EpisodeSeasons.Length - 1; i++)
 		{
 			int nbreEpisode = serial.EpisodeSeasons[i];
@@ -80,23 +85,36 @@ public partial class SimpleView : Control
 	// Try to always have the same length
 	private void ChangeAliasLbl(string toChange)
 	{
-    	var aliasLbl = hLblContainer.GetNode<Label>("AliasLbl");
-    	if (toChange.Length > MAX_LENGTH_ALIAS)
-    	{
-    	    string truncatedText = toChange.Substring(0, MAX_LENGTH_ALIAS) + "...";
-    	    aliasLbl.Text = truncatedText.PadRight(MAX_LENGTH_ALIAS + EMPTY_SPACE - 3);
-    	}
-    	else
-    	{
-    	    aliasLbl.Text = toChange.PadRight(MAX_LENGTH_ALIAS + EMPTY_SPACE);
-    	}
-	}	
+	    var aliasLbl = hLblContainer.GetNode<Label>("AliasLbl");
+	
+	    if (toChange.Length > MAX_LENGTH_ALIAS)
+	    {
+	        string truncatedText = toChange.Substring(0, MAX_LENGTH_ALIAS - 3) + "...";
+	        aliasLbl.Text = truncatedText.PadRight(MAX_LENGTH_ALIAS + EMPTY_SPACE);
+	    }
+	    else
+	    {
+	        aliasLbl.Text = toChange.PadRight(MAX_LENGTH_ALIAS + EMPTY_SPACE);
+	    }
+	}
+	
 
 	private void ChangeSeasonLbl(int season, int episode)
 	{
-		var seasonLbl = hLblContainer.GetNode<Label>("SeasonLbl");
-		seasonLbl.Text = string.Format("Season {0} - Episode {1}", season, episode).PadRight(MAX_LENGTH_ALIAS + EMPTY_SPACE);
+	    var seasonLbl = hLblContainer.GetNode<Label>("SeasonLbl");
+	    string text;
+
+	    if (season >= 0 && episode >= 0)
+	    {
+	        text = string.Format("Season {0} - Episode {1}", season, episode);
+	    }
+	    else
+	    {
+	        text = "Completed";
+	    }
+	    seasonLbl.Text = text.PadRight(MAX_LENGTH_ALIAS + EMPTY_SPACE).Substring(0, MAX_LENGTH_ALIAS + EMPTY_SPACE);
 	}
+
 
 	private void ChangeModifiedDateLbl(DateTime dateTime)
 	{

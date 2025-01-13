@@ -32,14 +32,14 @@ class movie_app
 
     public void UpdateSerialsAddWatched(int id = -1, string name = "")
     {
-        Serial serial;
         for (int i = 0; i < serials_list.Length - 1; i++)
         {
             if (serials_list[i].Id == id || serials_list[i].Name == name)
             {
-                serial = serials_list[i];
+                Serial serial = serials_list[i];
                 serial.AddWatchedEpisode();
                 serial.Status = Status.Watching;
+                serial.LatestUpdate = DateTime.Now;
                 Data_Saver.SaveSingleData(serial);
                 break;
             }
@@ -48,13 +48,14 @@ class movie_app
 
     public void UpdateSerialsRemovedWatched(int id = -1, string name = "")
     {
-        Serial serial;
         for (int i = 0; i < serials_list.Length - 1; i++)
         {
             if (serials_list[i].Id == id || serials_list[i].Name == name)
             {
-                serial = serials_list[i];
+                Serial serial = serials_list[i];
                 serial.RemoveWatchedEpisode();
+                serial.Status = Status.Watching;
+                serial.LatestUpdate = DateTime.Now;
                 Data_Saver.SaveSingleData(serial);
                 break;
             }

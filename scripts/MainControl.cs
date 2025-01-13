@@ -4,7 +4,6 @@ using System.Linq;
 
 public partial class MainControl : Control
 {
-	Vector2 windowSize = default(Vector2);
 	movie_app backend = new();
 	MarginContainer mainContainer;
 	MarginContainer addContainer;
@@ -91,7 +90,7 @@ public partial class MainControl : Control
 				newSimpleView._Ready();
 				newSimpleView.LoadDataIntoView(serial);
 				vContainSimpleView.AddChild(newSimpleView);
-				simpleViews.Append(newSimpleView);
+				simpleViews = simpleViews.Append(newSimpleView).ToArray();
 				newSimpleView.Connect("OnBtnAddEpPressed", new Callable(this, MethodName.OnBtnAddEpPressedSignalReceived));
 				newSimpleView.Connect("OnBtnRmvEpPressed", new Callable(this, MethodName.OnBtnRmvEpPressedSignalReceived));
 			}
@@ -100,11 +99,23 @@ public partial class MainControl : Control
 
 	private void OnBtnAddEpPressedSignalReceived(int id)
 	{
-		
+		SimpleView simpleView = simpleViews.FirstOrDefault(view => view.GetSerial().Id == id);
+		if (simpleView != null)
+		{
+			Serial serial = simpleView.GetSerial();
+			backend.UpdateSerialsAddWatched(id = serial.Id);
+			simpleView.LoadDataIntoView(serial);
+		}
 	}
 
 	private void OnBtnRmvEpPressedSignalReceived(int id)
 	{
-		
+		SimpleView simpleView = simpleViews.FirstOrDefault(view => view.GetSerial().Id == id);
+		if (simpleView != null)
+		{
+			Serial serial = simpleView.GetSerial();
+			backend.UpdateSerialsRemovedWatched(id = serial.Id);
+			simpleView.LoadDataIntoView(serial);
+		}
 	}
 }
