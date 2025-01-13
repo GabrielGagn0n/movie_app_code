@@ -44,7 +44,6 @@ public partial class SimpleView : Control
 	// find the latest season and the episode with the list in serial
 	private void ChangeLabels()
 	{
-
 		if (!string.IsNullOrEmpty(serial.Alias))
 		{
 			ChangeAliasLbl(serial.Alias);
@@ -74,11 +73,10 @@ public partial class SimpleView : Control
 		ChangeModifiedDateLbl(serial.LatestUpdate);
 	}
 
-	// Try to always have the same lenght
+	// Try to always have the same length
 	private void ChangeAliasLbl(string toChange)
 	{
     	var aliasLbl = hLblContainer.GetNode<Label>("AliasLbl");
-
     	if (toChange.Length > MAX_LENGTH_ALIAS)
     	{
     	    string truncatedText = toChange.Substring(0, MAX_LENGTH_ALIAS) + "...";

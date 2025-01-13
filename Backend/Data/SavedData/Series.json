@@ -1,0 +1,28 @@
+[
+  {
+    "Name": "This is a test",
+    "Alias": "Test",
+    "EpisodeSeasons": [
+      1
+    ],
+    "DidWatch": [],
+    "Link": "google.ca",
+    "LatestUpdate": "0001-01-01T00:00:00",
+    "Id": 0,
+    "Type": 1,
+    "Status": 0
+  },
+  {
+    "Name": "This is the second test",
+    "Alias": "Test2",
+    "EpisodeSeasons": [
+      1
+    ],
+    "DidWatch": [],
+    "Link": "https://www.google.ca",
+    "LatestUpdate": "0001-01-01T00:00:00",
+    "Id": 1,
+    "Type": 1,
+    "Status": 0
+  }
+]

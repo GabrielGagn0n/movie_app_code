@@ -9,7 +9,15 @@ class movie_app
     public movie_app()
     {
         GD.Print("BACKEND ON!");
-        //LoadData();
+
+        try
+        {
+            LoadData();
+        }
+        catch (System.Exception)
+        {
+            
+        }
     }
 
     public void AddSerial(Serial serial)
@@ -19,7 +27,7 @@ class movie_app
 
         // TODO : If it exist already, show something
         AddData(serial);
-        //LoadData();
+        LoadData();
     }
 
     public void UpdateSerialsAddWatched(int id, string name)
@@ -53,9 +61,14 @@ class movie_app
         }
     }
 
+    public Serial[] GetSerials()
+    {
+        return this.serials_list;
+    }
+
     private void LoadData()
     {
-        serials_list = Data_Loader.GetData();
+        serials_list = Data_Loader.GetAllData();
     }
 
     private void SaveData()

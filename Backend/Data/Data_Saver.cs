@@ -41,7 +41,7 @@ class Data_Saver
         }
         else
         {
-            GD.Print($"Serial with Name '{serial.Name}' and Id '{serial.Id}' already exists.");
+            throw new Exception("The serial already exists.");
         }
     }
 

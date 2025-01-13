@@ -39,13 +39,11 @@ theme_override_constants/margin_bottom = 25
 [node name="VContain" type="VBoxContainer" parent="MMainContain"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MMainContain/VContain"]
+[node name="VContainSimpleView" type="VBoxContainer" parent="MMainContain/VContain"]
 layout_mode = 2
 
-[node name="SimpleView" parent="MMainContain/VContain" instance=ExtResource("3_3ivpp")]
-layout_mode = 2
-
-[node name="SimpleView2" parent="MMainContain/VContain" instance=ExtResource("3_3ivpp")]
+[node name="SimpleView" parent="MMainContain/VContain/VContainSimpleView" instance=ExtResource("3_3ivpp")]
+visible = false
 layout_mode = 2
 
 [node name="AddNewBtn" type="Button" parent="MMainContain/VContain"]
