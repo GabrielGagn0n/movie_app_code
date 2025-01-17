@@ -66,17 +66,32 @@ text = "Open"
 layout_mode = 2
 theme_override_constants/separation = 50
 
-[node name="AliasLbl" type="Label" parent="MContain/HContain/HLblContain"]
+[node name="AliasC" type="BoxContainer" parent="MContain/HContain/HLblContain"]
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
+
+[node name="AliasLbl" type="Label" parent="MContain/HContain/HLblContain/AliasC"]
+layout_mode = 2
+size_flags_horizontal = 0
 theme = ExtResource("1_mwpq1")
-text = "Placeholder                                                                            "
+text = "Placeholder"
 
-[node name="SeasonLbl" type="Label" parent="MContain/HContain/HLblContain"]
+[node name="SeasonC" type="BoxContainer" parent="MContain/HContain/HLblContain"]
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
-text = "Season X - Episode X                                                                             "
 
-[node name="ModifiedDateLbl" type="Label" parent="MContain/HContain/HLblContain"]
+[node name="SeasonLbl" type="Label" parent="MContain/HContain/HLblContain/SeasonC"]
 layout_mode = 2
+size_flags_horizontal = 0
+text = "Season X - Episode X"
+
+[node name="DateC" type="BoxContainer" parent="MContain/HContain/HLblContain"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+
+[node name="ModifiedDateLbl" type="Label" parent="MContain/HContain/HLblContain/DateC"]
+layout_mode = 2
+size_flags_horizontal = 0
 text = "Modified last : X"
 
 [node name="HBtnContain" type="HBoxContainer" parent="MContain/HContain"]
