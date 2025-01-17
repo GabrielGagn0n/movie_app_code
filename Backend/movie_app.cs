@@ -30,14 +30,30 @@ class movie_app
         LoadData();
     }
 
-    public void UpdateSerialsAddWatched(int id = -1, string name = "")
+    public void UpdateSerials(ButtonViewActions action, int id = -1, string name = "")
     {
-        for (int i = 0; i < serials_list.Length - 1; i++)
+        for (int i = 0; i <= serials_list.Length - 1; i++)
         {
             if (serials_list[i].Id == id || serials_list[i].Name == name)
             {
                 Serial serial = serials_list[i];
-                serial.AddWatchedEpisode();
+
+                switch (action)
+                {
+                    case ButtonViewActions.AddEpisode:
+                        serial.AddWatchedEpisode();
+                        break;
+                    case ButtonViewActions.RemoveEpisode:
+                        serial.RemoveWatchedEpisode();
+                        break;
+                    case ButtonViewActions.AddSeason:
+                        serial.AddWatchedSeason();
+                        break;
+                    case ButtonViewActions.RemoveSeason:
+                        serial.RemoveWatchedSeason();
+                        break;
+                }
+
                 serial.Status = Status.Watching;
                 serial.LatestUpdate = DateTime.Now;
                 Data_Saver.SaveSingleData(serial);
@@ -46,21 +62,6 @@ class movie_app
         }
     }
 
-    public void UpdateSerialsRemovedWatched(int id = -1, string name = "")
-    {
-        for (int i = 0; i < serials_list.Length - 1; i++)
-        {
-            if (serials_list[i].Id == id || serials_list[i].Name == name)
-            {
-                Serial serial = serials_list[i];
-                serial.RemoveWatchedEpisode();
-                serial.Status = Status.Watching;
-                serial.LatestUpdate = DateTime.Now;
-                Data_Saver.SaveSingleData(serial);
-                break;
-            }
-        }
-    }
 
     public Serial[] GetSerials()
     {

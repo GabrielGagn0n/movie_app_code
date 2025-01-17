@@ -28,6 +28,7 @@ public class Serial
     // Add a watched episode
     public void AddWatchedEpisode()
     {
+        UpdateDidWatched();
         int index = GetIndexLatestWatchedEpisode();
         if (index < DidWatch.Length)
         {
@@ -49,13 +50,14 @@ public class Serial
                     EpisodeSeasons[i]++;
                     break;
                 }
-        }
+            }
         }
     }
 
     // Remove the last watched episode
     public void RemoveWatchedEpisode()
     {
+        UpdateDidWatched();
         int index = GetIndexLatestWatchedEpisode() - 1;
         if (index >= 0)
         {
@@ -67,11 +69,63 @@ public class Serial
         }
     }
 
+    public void AddWatchedSeason()
+    {
+        UpdateDidWatched();
+        int index = GetIndexLatestWatchedEpisode() + 1;
+        int episodeCounter = 0;
+		for (int i = 0; i < EpisodeSeasons.Length; i++)
+        {
+            episodeCounter += EpisodeSeasons[i];
+            if (index <= episodeCounter)
+            {
+                for (int j = index - 1; j < episodeCounter; j++)
+                {
+                    DidWatch[j] = true;
+                }
+                return;
+            }
+        }
+        EpisodeSeasons = EpisodeSeasons.Append(1).ToArray();
+        DidWatch = DidWatch.Append(false).ToArray();
+    }
+
+    public void RemoveWatchedSeason()
+    {
+        UpdateDidWatched();
+        int index = GetIndexLatestWatchedEpisode();
+        int episodeCounter = 0;
+		for (int i = 0; i < EpisodeSeasons.Length; i++)
+        {
+            episodeCounter += EpisodeSeasons[i];
+            if (index <= episodeCounter)
+            {
+                int startIndex = episodeCounter - EpisodeSeasons[i];
+                for (int j = episodeCounter - 1; j >= startIndex; j--)
+                {
+                    DidWatch[j] = false;
+                }
+                return;
+            }
+        }
+    }
+
     // Get the index of the last watched episode
     public int GetIndexLatestWatchedEpisode()
     {
         //return LastTrue(0, DidWatch.Length - 1, DidWatch);
         return FirstFalse();
+    }
+    
+    public void UpdateDidWatched()
+    {
+        int totalEpisodes = EpisodeSeasons.Sum();
+        int watchedCount = DidWatch.Length;
+        if (totalEpisodes > watchedCount)
+        {
+            int episodesToAdd = totalEpisodes - watchedCount;
+            DidWatch = DidWatch.Concat(Enumerable.Repeat(false, episodesToAdd)).ToArray();
+        }
     }
 
     // Binary search for the last true in a boolean array

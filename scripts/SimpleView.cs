@@ -7,6 +7,11 @@ public partial class SimpleView : Control
 	public delegate void OnBtnAddEpPressedEventHandler(int id);
 	[Signal]
 	public delegate void OnBtnRmvEpPressedEventHandler(int id);
+	[Signal]
+	public delegate void OnBtnAddSeasonPressedEventHandler(int id);
+	[Signal]
+	public delegate void OnBtnRmvSeasonPressedEventHandler(int id);
+	
 	private MarginContainer mContainer;
 	private HBoxContainer hContainer;
 	private HBoxContainer hLblContainer;
@@ -151,5 +156,15 @@ public partial class SimpleView : Control
 	private void _on_rmv_ep_btn_pressed()
 	{
 		EmitSignal(SignalName.OnBtnRmvEpPressed, serial.Id);
+	}
+
+	private void _on_add_season_btn_pressed()
+	{
+		EmitSignal(SignalName.OnBtnAddSeasonPressed, serial.Id);
+	}
+
+	private void _on_rmv_season_btn_pressed()
+	{
+		EmitSignal(SignalName.OnBtnRmvSeasonPressed, serial.Id);
 	}
 }
