@@ -61,6 +61,7 @@ public partial class AddSingle : Control
 		string genre = serialList.GetItemText(selectedID);
 
 		Serial serial = new Serial(name, alias, link, Enum.Parse<SerialType>(genre));
+		LastMinuteFix(serial);
 		return serial;
 	}
 
@@ -84,6 +85,30 @@ public partial class AddSingle : Control
 	{
 		var more_container = vBoxContainer.GetNode<Control>("more-controls");
 		more_container.Visible = toggle_on;
+	}
+
+	//Change some things if need be
+	private void LastMinuteFix(Serial serial)
+	{
+		// Check if the link is valid
+		serial.Link = EnsureHyperlink(serial.Link);
+	}
+
+	// Taken from ChatGPT.
+	private string EnsureHyperlink(string input)
+	{
+    	if (string.IsNullOrWhiteSpace(input))
+    	    return input;
+
+    	// Check if the string is already a valid hyperlink
+    	if (Uri.TryCreate(input, UriKind.Absolute, out Uri uriResult) &&
+    	    (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps))
+    	{
+    	    return input;
+    	}
+
+    	// Prepend "https://" if it's not a hyperlink
+    	return "https://" + input.TrimStart('/');
 	}
 
 	private void _on_btnaddadd_pressed()

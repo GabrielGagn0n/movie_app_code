@@ -20,7 +20,7 @@
       false,
       false
     ],
-    "Link": "google.ca",
+    "Link": "https://google.ca",
     "LatestUpdate": "2025-01-16T23:50:29.0218375-05:00",
     "Id": 0,
     "Type": 1,
@@ -41,8 +41,8 @@
       false,
       false
     ],
-    "Link": "google.ca",
-    "LatestUpdate": "2025-01-16T23:37:00.4320701-05:00",
+    "Link": "https://google.ca",
+    "LatestUpdate": "2025-01-17T00:06:32.234123-05:00",
     "Id": 1,
     "Type": 1,
     "Status": 1
