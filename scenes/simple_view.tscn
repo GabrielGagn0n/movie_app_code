@@ -103,14 +103,14 @@ theme = ExtResource("1_mwpq1")
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
-tooltip_text = "Remove a season"
+tooltip_text = "Remove a watched season"
 icon = ExtResource("3_ynivm")
 
 [node name="RmvEpBtn" type="Button" parent="MContain/HContain/HBtnContain"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
-tooltip_text = "Remove an episode"
+tooltip_text = "Remove a watched episode"
 icon = ExtResource("5_ataq1")
 
 [node name="NbrTextBox" type="TextEdit" parent="MContain/HContain/HBtnContain"]
@@ -128,13 +128,13 @@ scroll_fit_content_height = true
 [node name="AddEpBtn" type="Button" parent="MContain/HContain/HBtnContain"]
 layout_mode = 2
 size_flags_vertical = 4
-tooltip_text = "Add an episode"
+tooltip_text = "Watched an episode"
 icon = ExtResource("6_fyyj7")
 
 [node name="AddSeasonBtn" type="Button" parent="MContain/HContain/HBtnContain"]
 layout_mode = 2
 size_flags_vertical = 4
-tooltip_text = "Add a season"
+tooltip_text = "Watched a season"
 icon = ExtResource("4_0r07n")
 
 [node name="MoreInfoBtn" type="Button" parent="MContain/HContain/HBtnContain"]

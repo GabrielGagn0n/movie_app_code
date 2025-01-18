@@ -11,7 +11,10 @@ public partial class MainControl : Control
 	VBoxContainer vContain;
 	VBoxContainer vContainSimpleView;
 	SimpleView simpleViewTemplate;
+	FilterBar filterBar;
+
 	SimpleView[] simpleViews = Array.Empty<SimpleView>();
+	Filter filter;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -23,11 +26,13 @@ public partial class MainControl : Control
 		vContain = mainContainer.GetNode<VBoxContainer>("VContain");
 		vContainSimpleView = vContain.GetNode<VBoxContainer>("VContainSimpleView");
 		simpleViewTemplate = vContainSimpleView.GetNode<SimpleView>("SimpleView");
+		filterBar = vContain.GetNode<FilterBar>("FilterBar");
 
 		LoadSimpleView();
 
 		addSingle.Connect("OnBtnAddPressed", new Callable(this, MethodName.OnBtnAddPressedSignalReceived));
 		addSingle.Connect("OnBtnCancelPressed", new Callable(this, MethodName.OnBtnCancelPressedSignalReceived));
+		filterBar.Connect("OnStatusChanged", new Callable(this, MethodName.OnStatusChangedSignalReceived));
 	}
 
 	public void _on_add_new_btn_pressed()
@@ -144,5 +149,10 @@ public partial class MainControl : Control
 			backend.UpdateSerials(ButtonViewActions.RemoveSeason, id = serial.Id);
 			simpleView.LoadDataIntoView(serial);
 		}
+	}
+
+	private void OnStatusChangedSignalReceived()
+	{
+		filter = filterBar.GetFilter();
 	}
 }

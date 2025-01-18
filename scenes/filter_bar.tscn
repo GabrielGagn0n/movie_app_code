@@ -1,0 +1,94 @@
+[gd_scene load_steps=4 format=3 uid="uid://c3kmxkplanfcv"]
+
+[ext_resource type="Theme" uid="uid://5t1dp5n81crm" path="res://theme/Default_theme.tres" id="1_ij820"]
+[ext_resource type="Texture2D" uid="uid://caf5l8m77jfjy" path="res://ressource/simpleview-text.png" id="2_0jgro"]
+[ext_resource type="Script" path="res://scripts/FilterBar.cs" id="2_hy4ul"]
+
+[node name="FilterBar" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -860.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_ij820")
+script = ExtResource("2_hy4ul")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_ij820")
+texture = ExtResource("2_0jgro")
+region_rect = Rect2(0, 0, 15, 15)
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 5
+
+[node name="MCon" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 15
+
+[node name="VBoxC" type="VBoxContainer" parent="MCon"]
+layout_mode = 2
+
+[node name="HBoxC" type="HBoxContainer" parent="MCon/VBoxC"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="LEditName" type="LineEdit" parent="MCon/VBoxC/HBoxC"]
+custom_minimum_size = Vector2(300, 30)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+placeholder_text = "Search for name"
+
+[node name="OBtnType" type="OptionButton" parent="MCon/VBoxC/HBoxC"]
+custom_minimum_size = Vector2(200, 30)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+selected = 0
+item_count = 1
+popup/item_0/text = "Filter by type"
+
+[node name="OBtnStatus" type="OptionButton" parent="MCon/VBoxC/HBoxC"]
+custom_minimum_size = Vector2(200, 30)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+theme = ExtResource("1_ij820")
+selected = 0
+item_count = 1
+popup/item_0/text = "Filter by status"
+
+[node name="OBtnDate" type="OptionButton" parent="MCon/VBoxC/HBoxC"]
+custom_minimum_size = Vector2(200, 30)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+selected = 0
+item_count = 3
+popup/item_0/text = "Filter by date"
+popup/item_1/text = "Modified last ↑"
+popup/item_1/id = 1
+popup/item_2/text = "Modified last ↓"
+popup/item_2/id = 1
+
+[connection signal="text_changed" from="MCon/VBoxC/HBoxC/LEditName" to="." method="_on_l_edit_name_text_submitted"]
+[connection signal="text_submitted" from="MCon/VBoxC/HBoxC/LEditName" to="." method="_on_l_edit_name_text_submitted"]
+[connection signal="item_selected" from="MCon/VBoxC/HBoxC/OBtnType" to="." method="_on_o_btn_type_item_selected"]
+[connection signal="item_selected" from="MCon/VBoxC/HBoxC/OBtnStatus" to="." method="_on_o_btn_status_item_selected"]
+[connection signal="item_selected" from="MCon/VBoxC/HBoxC/OBtnDate" to="." method="_on_o_btn_date_item_selected"]
