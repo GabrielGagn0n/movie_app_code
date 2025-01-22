@@ -48,7 +48,6 @@ public partial class MainControl : Control
         	toAdd.Status = Status.NotStarted;
 			toAdd.LatestUpdate = DateTime.Now;
 			toAdd.EpisodeSeasons = addSingle.GetNbrEpiSeason();
-			// TODO : DidWatched from EpisodeSeasons
 
 			backend.AddSerial(toAdd);
 			addSingle.ClearData();
@@ -86,12 +85,12 @@ public partial class MainControl : Control
 		var serials = backend.GetSerials();
 		foreach (var serial in serials)
 		{
-			bool exists = simpleViews.Any(view => view.Name == serial.Alias + "SimpleView");
+			bool exists = simpleViews.Any(view => view.Name == serial.Id + "SimpleView");
 
 			if (!exists)
 			{
 				SimpleView newSimpleView = (SimpleView)simpleViewTemplate.Duplicate();
-				newSimpleView.Name = serial.Alias + "SimpleView";
+				newSimpleView.Name = serial.Id + "SimpleView";
 				newSimpleView.Visible = true;
 				newSimpleView._Ready();
 
