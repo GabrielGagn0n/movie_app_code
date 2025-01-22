@@ -54,16 +54,16 @@ text = "Add"
 layout_mode = 2
 text = "Remove"
 
-[node name="info-season-1" type="HBoxContainer" parent="adding-more-options-scrolling-container/more-opt-vcontainer"]
+[node name="info-season" type="HBoxContainer" parent="adding-more-options-scrolling-container/more-opt-vcontainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme = ExtResource("1_4wngo")
 
-[node name="NbrSeasonLbl" type="Label" parent="adding-more-options-scrolling-container/more-opt-vcontainer/info-season-1"]
+[node name="NbrSeasonLbl" type="Label" parent="adding-more-options-scrolling-container/more-opt-vcontainer/info-season"]
 layout_mode = 2
 text = "Season 1 : "
 
-[node name="TextEdit" type="TextEdit" parent="adding-more-options-scrolling-container/more-opt-vcontainer/info-season-1"]
+[node name="TextEdit" type="TextEdit" parent="adding-more-options-scrolling-container/more-opt-vcontainer/info-season"]
 custom_minimum_size = Vector2(250, 35)
 layout_mode = 2
 placeholder_text = "Number of episode

@@ -67,12 +67,13 @@ public partial class AddSingle : Control
 
 	public int[] GetNbrEpiSeason()
 	{
-		// TODO
 		if (cBtnMoreOpt.ButtonPressed)
 		{
-			return new int[] {1};
+			AddMoreOptions moreControl = vBoxContainer.GetNode<AddMoreOptions>("more-controls");
+			return moreControl.GetNbrEpiSeason();
 		}
-		return new int[] {1};
+		else
+			return new int[] {1};
 	}
 
 	// Change the color of the required textbox

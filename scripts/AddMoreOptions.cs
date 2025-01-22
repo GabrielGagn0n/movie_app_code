@@ -20,7 +20,7 @@ public partial class AddMoreOptions : Control
 	{
 		scrollContainer = GetNode<ScrollContainer>("adding-more-options-scrolling-container");
 		vBoxContainer = scrollContainer.GetNode<VBoxContainer>("more-opt-vcontainer");
-		infoSeasonContainer = vBoxContainer.GetNode<HBoxContainer>("info-season-1");
+		infoSeasonContainer = vBoxContainer.GetNode<HBoxContainer>("info-season");
 		btnRemove = vBoxContainer.GetNode<Button>("button-container/btn-remove");
 		btnAdd = vBoxContainer.GetNode<Button>("button-container/btn-add");
 		nbrSeason = vBoxContainer.GetNode<HBoxContainer>("HContainer").GetNode<TextEdit>("NbrSeasonTextBox");
@@ -66,5 +66,20 @@ public partial class AddMoreOptions : Control
 		label.Text = "Season " + infoSeasonList.Count;
 
 		vBoxContainer.AddChild(newContainer);
+	}
+
+	public int[] GetNbrEpiSeason()
+	{
+		int[] toReturn = Array.Empty<int>();
+		foreach (var item in infoSeasonList)
+		{
+			var textbox = item.GetNode<TextEdit>("TextEdit");
+            bool valid = int.TryParse(textbox.Text, out int value);
+            if (valid)
+                toReturn = toReturn.Append(value).ToArray();
+			else
+				throw new Exception("It was not a number!");
+		}
+		return toReturn;
 	}
 }
