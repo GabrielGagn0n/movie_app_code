@@ -41,13 +41,12 @@ theme_override_constants/margin_bottom = 25
 layout_mode = 2
 
 [node name="FilterBar" parent="MMainContain/VContain" instance=ExtResource("3_mgnbk")]
-z_index = 1
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
-size_flags_vertical = 0
+size_flags_vertical = 4
 
 [node name="VContainSimpleView" type="VBoxContainer" parent="MMainContain/VContain"]
-custom_minimum_size = Vector2(0, 700)
+custom_minimum_size = Vector2(1550, 750)
 layout_mode = 2
 size_flags_vertical = 3
 

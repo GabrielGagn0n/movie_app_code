@@ -33,6 +33,7 @@ public partial class MainControl : Control
 		addSingle.Connect("OnBtnAddPressed", new Callable(this, MethodName.OnBtnAddPressedSignalReceived));
 		addSingle.Connect("OnBtnCancelPressed", new Callable(this, MethodName.OnBtnCancelPressedSignalReceived));
 		filterBar.Connect("OnStatusChanged", new Callable(this, MethodName.OnStatusChangedSignalReceived));
+		filterBar.Connect("OnMoreOptBtnClicked", new Callable(this, MethodName.OnMoreOptBtnClickedSignalReceived));
 	}
 
 	public void _on_add_new_btn_pressed()
@@ -153,5 +154,11 @@ public partial class MainControl : Control
 	private void OnStatusChangedSignalReceived()
 	{
 		filter = filterBar.GetFilter();
+	}
+
+	private void OnMoreOptBtnClickedSignalReceived(int size_y)
+	{
+		vContainSimpleView.CustomMinimumSize = new Vector2(1550, 800 - size_y);
+		filterBar.CustomMinimumSize = new Vector2(1550, size_y);
 	}
 }

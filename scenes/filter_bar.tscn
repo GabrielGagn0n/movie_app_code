@@ -5,6 +5,7 @@
 [ext_resource type="Script" path="res://scripts/FilterBar.cs" id="2_hy4ul"]
 
 [node name="FilterBar" type="Control"]
+z_index = 1
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -51,11 +52,12 @@ size_flags_vertical = 4
 [node name="LEditName" type="LineEdit" parent="MCon/VBoxC/HBoxC"]
 custom_minimum_size = Vector2(300, 30)
 layout_mode = 2
-size_flags_horizontal = 0
+size_flags_horizontal = 6
 size_flags_vertical = 4
 placeholder_text = "Search for name"
 
 [node name="OBtnType" type="OptionButton" parent="MCon/VBoxC/HBoxC"]
+visible = false
 custom_minimum_size = Vector2(200, 30)
 layout_mode = 2
 size_flags_horizontal = 6
@@ -65,6 +67,7 @@ item_count = 1
 popup/item_0/text = "Filter by type"
 
 [node name="OBtnStatus" type="OptionButton" parent="MCon/VBoxC/HBoxC"]
+visible = false
 custom_minimum_size = Vector2(200, 30)
 layout_mode = 2
 size_flags_horizontal = 6
@@ -75,6 +78,7 @@ item_count = 1
 popup/item_0/text = "Filter by status"
 
 [node name="OBtnDate" type="OptionButton" parent="MCon/VBoxC/HBoxC"]
+visible = false
 custom_minimum_size = Vector2(200, 30)
 layout_mode = 2
 size_flags_horizontal = 6
@@ -87,8 +91,72 @@ popup/item_1/id = 1
 popup/item_2/text = "Modified last ↓"
 popup/item_2/id = 1
 
+[node name="FilterBtn" type="Button" parent="MCon/VBoxC/HBoxC"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Open filters"
+
+[node name="HBoxMoreFilter" type="HBoxContainer" parent="MCon/VBoxC"]
+visible = false
+layout_mode = 2
+
+[node name="HBoxType" type="HBoxContainer" parent="MCon/VBoxC/HBoxMoreFilter"]
+layout_mode = 2
+size_flags_horizontal = 6
+
+[node name="Label" type="Label" parent="MCon/VBoxC/HBoxMoreFilter/HBoxType"]
+layout_mode = 2
+text = "Filter by type : "
+
+[node name="TypeList" type="ItemList" parent="MCon/VBoxC/HBoxMoreFilter/HBoxType"]
+custom_minimum_size = Vector2(150, 100)
+layout_mode = 2
+size_flags_horizontal = 6
+select_mode = 1
+
+[node name="HBoxStatus" type="HBoxContainer" parent="MCon/VBoxC/HBoxMoreFilter"]
+layout_mode = 2
+size_flags_horizontal = 6
+
+[node name="Label" type="Label" parent="MCon/VBoxC/HBoxMoreFilter/HBoxStatus"]
+layout_mode = 2
+text = "Filter by status : "
+
+[node name="StatusList" type="ItemList" parent="MCon/VBoxC/HBoxMoreFilter/HBoxStatus"]
+custom_minimum_size = Vector2(150, 100)
+layout_mode = 2
+size_flags_horizontal = 6
+select_mode = 1
+
+[node name="HBoxDate" type="HBoxContainer" parent="MCon/VBoxC/HBoxMoreFilter"]
+layout_mode = 2
+size_flags_horizontal = 6
+
+[node name="Label" type="Label" parent="MCon/VBoxC/HBoxMoreFilter/HBoxDate"]
+layout_mode = 2
+text = "Sort by date : "
+
+[node name="DateList" type="ItemList" parent="MCon/VBoxC/HBoxMoreFilter/HBoxDate"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+size_flags_horizontal = 6
+item_count = 2
+item_0/text = "Modified last ↑"
+item_1/text = "Modified last ↓"
+
+[node name="ClearBtn" type="Button" parent="MCon/VBoxC/HBoxMoreFilter"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+text = "Clear"
+
 [connection signal="text_changed" from="MCon/VBoxC/HBoxC/LEditName" to="." method="_on_l_edit_name_text_submitted"]
 [connection signal="text_submitted" from="MCon/VBoxC/HBoxC/LEditName" to="." method="_on_l_edit_name_text_submitted"]
 [connection signal="item_selected" from="MCon/VBoxC/HBoxC/OBtnType" to="." method="_on_o_btn_type_item_selected"]
 [connection signal="item_selected" from="MCon/VBoxC/HBoxC/OBtnStatus" to="." method="_on_o_btn_status_item_selected"]
 [connection signal="item_selected" from="MCon/VBoxC/HBoxC/OBtnDate" to="." method="_on_o_btn_date_item_selected"]
+[connection signal="pressed" from="MCon/VBoxC/HBoxC/FilterBtn" to="." method="_on_type_btn_pressed"]
+[connection signal="multi_selected" from="MCon/VBoxC/HBoxMoreFilter/HBoxType/TypeList" to="." method="_on_type_list_multi_selected"]
+[connection signal="multi_selected" from="MCon/VBoxC/HBoxMoreFilter/HBoxStatus/StatusList" to="." method="_on_status_list_multi_selected"]
+[connection signal="item_selected" from="MCon/VBoxC/HBoxMoreFilter/HBoxDate/DateList" to="." method="_on_date_list_item_selected"]
+[connection signal="pressed" from="MCon/VBoxC/HBoxMoreFilter/ClearBtn" to="." method="_on_clear_btn_pressed"]

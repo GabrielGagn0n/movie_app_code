@@ -1,29 +1,38 @@
 using Godot;
 using System;
+using System.Linq;
 
 public partial class FilterBar : Control
 {
 	[Signal]
 	public delegate void OnStatusChangedEventHandler();
+
+	[Signal]
+	public delegate void OnMoreOptBtnClickedEventHandler(int size_y);
 	
 	MarginContainer mContain;
 	VBoxContainer vBoxContainer;
 	HBoxContainer hBoxContainer;
+	HBoxContainer hBoxMoreFilter;
 	LineEdit lEditName;
-	OptionButton OBtnType;
-	OptionButton OBtnDate;
-	OptionButton OBtnStatus;
+	Button filterBtn;
+	ItemList IListType;
+	ItemList IListDate;
+	ItemList IListStatus;
 	Filter filter = new();
+	bool MoreFilter = false;
 
 	public override void _Ready()
 	{
 		mContain = GetNode<MarginContainer>("MCon");
 		vBoxContainer = mContain.GetNode<VBoxContainer>("VBoxC");
 		hBoxContainer = vBoxContainer.GetNode<HBoxContainer>("HBoxC");
+		hBoxMoreFilter = vBoxContainer.GetNode<HBoxContainer>("HBoxMoreFilter");
 		lEditName = hBoxContainer.GetNode<LineEdit>("LEditName");
-		OBtnType = hBoxContainer.GetNode<OptionButton>("OBtnType");
-		OBtnDate = hBoxContainer.GetNode<OptionButton>("OBtnDate");
-		OBtnStatus = hBoxContainer.GetNode<OptionButton>("OBtnStatus");
+		filterBtn = hBoxContainer.GetNode<Button>("FilterBtn");
+		IListType = hBoxMoreFilter.GetNode<ItemList>("HBoxType/TypeList");
+		IListDate = hBoxMoreFilter.GetNode<ItemList>("HBoxDate/DateList");
+		IListStatus = hBoxMoreFilter.GetNode<ItemList>("HBoxStatus/StatusList");
 
 		SetOptionsStatus();
 		SetOptionsType();
@@ -40,60 +49,24 @@ public partial class FilterBar : Control
 
 	private void SetOptionsStatus()
 	{
-		OBtnStatus.Clear();
-		OBtnStatus.AddItem("Filter by status");
+		IListStatus.Clear();
 		foreach (var item in Enum.GetValues(typeof(Status)))
 		{
-			OBtnStatus.AddItem(item.ToString());
+			IListStatus.AddItem(item.ToString());
 		}
 
 		// TODO : Maybe select index of last time it was closed
-		OBtnStatus.Select(0);
 	}
 
 	private void SetOptionsType()
 	{
-		OBtnType.Clear();
-		OBtnType.AddItem("Filter by status");
+		IListType.Clear();
 		foreach (var item in Enum.GetValues(typeof(SerialType)))
 		{
-			OBtnType.AddItem(item.ToString());
+			IListType.AddItem(item.ToString());
 		}
 
 		// TODO : Maybe select index of last time it was closed
-		OBtnType.Select(0);
-	}
-
-	private void _on_o_btn_type_item_selected(int i)
-	{
-		if (i != 0)
-			filter.SerialTypeFilter = (SerialType)Enum.Parse(typeof(SerialType), OBtnType.GetItemText(i), true);
-		else
-			filter.SerialTypeFilter = null;
-
-		EmitSignal(SignalName.OnStatusChanged);
-	}
-
-	private void _on_o_btn_status_item_selected(int i)
-	{
-		if (i != 0)
-			filter.StatusFilter = (Status)Enum.Parse(typeof(Status), OBtnStatus.GetItemText(i), true);
-		else
-		 	filter.StatusFilter= null;
-
-		EmitSignal(SignalName.OnStatusChanged);
-	}
-
-	private void _on_o_btn_date_item_selected(int i)
-	{
-		if (i == 0)
-			filter.DateFilter = null;
-		if (i == 1)
-			filter.DateFilter = "asc";
-		if (i == 2)
-			filter.DateFilter = "desc";
-
-		EmitSignal(SignalName.OnStatusChanged);
 	}
 
 	private void _on_l_edit_name_text_submitted(string s)
@@ -104,5 +77,67 @@ public partial class FilterBar : Control
 			filter.NameFilter = s;
 
 		EmitSignal(SignalName.OnStatusChanged);
+	}
+
+	private void _on_type_btn_pressed()
+	{
+		if (!MoreFilter)
+		{
+			EmitSignal(SignalName.OnMoreOptBtnClicked, 150);
+			SetSize(new Vector2(1550, 150));
+			MoreFilter = true;
+			filterBtn.Text = "Close filters";
+		}
+		else
+		{
+			EmitSignal(SignalName.OnMoreOptBtnClicked, 40);
+			SetSize(new Vector2(1550, 40));
+			MoreFilter = false;
+			filterBtn.Text = "Open filters";
+
+		}
+		hBoxMoreFilter.Visible = MoreFilter;
+	}
+
+	private void _on_type_list_multi_selected(int i, bool b)
+	{
+		SerialType[] toChange = Array.Empty<SerialType>();
+		foreach (int selected in IListType.GetSelectedItems())
+		{
+			toChange = toChange.Append((SerialType)Enum.Parse(typeof(SerialType), IListType.GetItemText(selected), true)).ToArray();
+		}
+
+		filter.SerialTypeFilter = toChange;
+	}
+
+	private void _on_status_list_multi_selected(int i, bool b)
+	{
+		Status[] toChange = Array.Empty<Status>();
+		foreach (int selected in IListStatus.GetSelectedItems())
+		{
+			toChange = toChange.Append((Status)Enum.Parse(typeof(Status), IListStatus.GetItemText(selected), true)).ToArray();
+		}
+
+		filter.StatusFilter = toChange;
+	}
+
+	private void _on_date_list_item_selected(int i)
+	{
+		if (i == 0)
+		{
+			filter.DateFilter = "asc";
+		}
+		else
+		{
+			filter.DateFilter = "desc";
+		}
+	}
+
+	private void _on_clear_btn_pressed()
+	{
+		IListDate.DeselectAll();
+		IListStatus.DeselectAll();
+		IListType.DeselectAll();
+		lEditName.Text = "";
 	}
 }
