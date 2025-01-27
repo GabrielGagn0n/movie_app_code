@@ -68,9 +68,20 @@ class movie_app
         return this.serials_list;
     }
 
+    public Serial[] GetFilteredSerial(Filter filter)
+    {
+        LoadDataFiltered(filter);
+        return this.serials_list;
+    }
+
     private void LoadData()
     {
         serials_list = Data_Loader.GetAllData();
+    }
+
+    private void LoadDataFiltered(Filter filter)
+    {
+        serials_list = Data_Loader.GetData(filter);
     }
 
     private void AddData(Serial serial)

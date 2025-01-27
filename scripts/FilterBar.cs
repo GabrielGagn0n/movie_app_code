@@ -108,6 +108,7 @@ public partial class FilterBar : Control
 		}
 
 		filter.SerialTypeFilter = toChange;
+		EmitSignal(SignalName.OnStatusChanged);
 	}
 
 	private void _on_status_list_multi_selected(int i, bool b)
@@ -119,6 +120,7 @@ public partial class FilterBar : Control
 		}
 
 		filter.StatusFilter = toChange;
+		EmitSignal(SignalName.OnStatusChanged);
 	}
 
 	private void _on_date_list_item_selected(int i)
@@ -131,6 +133,7 @@ public partial class FilterBar : Control
 		{
 			filter.DateFilter = "desc";
 		}
+		EmitSignal(SignalName.OnStatusChanged);
 	}
 
 	private void _on_clear_btn_pressed()
@@ -139,5 +142,11 @@ public partial class FilterBar : Control
 		IListStatus.DeselectAll();
 		IListType.DeselectAll();
 		lEditName.Text = "";
+		
+		filter.StatusFilter = Array.Empty<Status>();
+		filter.SerialTypeFilter = Array.Empty<SerialType>();
+		filter.NameFilter = null;
+
+		EmitSignal(SignalName.OnStatusChanged);
 	}
 }
