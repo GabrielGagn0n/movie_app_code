@@ -58,7 +58,7 @@ class Data_Loader
             if (serialFromFile != null && !string.IsNullOrEmpty(filter.NameFilter))
             {
                 toReturn.AddRange(serialFromFile.Where(x => statuses.Contains(x.Status) && 
-                    (x.Alias.ToLower().Contains(filter.NameFilter) || x.Name.ToLower().Contains(filter.NameFilter))));
+                    (x.Alias.ToLower().Contains(filter.NameFilter.ToLower()) || x.Name.ToLower().Contains(filter.NameFilter.ToLower()))));
             }
             else if (serialFromFile != null)
             {
