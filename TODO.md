@@ -1,12 +1,13 @@
 TODO
 
-1. Sort by in filter (date, status, type, alphabetic)
-2. More option on simple view
-3. Possibility to edit in more option ( button edit that change TextEdit enable to true/false) or delete
-4. Better UI
-5. Limit nbr view in page (add pages or something)
-6. Timer or something to change watching to on hold after x amount of time.
-7. Setting page to change some things, like the timer for #6.
+- Sort by in filter (date, status, type, alphabetic)<br/>
+- More option on simple view<br/>
+- Possibility to edit in more option ( button edit that change TextEdit enable to true/false) or delete<br/>
+- Better UI<br/>
+- Limit nbr view in page (add pages or something)<br/>
+- Setting page to change some things, like the timer for onhold<br/>
+- Fix ids of series<br/>
+- Save Filter and maybe other things after closing<br/>
 
 
 BUGFIX
