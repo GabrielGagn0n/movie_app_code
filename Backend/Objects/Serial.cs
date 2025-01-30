@@ -128,6 +128,29 @@ public class Serial
         }
     }
 
+    public void UpdateStatus()
+    {
+        int index = GetIndexLatestWatchedEpisode();
+        GD.Print(index, " ", DidWatch.Length);
+        if (index == DidWatch.Length)
+        {
+            this.Status = Status.Completed;
+        }
+        else if (DidWatch[0] == false)
+        {
+            this.Status = Status.NotStarted;
+        }
+        else
+        {
+            this.Status = Status.Watching;
+        }
+    }
+
+    public void UpdateStatus(Status status)
+    {
+        this.Status = status;
+    }
+
     // Binary search for the last true in a boolean array
     private int LastTrue(int l, int r, bool[] array)
     {

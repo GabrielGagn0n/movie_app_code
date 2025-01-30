@@ -54,7 +54,7 @@ class movie_app
                         break;
                 }
 
-                serial.Status = Status.Watching;
+                serial.UpdateStatus();
                 serial.LatestUpdate = DateTime.Now;
                 Data_Saver.SaveSingleData(serial);
                 break;
