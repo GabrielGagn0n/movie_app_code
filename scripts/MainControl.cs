@@ -185,7 +185,7 @@ public partial class MainControl : Control
 
 	private void OnMoreInfoBtnClickedSignalReceived(int size_y, string Id)
 	{
-		vContainSimpleView.CustomMinimumSize = new Vector2(1550, 800 - size_y);
+		//vContainSimpleView.CustomMinimumSize = new Vector2(1550, 800 - size_y);
 		SimpleView simpleView = simpleViews.FirstOrDefault(view => view.Name == Id + "SimpleView");
 		if (simpleView != null)
 			simpleView.CustomMinimumSize = new Vector2(1550, size_y);
