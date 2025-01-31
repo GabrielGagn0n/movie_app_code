@@ -113,6 +113,7 @@ public partial class MainControl : Control
 				newSimpleView.Connect("OnBtnRmvEpPressed", new Callable(this, MethodName.OnBtnRmvEpPressedSignalReceived));
 				newSimpleView.Connect("OnBtnAddSeasonPressed", new Callable(this, MethodName.OnBtnAddSeasonPressedSignalReceived));
 				newSimpleView.Connect("OnBtnRmvSeasonPressed", new Callable(this, MethodName.OnBtnRmvSeasonPressedSignalReceived));
+				newSimpleView.Connect("OnMoreInfoBtnClicked", new Callable(this, MethodName.OnMoreInfoBtnClickedSignalReceived));
 
 				newSimpleView.LoadDataIntoView(serial);
 				vContainSimpleView.AddChild(newSimpleView);
@@ -180,5 +181,13 @@ public partial class MainControl : Control
 	{
 		vContainSimpleView.CustomMinimumSize = new Vector2(1550, 800 - size_y);
 		filterBar.CustomMinimumSize = new Vector2(1550, size_y);
+	}
+
+	private void OnMoreInfoBtnClickedSignalReceived(int size_y, string Id)
+	{
+		vContainSimpleView.CustomMinimumSize = new Vector2(1550, 800 - size_y);
+		SimpleView simpleView = simpleViews.FirstOrDefault(view => view.Name == Id + "SimpleView");
+		if (simpleView != null)
+			simpleView.CustomMinimumSize = new Vector2(1550, size_y);
 	}
 }

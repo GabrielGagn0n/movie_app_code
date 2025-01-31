@@ -11,16 +11,23 @@ public partial class SimpleView : Control
 	public delegate void OnBtnAddSeasonPressedEventHandler(int id);
 	[Signal]
 	public delegate void OnBtnRmvSeasonPressedEventHandler(int id);
+	[Signal]
+	public delegate void OnMoreInfoBtnClickedEventHandler(int size_y, string Id);
 	
 	private MarginContainer mContainer;
 	private HBoxContainer hContainer;
 	private HBoxContainer hLblContainer;
 	private HBoxContainer hBtnContainer;
+	private VBoxContainer VBCMoreOptions;
 	
 	private bool validNbr = true;
 	private int nbrToAdd = 1;
 	private Serial serial;
 	private string link;
+
+	private Texture2D downArrow = (Texture2D)ResourceLoader.Load("./ressource/down-arrow.png");
+	private Texture2D upArrow = (Texture2D)ResourceLoader.Load("./ressource/up-arrow.png");
+
 
 	private const int EMPTY_SPACE = 40;
 	private const int MAX_LENGTH_ALIAS = 20;
@@ -28,9 +35,10 @@ public partial class SimpleView : Control
 	public override void _Ready()
 	{
 		mContainer = GetNode<MarginContainer>("MContain");
-		hContainer = mContainer.GetNode<HBoxContainer>("HContain");
+		hContainer = mContainer.GetNode<HBoxContainer>("VContain/HContain");
 		hLblContainer = hContainer.GetNode<HBoxContainer>("HLblContain");
 		hBtnContainer = hContainer.GetNode<HBoxContainer>("HBtnContain");
+		VBCMoreOptions = mContainer.GetNode<VBoxContainer>("VContain/VBCMoreOptions");
 	}
 
 	// Set the serial for the view, will call methods to change the labels and the link
@@ -166,5 +174,24 @@ public partial class SimpleView : Control
 	private void _on_rmv_season_btn_pressed()
 	{
 		EmitSignal(SignalName.OnBtnRmvSeasonPressed, serial.Id);
+	}
+
+	private void _on_more_info_btn_pressed()
+	{
+		Button button = hBtnContainer.GetNode<Button>("MoreInfoBtn");
+		if (VBCMoreOptions.Visible)
+		{
+			EmitSignal(SignalName.OnMoreInfoBtnClicked, 50, serial.Id);
+			VBCMoreOptions.Visible = false;
+			SetSize(new Vector2(1550, 50));
+			button.Icon = downArrow; 
+		}
+		else
+		{
+			EmitSignal(SignalName.OnMoreInfoBtnClicked, 250, serial.Id);
+			VBCMoreOptions.Visible = true;
+			SetSize(new Vector2(1550, 250));
+			button.Icon = upArrow;
+		}
 	}
 }

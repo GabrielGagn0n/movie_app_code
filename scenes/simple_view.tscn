@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bkjlnae6yrd3i"]
+[gd_scene load_steps=10 format=3 uid="uid://bkjlnae6yrd3i"]
 
 [ext_resource type="Theme" uid="uid://5t1dp5n81crm" path="res://theme/Default_theme.tres" id="1_mwpq1"]
 [ext_resource type="Texture2D" uid="uid://caf5l8m77jfjy" path="res://ressource/simpleview-text.png" id="2_8u2ol"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://dn4ef10m6ahai" path="res://ressource/minus-red.png" id="5_ataq1"]
 [ext_resource type="Texture2D" uid="uid://dsgewyck02hl6" path="res://ressource/plus-green.png" id="6_fyyj7"]
 [ext_resource type="Texture2D" uid="uid://bl8082qbahyu5" path="res://ressource/down-arrow.png" id="7_fom7d"]
+[ext_resource type="Theme" uid="uid://22an43i208pm" path="res://theme/Default_theme_light.tres" id="9_iuic1"]
 
 [node name="SimpleView" type="Control"]
 custom_minimum_size = Vector2(0, 50)
@@ -42,19 +43,22 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 1.0
-offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_right = 5
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
 
-[node name="HContain" type="HBoxContainer" parent="MContain"]
+[node name="VContain" type="VBoxContainer" parent="MContain"]
 layout_mode = 2
+
+[node name="HContain" type="HBoxContainer" parent="MContain/VContain"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_vertical = 0
 theme = ExtResource("1_mwpq1")
 theme_override_constants/separation = 50
 
-[node name="OpenBtn" type="Button" parent="MContain/HContain"]
+[node name="OpenBtn" type="Button" parent="MContain/VContain/HContain"]
 custom_minimum_size = Vector2(0, 20.355)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -62,58 +66,58 @@ size_flags_vertical = 4
 theme = ExtResource("1_mwpq1")
 text = "Open"
 
-[node name="HLblContain" type="HBoxContainer" parent="MContain/HContain"]
+[node name="HLblContain" type="HBoxContainer" parent="MContain/VContain/HContain"]
 layout_mode = 2
 theme_override_constants/separation = 50
 
-[node name="AliasC" type="BoxContainer" parent="MContain/HContain/HLblContain"]
+[node name="AliasC" type="BoxContainer" parent="MContain/VContain/HContain/HLblContain"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 
-[node name="AliasLbl" type="Label" parent="MContain/HContain/HLblContain/AliasC"]
+[node name="AliasLbl" type="Label" parent="MContain/VContain/HContain/HLblContain/AliasC"]
 layout_mode = 2
 size_flags_horizontal = 0
 theme = ExtResource("1_mwpq1")
 text = "Placeholder"
 
-[node name="SeasonC" type="BoxContainer" parent="MContain/HContain/HLblContain"]
+[node name="SeasonC" type="BoxContainer" parent="MContain/VContain/HContain/HLblContain"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 
-[node name="SeasonLbl" type="Label" parent="MContain/HContain/HLblContain/SeasonC"]
+[node name="SeasonLbl" type="Label" parent="MContain/VContain/HContain/HLblContain/SeasonC"]
 layout_mode = 2
 size_flags_horizontal = 0
 text = "Season X - Episode X"
 
-[node name="DateC" type="BoxContainer" parent="MContain/HContain/HLblContain"]
+[node name="DateC" type="BoxContainer" parent="MContain/VContain/HContain/HLblContain"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 
-[node name="ModifiedDateLbl" type="Label" parent="MContain/HContain/HLblContain/DateC"]
+[node name="ModifiedDateLbl" type="Label" parent="MContain/VContain/HContain/HLblContain/DateC"]
 layout_mode = 2
 size_flags_horizontal = 0
 text = "Modified last : X"
 
-[node name="HBtnContain" type="HBoxContainer" parent="MContain/HContain"]
+[node name="HBtnContain" type="HBoxContainer" parent="MContain/VContain/HContain"]
 layout_mode = 2
 size_flags_horizontal = 10
 theme = ExtResource("1_mwpq1")
 
-[node name="RmvSeasonBtn" type="Button" parent="MContain/HContain/HBtnContain"]
+[node name="RmvSeasonBtn" type="Button" parent="MContain/VContain/HContain/HBtnContain"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
 tooltip_text = "Remove a watched season"
 icon = ExtResource("3_ynivm")
 
-[node name="RmvEpBtn" type="Button" parent="MContain/HContain/HBtnContain"]
+[node name="RmvEpBtn" type="Button" parent="MContain/VContain/HContain/HBtnContain"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
 tooltip_text = "Remove a watched episode"
 icon = ExtResource("5_ataq1")
 
-[node name="NbrTextBox" type="TextEdit" parent="MContain/HContain/HBtnContain"]
+[node name="NbrTextBox" type="TextEdit" parent="MContain/VContain/HContain/HBtnContain"]
 visible = false
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
@@ -125,27 +129,212 @@ text = "1"
 drag_and_drop_selection_enabled = false
 scroll_fit_content_height = true
 
-[node name="AddEpBtn" type="Button" parent="MContain/HContain/HBtnContain"]
+[node name="AddEpBtn" type="Button" parent="MContain/VContain/HContain/HBtnContain"]
 layout_mode = 2
 size_flags_vertical = 4
 tooltip_text = "Watched an episode"
 icon = ExtResource("6_fyyj7")
 
-[node name="AddSeasonBtn" type="Button" parent="MContain/HContain/HBtnContain"]
+[node name="AddSeasonBtn" type="Button" parent="MContain/VContain/HContain/HBtnContain"]
 layout_mode = 2
 size_flags_vertical = 4
 tooltip_text = "Watched a season"
 icon = ExtResource("4_0r07n")
 
-[node name="MoreInfoBtn" type="Button" parent="MContain/HContain/HBtnContain"]
+[node name="MoreInfoBtn" type="Button" parent="MContain/VContain/HContain/HBtnContain"]
 layout_mode = 2
 size_flags_vertical = 4
 tooltip_text = "More info"
 icon = ExtResource("7_fom7d")
 
-[connection signal="pressed" from="MContain/HContain/OpenBtn" to="." method="_on_open_btn_pressed"]
-[connection signal="pressed" from="MContain/HContain/HBtnContain/RmvSeasonBtn" to="." method="_on_rmv_season_btn_pressed"]
-[connection signal="pressed" from="MContain/HContain/HBtnContain/RmvEpBtn" to="." method="_on_rmv_ep_btn_pressed"]
-[connection signal="focus_exited" from="MContain/HContain/HBtnContain/NbrTextBox" to="." method="_on_nbr_text_box_focus_exited"]
-[connection signal="pressed" from="MContain/HContain/HBtnContain/AddEpBtn" to="." method="_on_add_ep_btn_pressed"]
-[connection signal="pressed" from="MContain/HContain/HBtnContain/AddSeasonBtn" to="." method="_on_add_season_btn_pressed"]
+[node name="VBCMoreOptions" type="VBoxContainer" parent="MContain/VContain"]
+visible = false
+custom_minimum_size = Vector2(0, 195)
+layout_mode = 2
+theme = ExtResource("1_mwpq1")
+
+[node name="HBCTop" type="HBoxContainer" parent="MContain/VContain/VBCMoreOptions"]
+layout_mode = 2
+
+[node name="HBCName" type="HBoxContainer" parent="MContain/VContain/VBCMoreOptions/HBCTop"]
+custom_minimum_size = Vector2(300, 30)
+layout_mode = 2
+
+[node name="LblName" type="Label" parent="MContain/VContain/VBCMoreOptions/HBCTop/HBCName"]
+layout_mode = 2
+theme = ExtResource("9_iuic1")
+text = "Name : "
+
+[node name="LEditName" type="LineEdit" parent="MContain/VContain/VBCMoreOptions/HBCTop/HBCName"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme = ExtResource("1_mwpq1")
+placeholder_text = "Placeholder name"
+editable = false
+
+[node name="HBCId" type="HBoxContainer" parent="MContain/VContain/VBCMoreOptions/HBCTop"]
+custom_minimum_size = Vector2(300, 30)
+layout_mode = 2
+size_flags_horizontal = 6
+
+[node name="LblId" type="Label" parent="MContain/VContain/VBCMoreOptions/HBCTop/HBCId"]
+layout_mode = 2
+theme = ExtResource("9_iuic1")
+text = "ID : "
+
+[node name="LEditId" type="LineEdit" parent="MContain/VContain/VBCMoreOptions/HBCTop/HBCId"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme = ExtResource("1_mwpq1")
+placeholder_text = "Placeholder_ID"
+editable = false
+
+[node name="HBCAlias" type="HBoxContainer" parent="MContain/VContain/VBCMoreOptions"]
+layout_mode = 2
+
+[node name="HBCAliasInner" type="HBoxContainer" parent="MContain/VContain/VBCMoreOptions/HBCAlias"]
+custom_minimum_size = Vector2(300, 30)
+layout_mode = 2
+size_flags_horizontal = 2
+
+[node name="LblAlias" type="Label" parent="MContain/VContain/VBCMoreOptions/HBCAlias/HBCAliasInner"]
+layout_mode = 2
+theme = ExtResource("9_iuic1")
+text = "Alias : "
+
+[node name="LEditAlias" type="LineEdit" parent="MContain/VContain/VBCMoreOptions/HBCAlias/HBCAliasInner"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme = ExtResource("1_mwpq1")
+placeholder_text = "Placeholder alias"
+editable = false
+
+[node name="HBCLink" type="HBoxContainer" parent="MContain/VContain/VBCMoreOptions"]
+layout_mode = 2
+
+[node name="HBCLinkInner" type="HBoxContainer" parent="MContain/VContain/VBCMoreOptions/HBCLink"]
+custom_minimum_size = Vector2(300, 30)
+layout_mode = 2
+size_flags_horizontal = 2
+
+[node name="LblLink" type="Label" parent="MContain/VContain/VBCMoreOptions/HBCLink/HBCLinkInner"]
+layout_mode = 2
+theme = ExtResource("9_iuic1")
+text = "Link : "
+
+[node name="LEditLink" type="LineEdit" parent="MContain/VContain/VBCMoreOptions/HBCLink/HBCLinkInner"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme = ExtResource("1_mwpq1")
+placeholder_text = "Placeholder link"
+editable = false
+
+[node name="CBoxDepricated" type="CheckBox" parent="MContain/VContain/VBCMoreOptions/HBCLink/HBCLinkInner"]
+layout_mode = 2
+theme = ExtResource("9_iuic1")
+text = "Depricated site"
+
+[node name="HBCStatusType" type="HBoxContainer" parent="MContain/VContain/VBCMoreOptions"]
+layout_mode = 2
+
+[node name="HBCStatus" type="HBoxContainer" parent="MContain/VContain/VBCMoreOptions/HBCStatusType"]
+custom_minimum_size = Vector2(300, 30)
+layout_mode = 2
+size_flags_horizontal = 6
+
+[node name="LblStatus" type="Label" parent="MContain/VContain/VBCMoreOptions/HBCStatusType/HBCStatus"]
+layout_mode = 2
+theme = ExtResource("9_iuic1")
+text = "Status : "
+
+[node name="OBtnStatus" type="OptionButton" parent="MContain/VContain/VBCMoreOptions/HBCStatusType/HBCStatus"]
+layout_mode = 2
+disabled = true
+selected = 1
+item_count = 4
+popup/item_0/text = "NotStarted"
+popup/item_1/text = "Watching"
+popup/item_1/id = 1
+popup/item_2/text = "OnHold"
+popup/item_2/id = 2
+popup/item_3/text = "Completed"
+popup/item_3/id = 3
+
+[node name="HBCType" type="HBoxContainer" parent="MContain/VContain/VBCMoreOptions/HBCStatusType"]
+custom_minimum_size = Vector2(300, 30)
+layout_mode = 2
+size_flags_horizontal = 2
+
+[node name="LblType" type="Label" parent="MContain/VContain/VBCMoreOptions/HBCStatusType/HBCType"]
+layout_mode = 2
+theme = ExtResource("9_iuic1")
+text = "Type : "
+
+[node name="OBtnType" type="OptionButton" parent="MContain/VContain/VBCMoreOptions/HBCStatusType/HBCType"]
+layout_mode = 2
+disabled = true
+selected = 1
+item_count = 3
+popup/item_0/text = "TvShows"
+popup/item_1/text = "Anime"
+popup/item_1/id = 1
+popup/item_2/text = "Movies"
+popup/item_2/id = 2
+
+[node name="HBCBottom" type="HBoxContainer" parent="MContain/VContain/VBCMoreOptions"]
+layout_mode = 2
+size_flags_vertical = 10
+
+[node name="HBCBottomInner" type="HBoxContainer" parent="MContain/VContain/VBCMoreOptions/HBCBottom"]
+custom_minimum_size = Vector2(300, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LblSeasonEpi" type="Label" parent="MContain/VContain/VBCMoreOptions/HBCBottom/HBCBottomInner"]
+layout_mode = 2
+size_flags_horizontal = 2
+theme = ExtResource("9_iuic1")
+text = "Season X - Episode X"
+
+[node name="MCBtn" type="MarginContainer" parent="MContain/VContain/VBCMoreOptions/HBCBottom/HBCBottomInner"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 10
+
+[node name="HBCBtn" type="HBoxContainer" parent="MContain/VContain/VBCMoreOptions/HBCBottom/HBCBottomInner/MCBtn"]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="BtnDelete" type="Button" parent="MContain/VContain/VBCMoreOptions/HBCBottom/HBCBottomInner/MCBtn/HBCBtn"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Delete"
+
+[node name="BtnConfirm" type="Button" parent="MContain/VContain/VBCMoreOptions/HBCBottom/HBCBottomInner/MCBtn/HBCBtn"]
+visible = false
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 2
+text = "Confirm"
+
+[node name="BtnCancel" type="Button" parent="MContain/VContain/VBCMoreOptions/HBCBottom/HBCBottomInner/MCBtn/HBCBtn"]
+visible = false
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 2
+text = "Cancel"
+
+[node name="BtnModify" type="Button" parent="MContain/VContain/VBCMoreOptions/HBCBottom/HBCBottomInner/MCBtn/HBCBtn"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Modify"
+
+[connection signal="pressed" from="MContain/VContain/HContain/OpenBtn" to="." method="_on_open_btn_pressed"]
+[connection signal="pressed" from="MContain/VContain/HContain/HBtnContain/RmvSeasonBtn" to="." method="_on_rmv_season_btn_pressed"]
+[connection signal="pressed" from="MContain/VContain/HContain/HBtnContain/RmvEpBtn" to="." method="_on_rmv_ep_btn_pressed"]
+[connection signal="focus_exited" from="MContain/VContain/HContain/HBtnContain/NbrTextBox" to="." method="_on_nbr_text_box_focus_exited"]
+[connection signal="pressed" from="MContain/VContain/HContain/HBtnContain/AddEpBtn" to="." method="_on_add_ep_btn_pressed"]
+[connection signal="pressed" from="MContain/VContain/HContain/HBtnContain/AddSeasonBtn" to="." method="_on_add_season_btn_pressed"]
+[connection signal="pressed" from="MContain/VContain/HContain/HBtnContain/MoreInfoBtn" to="." method="_on_more_info_btn_pressed"]

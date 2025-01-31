@@ -79,6 +79,10 @@ class movie_app
     private void LoadData()
     {
         serials_list = Data_Loader.GetAllData();
+        foreach (Serial serial in serials_list)
+        {
+            GD.Print(serial.Name);
+        }
     }
 
     private void LoadDataFiltered(Filter filter)
