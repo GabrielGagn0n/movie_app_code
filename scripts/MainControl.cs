@@ -24,7 +24,7 @@ public partial class MainControl : Control
 		addContainer = GetNode<MarginContainer>("MAddContain");
 		addSingle = addContainer.GetNode<AddSingle>("AddSingle");
 		vContain = mainContainer.GetNode<VBoxContainer>("VContain");
-		vContainSimpleView = vContain.GetNode<VBoxContainer>("VContainSimpleView");
+		vContainSimpleView = vContain.GetNode<VBoxContainer>("ScrollContainer/VContainSimpleView");
 		simpleViewTemplate = vContainSimpleView.GetNode<SimpleView>("SimpleView");
 		filterBar = vContain.GetNode<FilterBar>("FilterBar");
 
