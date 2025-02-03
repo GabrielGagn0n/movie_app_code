@@ -7,6 +7,7 @@ public partial class MainControl : Control
 	movie_app backend = new();
 	MarginContainer mainContainer;
 	MarginContainer addContainer;
+	ScrollContainer scrollContainer;
 	AddSingle addSingle;
 	VBoxContainer vContain;
 	VBoxContainer vContainSimpleView;
@@ -24,6 +25,7 @@ public partial class MainControl : Control
 		addContainer = GetNode<MarginContainer>("MAddContain");
 		addSingle = addContainer.GetNode<AddSingle>("AddSingle");
 		vContain = mainContainer.GetNode<VBoxContainer>("VContain");
+		scrollContainer = vContain.GetNode<ScrollContainer>("ScrollContainer");
 		vContainSimpleView = vContain.GetNode<VBoxContainer>("ScrollContainer/VContainSimpleView");
 		simpleViewTemplate = vContainSimpleView.GetNode<SimpleView>("SimpleView");
 		filterBar = vContain.GetNode<FilterBar>("FilterBar");
@@ -179,8 +181,9 @@ public partial class MainControl : Control
 
 	private void OnMoreOptBtnClickedSignalReceived(int size_y)
 	{
-		vContainSimpleView.CustomMinimumSize = new Vector2(1550, 800 - size_y);
+		scrollContainer.CustomMinimumSize = new Vector2(1550, 800 - size_y);
 		filterBar.CustomMinimumSize = new Vector2(1550, size_y);
+		filterBar.Position = new Vector2(0,0);
 	}
 
 	private void OnMoreInfoBtnClickedSignalReceived(int size_y, string Id)
