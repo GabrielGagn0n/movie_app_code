@@ -124,6 +124,7 @@ public partial class MainControl : Control
 			else
 			{
 				SimpleView toEnable = simpleViews.FirstOrDefault(view => view.Name == serial.Id + "SimpleView");
+				toEnable.LoadDataIntoView(serial);
 				toEnable.Visible = true;
 			}
 		}
