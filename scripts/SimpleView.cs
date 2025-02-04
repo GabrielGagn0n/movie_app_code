@@ -13,12 +13,30 @@ public partial class SimpleView : Control
 	public delegate void OnBtnRmvSeasonPressedEventHandler(int id);
 	[Signal]
 	public delegate void OnMoreInfoBtnClickedEventHandler(int size_y, string Id);
+	[Signal]
+	public delegate void OnBtnDeleteConfirmBtnClickedEventHandler();
+	[Signal]
+	public delegate void OnBtnSaveBtnClickedEventHandler(string id);
 	
 	private MarginContainer mContainer;
 	private HBoxContainer hContainer;
 	private HBoxContainer hLblContainer;
 	private HBoxContainer hBtnContainer;
-	private VBoxContainer VBCMoreOptions;
+	private VBoxContainer vBCMoreOptions;
+	private LineEdit lEditName;
+	private LineEdit lEditId;
+	private LineEdit lEditAlias;
+	private LineEdit lEditLink;
+	private CheckBox cBoxDepricated;
+	private OptionButton oBtnStatus;
+	private OptionButton oBtnType;
+	private Label lblSeasonEpi;
+	private Button btnDelete;
+	private Button btnConfirm;
+	private Button btnCancel;
+	private Button btnModify;
+	private Button btnSave;
+	private Button btnSaveCancel;
 	
 	private bool validNbr = true;
 	private int nbrToAdd = 1;
@@ -28,8 +46,6 @@ public partial class SimpleView : Control
 	private Texture2D downArrow = (Texture2D)ResourceLoader.Load("./ressource/down-arrow.png");
 	private Texture2D upArrow = (Texture2D)ResourceLoader.Load("./ressource/up-arrow.png");
 
-
-	private const int EMPTY_SPACE = 40;
 	private const int MAX_LENGTH_ALIAS = 20;
 
 	public override void _Ready()
@@ -38,7 +54,21 @@ public partial class SimpleView : Control
 		hContainer = mContainer.GetNode<HBoxContainer>("VContain/HContain");
 		hLblContainer = hContainer.GetNode<HBoxContainer>("HLblContain");
 		hBtnContainer = hContainer.GetNode<HBoxContainer>("HBtnContain");
-		VBCMoreOptions = mContainer.GetNode<VBoxContainer>("VContain/VBCMoreOptions");
+		vBCMoreOptions = mContainer.GetNode<VBoxContainer>("VContain/VBCMoreOptions");
+		lEditName = vBCMoreOptions.GetNode<LineEdit>("HBCTop/HBCName/LEditName");
+		lEditAlias = vBCMoreOptions.GetNode<LineEdit>("HBCAlias/HBCAliasInner/LEditAlias");
+		lEditLink = vBCMoreOptions.GetNode<LineEdit>("HBCLink/HBCLinkInner/LEditLink");
+		lEditId = vBCMoreOptions.GetNode<LineEdit>("HBCTop/HBCId/LEditId");
+		cBoxDepricated = vBCMoreOptions.GetNode<CheckBox>("HBCLink/HBCLinkInner/CBoxDepricated");
+		oBtnStatus = vBCMoreOptions.GetNode<OptionButton>("HBCStatusType/HBCStatus/OBtnStatus");
+		oBtnType = vBCMoreOptions.GetNode<OptionButton>("HBCStatusType/HBCType/OBtnType");
+		btnDelete = vBCMoreOptions.GetNode<Button>("HBCBottom/HBCBottomInner/MCBtn/HBCBtn/BtnDelete");
+		btnConfirm = vBCMoreOptions.GetNode<Button>("HBCBottom/HBCBottomInner/MCBtn/HBCBtn/BtnConfirm");
+		btnCancel = vBCMoreOptions.GetNode<Button>("HBCBottom/HBCBottomInner/MCBtn/HBCBtn/BtnCancel");
+		btnModify = vBCMoreOptions.GetNode<Button>("HBCBottom/HBCBottomInner/MCBtn/HBCBtn/BtnModify");
+		btnSave = vBCMoreOptions.GetNode<Button>("HBCBottom/HBCBottomInner/MCBtn/HBCBtn/BtnSave");
+		btnSaveCancel = vBCMoreOptions.GetNode<Button>("HBCBottom/HBCBottomInner/MCBtn/HBCBtn/BtnSaveCancel");
+		lblSeasonEpi = vBCMoreOptions.GetNode<Label>("HBCBottom/HBCBottomInner/LblSeasonEpi");
 	}
 
 	// Set the serial for the view, will call methods to change the labels and the link
@@ -128,11 +158,52 @@ public partial class SimpleView : Control
 	    seasonLbl.Text = text;
 	}
 
-
 	private void ChangeModifiedDateLbl(DateTime dateTime)
 	{
 		var modifiedDate = hLblContainer.GetNode<Label>("DateC/ModifiedDateLbl");
 		modifiedDate.Text = string.Format("Modified last : {0}", dateTime.ToString());
+	}
+
+	private void LoadInfoIntoMoreOption()
+	{
+		lEditName.Text = serial.Name;
+		lEditAlias.Text = serial.Alias;
+		lEditId.Text = serial.Id.ToString();
+		lEditLink.Text = serial.Link;
+
+		oBtnStatus.Clear();
+		foreach (var item in Enum.GetValues(typeof(Status)))
+		{
+			oBtnStatus.AddItem(item.ToString());
+		}
+		oBtnStatus.Select((int)serial.Status);
+
+		oBtnType.Clear();
+		foreach (var item in Enum.GetValues(typeof(SerialType)))
+		{
+			oBtnType.AddItem(item.ToString());
+		}
+		oBtnType.Select((int)serial.Type);
+		var seasonLbl = hLblContainer.GetNode<Label>("SeasonC/SeasonLbl");
+		lblSeasonEpi.Text = seasonLbl.Text;
+	}
+
+	private void SaveModifiedSerial()
+	{
+		serial.Name = lEditName.Text;
+		serial.Alias = lEditAlias.Text;
+		serial.Link = lEditLink.Text;
+		serial.Status = (Status) oBtnStatus.GetSelectedId();
+		serial.Type = (SerialType) oBtnType.GetSelectedId();
+	}
+
+	private void ChangeEditable(bool toChange)
+	{
+		lEditName.Editable = toChange;
+		lEditAlias.Editable = toChange;
+		lEditLink.Editable = toChange;
+		oBtnStatus.Disabled = !toChange;
+		oBtnType.Disabled = !toChange;
 	}
 
 	// if the value is not a number, change the box red
@@ -179,19 +250,74 @@ public partial class SimpleView : Control
 	private void _on_more_info_btn_pressed()
 	{
 		Button button = hBtnContainer.GetNode<Button>("MoreInfoBtn");
-		if (VBCMoreOptions.Visible)
+		ChangeEditable(false);
+		LoadInfoIntoMoreOption();
+
+		if (vBCMoreOptions.Visible)
 		{
 			EmitSignal(SignalName.OnMoreInfoBtnClicked, 50, serial.Id);
-			VBCMoreOptions.Visible = false;
+			vBCMoreOptions.Visible = false;
 			SetSize(new Vector2(1550, 50));
 			button.Icon = downArrow; 
 		}
 		else
 		{
 			EmitSignal(SignalName.OnMoreInfoBtnClicked, 250, serial.Id);
-			VBCMoreOptions.Visible = true;
+			vBCMoreOptions.Visible = true;
 			SetSize(new Vector2(1550, 250));
 			button.Icon = upArrow;
 		}
+	}
+
+	private void _on_btn_delete_pressed()
+	{
+		btnDelete.Visible = false;
+		btnCancel.Visible = true;
+		btnConfirm.Visible = true;
+	}
+
+	private void _on_btn_confirm_pressed()
+	{
+		btnDelete.Visible = false;
+		btnCancel.Visible = false;
+		btnConfirm.Visible = false;
+		EmitSignal(SignalName.OnBtnDeleteConfirmBtnClicked);
+	}
+
+	private void _on_btn_cancel_pressed()
+	{
+		btnDelete.Visible = false;
+		btnCancel.Visible = false;
+		btnConfirm.Visible = false;
+	}
+
+	private void _on_btn_modify_pressed()
+	{
+		btnModify.Visible = false;
+		btnDelete.Visible = true;
+		btnSave.Visible = true;
+		btnSaveCancel.Visible = true;
+		ChangeEditable(true);
+	}
+
+	private void _on_btn_save_cancel_pressed()
+	{
+		btnModify.Visible = true;
+		btnDelete.Visible = false;
+		btnSaveCancel.Visible = false;
+		ChangeEditable(false);
+		LoadInfoIntoMoreOption();
+		btnSave.Visible = false;
+	}
+
+	private void _on_btn_save_pressed()
+	{
+		btnModify.Visible = true;
+		btnDelete.Visible = false;
+		btnSaveCancel.Visible = false;
+		btnSave.Visible = false;
+		SaveModifiedSerial();
+		ChangeEditable(false);
+		EmitSignal(SignalName.OnBtnSaveBtnClicked, serial.Id);
 	}
 }

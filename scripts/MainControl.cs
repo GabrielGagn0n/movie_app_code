@@ -116,6 +116,7 @@ public partial class MainControl : Control
 				newSimpleView.Connect("OnBtnAddSeasonPressed", new Callable(this, MethodName.OnBtnAddSeasonPressedSignalReceived));
 				newSimpleView.Connect("OnBtnRmvSeasonPressed", new Callable(this, MethodName.OnBtnRmvSeasonPressedSignalReceived));
 				newSimpleView.Connect("OnMoreInfoBtnClicked", new Callable(this, MethodName.OnMoreInfoBtnClickedSignalReceived));
+				newSimpleView.Connect("OnBtnSaveBtnClicked", new Callable(this, MethodName.OnBtnSaveBtnClickedSignalReceived));
 
 				newSimpleView.LoadDataIntoView(serial);
 				vContainSimpleView.AddChild(newSimpleView);
@@ -193,5 +194,16 @@ public partial class MainControl : Control
 		SimpleView simpleView = simpleViews.FirstOrDefault(view => view.Name == Id + "SimpleView");
 		if (simpleView != null)
 			simpleView.CustomMinimumSize = new Vector2(1550, size_y);
+	}
+
+	private void OnBtnSaveBtnClickedSignalReceived(int id)
+	{
+		SimpleView simpleView = simpleViews.FirstOrDefault(view => view.GetSerial().Id == id);
+		if (simpleView != null)
+		{
+			Serial serial = simpleView.GetSerial();
+			backend.UpdateSerials(ButtonViewActions.UpdateSerial, id = serial.Id);
+			simpleView.LoadDataIntoView(serial);
+		}
 	}
 }

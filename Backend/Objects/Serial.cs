@@ -131,7 +131,6 @@ public class Serial
     public void UpdateStatus()
     {
         int index = GetIndexLatestWatchedEpisode();
-        GD.Print(index, " ", DidWatch.Length);
         if (index == DidWatch.Length)
         {
             this.Status = Status.Completed;

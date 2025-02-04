@@ -44,20 +44,25 @@ class movie_app
                 {
                     case ButtonViewActions.AddEpisode:
                         serial.AddWatchedEpisode();
+                        serial.UpdateStatus();
+                        serial.LatestUpdate = DateTime.Now;
                         break;
                     case ButtonViewActions.RemoveEpisode:
                         serial.RemoveWatchedEpisode();
+                        serial.LatestUpdate = DateTime.Now;
                         break;
                     case ButtonViewActions.AddSeason:
                         serial.AddWatchedSeason();
+                        serial.UpdateStatus();
+                        serial.LatestUpdate = DateTime.Now;
                         break;
                     case ButtonViewActions.RemoveSeason:
                         serial.RemoveWatchedSeason();
                         break;
+                    case ButtonViewActions.UpdateSerial:
+                        serial.LatestUpdate = DateTime.Now;
+                        break;
                 }
-
-                serial.UpdateStatus();
-                serial.LatestUpdate = DateTime.Now;
                 Data_Saver.SaveSingleData(serial);
                 break;
             }
@@ -79,10 +84,6 @@ class movie_app
     private void LoadData()
     {
         serials_list = Data_Loader.GetAllData();
-        foreach (Serial serial in serials_list)
-        {
-            GD.Print(serial.Name);
-        }
     }
 
     private void LoadDataFiltered(Filter filter)

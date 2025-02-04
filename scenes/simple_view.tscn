@@ -169,7 +169,6 @@ text = "Name : "
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 theme = ExtResource("1_mwpq1")
-placeholder_text = "Placeholder name"
 editable = false
 
 [node name="HBCId" type="HBoxContainer" parent="MContain/VContain/VBCMoreOptions/HBCTop"]
@@ -186,7 +185,6 @@ text = "ID : "
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 theme = ExtResource("1_mwpq1")
-placeholder_text = "Placeholder_ID"
 editable = false
 
 [node name="HBCAlias" type="HBoxContainer" parent="MContain/VContain/VBCMoreOptions"]
@@ -206,7 +204,7 @@ text = "Alias : "
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 theme = ExtResource("1_mwpq1")
-placeholder_text = "Placeholder alias"
+placeholder_text = "No Alias"
 editable = false
 
 [node name="HBCLink" type="HBoxContainer" parent="MContain/VContain/VBCMoreOptions"]
@@ -226,7 +224,7 @@ text = "Link : "
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 theme = ExtResource("1_mwpq1")
-placeholder_text = "Placeholder link"
+placeholder_text = "No Link"
 editable = false
 
 [node name="CBoxDepricated" type="CheckBox" parent="MContain/VContain/VBCMoreOptions/HBCLink/HBCLinkInner"]
@@ -310,15 +308,10 @@ layout_mode = 2
 size_flags_horizontal = 8
 
 [node name="BtnDelete" type="Button" parent="MContain/VContain/VBCMoreOptions/HBCBottom/HBCBottomInner/MCBtn/HBCBtn"]
+visible = false
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 text = "Delete"
-
-[node name="BtnConfirm" type="Button" parent="MContain/VContain/VBCMoreOptions/HBCBottom/HBCBottomInner/MCBtn/HBCBtn"]
-visible = false
-custom_minimum_size = Vector2(75, 0)
-layout_mode = 2
-text = "Confirm"
 
 [node name="BtnCancel" type="Button" parent="MContain/VContain/VBCMoreOptions/HBCBottom/HBCBottomInner/MCBtn/HBCBtn"]
 visible = false
@@ -326,10 +319,28 @@ custom_minimum_size = Vector2(75, 0)
 layout_mode = 2
 text = "Cancel"
 
+[node name="BtnConfirm" type="Button" parent="MContain/VContain/VBCMoreOptions/HBCBottom/HBCBottomInner/MCBtn/HBCBtn"]
+visible = false
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 2
+text = "Confirm"
+
 [node name="BtnModify" type="Button" parent="MContain/VContain/VBCMoreOptions/HBCBottom/HBCBottomInner/MCBtn/HBCBtn"]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 text = "Modify"
+
+[node name="BtnSaveCancel" type="Button" parent="MContain/VContain/VBCMoreOptions/HBCBottom/HBCBottomInner/MCBtn/HBCBtn"]
+visible = false
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 2
+text = "Cancel"
+
+[node name="BtnSave" type="Button" parent="MContain/VContain/VBCMoreOptions/HBCBottom/HBCBottomInner/MCBtn/HBCBtn"]
+visible = false
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 2
+text = "Save"
 
 [connection signal="pressed" from="MContain/VContain/HContain/OpenBtn" to="." method="_on_open_btn_pressed"]
 [connection signal="pressed" from="MContain/VContain/HContain/HBtnContain/RmvSeasonBtn" to="." method="_on_rmv_season_btn_pressed"]
@@ -338,3 +349,9 @@ text = "Modify"
 [connection signal="pressed" from="MContain/VContain/HContain/HBtnContain/AddEpBtn" to="." method="_on_add_ep_btn_pressed"]
 [connection signal="pressed" from="MContain/VContain/HContain/HBtnContain/AddSeasonBtn" to="." method="_on_add_season_btn_pressed"]
 [connection signal="pressed" from="MContain/VContain/HContain/HBtnContain/MoreInfoBtn" to="." method="_on_more_info_btn_pressed"]
+[connection signal="pressed" from="MContain/VContain/VBCMoreOptions/HBCBottom/HBCBottomInner/MCBtn/HBCBtn/BtnDelete" to="." method="_on_btn_delete_pressed"]
+[connection signal="pressed" from="MContain/VContain/VBCMoreOptions/HBCBottom/HBCBottomInner/MCBtn/HBCBtn/BtnCancel" to="." method="_on_btn_cancel_pressed"]
+[connection signal="pressed" from="MContain/VContain/VBCMoreOptions/HBCBottom/HBCBottomInner/MCBtn/HBCBtn/BtnConfirm" to="." method="_on_btn_confirm_pressed"]
+[connection signal="pressed" from="MContain/VContain/VBCMoreOptions/HBCBottom/HBCBottomInner/MCBtn/HBCBtn/BtnModify" to="." method="_on_btn_modify_pressed"]
+[connection signal="pressed" from="MContain/VContain/VBCMoreOptions/HBCBottom/HBCBottomInner/MCBtn/HBCBtn/BtnSaveCancel" to="." method="_on_btn_save_cancel_pressed"]
+[connection signal="pressed" from="MContain/VContain/VBCMoreOptions/HBCBottom/HBCBottomInner/MCBtn/HBCBtn/BtnSave" to="." method="_on_btn_save_pressed"]

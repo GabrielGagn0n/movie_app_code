@@ -52,16 +52,15 @@ class Data_Saver
             Directory.CreateDirectory(DIRECTORY);
         }
 
-        string filePath = Path.Combine(DIRECTORY, $"{serial.Type}.json");
-
-        List<Serial> existingSerials = File.Exists(filePath)
-            ? JsonSerializer.Deserialize<List<Serial>>(File.ReadAllText(filePath))
+        string originalFilePath = Path.Combine(DIRECTORY, $"{serial.Type}.json");
+        List<Serial> existingSerials = File.Exists(originalFilePath)
+            ? JsonSerializer.Deserialize<List<Serial>>(File.ReadAllText(originalFilePath))
             : new List<Serial>();
-        
-        var toModify = existingSerials.FirstOrDefault(s => s.Id == serial.Id);
 
+        var toModify = existingSerials.FirstOrDefault(s => s.Id == serial.Id);
         if (toModify != null)
         {
+            // Update the existing entry
             toModify.Name = serial.Name;
             toModify.Alias = serial.Alias;
             toModify.Link = serial.Link;
@@ -71,11 +70,49 @@ class Data_Saver
             toModify.DidWatch = serial.DidWatch;
             toModify.LatestUpdate = serial.LatestUpdate;
 
-            File.WriteAllText(filePath, JsonSerializer.Serialize(existingSerials, new JsonSerializerOptions { WriteIndented = true }));
+            File.WriteAllText(originalFilePath, JsonSerializer.Serialize(existingSerials, new JsonSerializerOptions { WriteIndented = true }));
+            return;
         }
-        else
+
+        string realOriginalFilePath = "";
+        foreach (var type in Enum.GetValues(typeof(SerialType)))
         {
-            throw new Exception("The serial doesn't exist.");
+            if (type.ToString() == serial.Type.ToString())
+            {
+                continue;
+            }
+            
+            realOriginalFilePath = Path.Combine(DIRECTORY, $"{type}.json");
+            existingSerials = File.Exists(realOriginalFilePath)
+                ? JsonSerializer.Deserialize<List<Serial>>(File.ReadAllText(realOriginalFilePath))
+                : new List<Serial>();
+            toModify = existingSerials.FirstOrDefault(s => s.Id == serial.Id);
+            if (toModify != null)
+            {
+                break;
+            }
         }
+
+        if (toModify != null)
+            ChangeFile(realOriginalFilePath, originalFilePath, toModify, serial);
+        else
+            throw new Exception(string.Format("The serial with the id:{0} doesn't exist.", serial.Id.ToString()));
     }
+
+    private static void ChangeFile(string originalFilePath, string newFilePath, Serial toRemove, Serial toAdd)
+    {
+        List<Serial> toRemoveSerials = File.Exists(originalFilePath)
+            ? JsonSerializer.Deserialize<List<Serial>>(File.ReadAllText(originalFilePath))
+            : new List<Serial>();
+        List<Serial> toAddSerials = File.Exists(newFilePath)
+            ? JsonSerializer.Deserialize<List<Serial>>(File.ReadAllText(newFilePath))
+            : new List<Serial>();
+
+        toRemoveSerials.RemoveAll(s => s.Id == toRemove.Id);
+        File.WriteAllText(originalFilePath, JsonSerializer.Serialize(toRemoveSerials, new JsonSerializerOptions { WriteIndented = true }));
+
+        toAddSerials.Add(toAdd);
+        File.WriteAllText(newFilePath, JsonSerializer.Serialize(toAddSerials, new JsonSerializerOptions { WriteIndented = true }));
+    }
+
 }
