@@ -7,12 +7,15 @@ public partial class MainControl : Control
 	movie_app backend = new();
 	MarginContainer mainContainer;
 	MarginContainer addContainer;
+	MarginContainer settingsContainer;
+	MarginContainer[] containerList;
 	ScrollContainer scrollContainer;
 	AddSingle addSingle;
 	VBoxContainer vContain;
 	VBoxContainer vContainSimpleView;
 	SimpleView simpleViewTemplate;
 	FilterBar filterBar;
+	SettingsView settingsView;
 
 	SimpleView[] simpleViews = Array.Empty<SimpleView>();
 	Filter filter = null;
@@ -20,27 +23,37 @@ public partial class MainControl : Control
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		// windowSize = GetViewport().GetVisibleRect().Size;
+		// Setup of the differtent nodes
 		mainContainer = GetNode<MarginContainer>("MMainContain");
 		addContainer = GetNode<MarginContainer>("MAddContain");
+		settingsContainer = GetNode<MarginContainer>("MSettings");
 		addSingle = addContainer.GetNode<AddSingle>("AddSingle");
 		vContain = mainContainer.GetNode<VBoxContainer>("VContain");
 		scrollContainer = vContain.GetNode<ScrollContainer>("ScrollContainer");
 		vContainSimpleView = vContain.GetNode<VBoxContainer>("ScrollContainer/VContainSimpleView");
 		simpleViewTemplate = vContainSimpleView.GetNode<SimpleView>("SimpleView");
 		filterBar = vContain.GetNode<FilterBar>("FilterBar");
+		settingsView = GetNode<SettingsView>("MSettings/SettingsView");
+		
+		// Small list of container
+		containerList = new MarginContainer[]{mainContainer, addContainer, settingsContainer};
 
+		// Set settings in the backend
+		backend.SetSettings(settingsView.GetSettings());
+		// Load the different simpleView
 		LoadSimpleView();
 
 		addSingle.Connect("OnBtnAddPressed", new Callable(this, MethodName.OnBtnAddPressedSignalReceived));
 		addSingle.Connect("OnBtnCancelPressed", new Callable(this, MethodName.OnBtnCancelPressedSignalReceived));
 		filterBar.Connect("OnStatusChanged", new Callable(this, MethodName.OnStatusChangedSignalReceived));
 		filterBar.Connect("OnMoreOptBtnClicked", new Callable(this, MethodName.OnMoreOptBtnClickedSignalReceived));
+		settingsView.Connect("OnBtnSaveSettings", new Callable(this, MethodName.OnBtnSaveSettingsSignalReceived));
+		settingsView.Connect("OnBtnCancelSettings", new Callable(this, MethodName.OnBtnCancelSettingsSignalReceived));		
 	}
 
 	public void _on_add_new_btn_pressed()
 	{
-		ChangeScreen();
+		ChangeScreen(1);
 	}
 
 	public void OnBtnAddPressedSignalReceived()
@@ -55,7 +68,7 @@ public partial class MainControl : Control
 			backend.AddSerial(toAdd);
 			addSingle.ClearData();
 			LoadSimpleView();
-			ChangeScreen();
+			ChangeScreen(0);
 		}
 		else
 		{
@@ -66,20 +79,17 @@ public partial class MainControl : Control
 	public void OnBtnCancelPressedSignalReceived()
 	{
 		addSingle.ClearData();
-		ChangeScreen();
+		ChangeScreen(0);
 	}
 
-	private void ChangeScreen()
+	private void ChangeScreen(int index)
 	{
-		if (mainContainer.Visible)
+		for (int i = 0; i < containerList.Length; i++)
 		{
-			mainContainer.Visible = false;
-			addContainer.Visible = true;
-		}
-		else
-		{
-			mainContainer.Visible = true;
-			addContainer.Visible = false;
+			if (i == index)
+				containerList[i].Visible = true;
+			else
+				containerList[i].Visible = false;
 		}
 	}
 
@@ -205,5 +215,21 @@ public partial class MainControl : Control
 			backend.UpdateSerials(ButtonViewActions.UpdateSerial, id = serial.Id);
 			simpleView.LoadDataIntoView(serial);
 		}
+	}
+
+	private void _on_btn_settings_pressed()
+	{
+		ChangeScreen(2);
+	}
+
+	private void OnBtnSaveSettingsSignalReceived()
+	{
+		backend.SetSettings(settingsView.GetSettings());
+		ChangeScreen(0);
+	}
+
+	private void OnBtnCancelSettingsSignalReceived()
+	{
+		ChangeScreen(0);
 	}
 }

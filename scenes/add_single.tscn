@@ -16,6 +16,15 @@ size_flags_vertical = 4
 theme = ExtResource("1_qyk8v")
 script = ExtResource("1_y21yx")
 
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.258824, 0.258824, 0.258824, 1)
+
 [node name="adding-scrolling-container" type="ScrollContainer" parent="."]
 custom_minimum_size = Vector2(0, 75)
 layout_mode = 1
@@ -40,6 +49,11 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource("1_qyk8v")
+
+[node name="Label5" type="Label" parent="adding-scrolling-container/MContain/adding-vcontainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Add a new thing"
 
 [node name="Label" type="Label" parent="adding-scrolling-container/MContain/adding-vcontainer"]
 layout_mode = 2

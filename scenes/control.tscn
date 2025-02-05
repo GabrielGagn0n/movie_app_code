@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://cmc1me0lxbihi"]
+[gd_scene load_steps=7 format=3 uid="uid://cmc1me0lxbihi"]
 
 [ext_resource type="Script" path="res://scripts/MainControl.cs" id="1_k1ok3"]
 [ext_resource type="Theme" uid="uid://5t1dp5n81crm" path="res://theme/Default_theme.tres" id="2_52f5v"]
 [ext_resource type="PackedScene" uid="uid://bkjlnae6yrd3i" path="res://scenes/simple_view.tscn" id="3_3ivpp"]
 [ext_resource type="PackedScene" uid="uid://bgcetwqqh6p3v" path="res://scenes/add_single.tscn" id="3_hb730"]
 [ext_resource type="PackedScene" uid="uid://c3kmxkplanfcv" path="res://scenes/filter_bar.tscn" id="3_mgnbk"]
+[ext_resource type="PackedScene" uid="uid://d1ea6m645n8uw" path="res://scenes/settings_view.tscn" id="6_675wr"]
 
 [node name="MainControl" type="Control"]
 layout_mode = 3
@@ -60,10 +61,18 @@ size_flags_vertical = 3
 visible = false
 layout_mode = 2
 
-[node name="AddNewBtn" type="Button" parent="MMainContain/VContain"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MMainContain/VContain"]
 layout_mode = 2
+
+[node name="AddNewBtn" type="Button" parent="MMainContain/VContain/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 10
 text = "Add new"
+
+[node name="BtnSettings" type="Button" parent="MMainContain/VContain/HBoxContainer"]
+layout_mode = 2
+text = "Settings"
 
 [node name="MAddContain" type="MarginContainer" parent="."]
 visible = false
@@ -84,5 +93,18 @@ layout_mode = 2
 size_flags_horizontal = 1
 size_flags_vertical = 3
 
+[node name="MSettings" type="MarginContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SettingsView" parent="MSettings" instance=ExtResource("6_675wr")]
+layout_mode = 2
+
 [connection signal="resized" from="." to="." method="_on_resized"]
-[connection signal="pressed" from="MMainContain/VContain/AddNewBtn" to="." method="_on_add_new_btn_pressed"]
+[connection signal="pressed" from="MMainContain/VContain/HBoxContainer/AddNewBtn" to="." method="_on_add_new_btn_pressed"]
+[connection signal="pressed" from="MMainContain/VContain/HBoxContainer/BtnSettings" to="." method="_on_btn_settings_pressed"]

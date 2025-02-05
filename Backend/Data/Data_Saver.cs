@@ -7,7 +7,13 @@ using Godot;
 
 class Data_Saver
 {
-    const string DIRECTORY = "./Backend/Data/SavedData";
+    static string DIRECTORY = "./Backend/Data/SavedData";
+
+    internal static void SetDirectory(string directory)
+    {
+        DIRECTORY = directory;
+    }
+
     internal static void SaveAllData(Serial[] serials_list)
     {
         foreach (SerialType type in Enum.GetValues(typeof(SerialType)))
@@ -37,7 +43,7 @@ class Data_Saver
         {
             existingSerials.Add(serial);
 
-            File.WriteAllText(filePath, JsonSerializer.Serialize(existingSerials, new JsonSerializerOptions { WriteIndented = true }));
+            File.WriteAllText(filePath, JsonSerializer.Serialize(existingSerials, new JsonSerializerOptions { WriteIndented = false }));
         }
         else
         {
@@ -70,7 +76,7 @@ class Data_Saver
             toModify.DidWatch = serial.DidWatch;
             toModify.LatestUpdate = serial.LatestUpdate;
 
-            File.WriteAllText(originalFilePath, JsonSerializer.Serialize(existingSerials, new JsonSerializerOptions { WriteIndented = true }));
+            File.WriteAllText(originalFilePath, JsonSerializer.Serialize(existingSerials, new JsonSerializerOptions { WriteIndented = false }));
             return;
         }
 
@@ -109,10 +115,28 @@ class Data_Saver
             : new List<Serial>();
 
         toRemoveSerials.RemoveAll(s => s.Id == toRemove.Id);
-        File.WriteAllText(originalFilePath, JsonSerializer.Serialize(toRemoveSerials, new JsonSerializerOptions { WriteIndented = true }));
+        File.WriteAllText(originalFilePath, JsonSerializer.Serialize(toRemoveSerials, new JsonSerializerOptions { WriteIndented = false }));
 
         toAddSerials.Add(toAdd);
-        File.WriteAllText(newFilePath, JsonSerializer.Serialize(toAddSerials, new JsonSerializerOptions { WriteIndented = true }));
+        File.WriteAllText(newFilePath, JsonSerializer.Serialize(toAddSerials, new JsonSerializerOptions { WriteIndented = false }));
+    }
+
+    internal static void SaveSettings(Settings settings)
+    {
+        if (!Directory.Exists(DIRECTORY))
+        {
+            Directory.CreateDirectory(DIRECTORY); // Ensure the directory exists
+        }
+
+        try
+        {
+            string jsonContent = JsonSerializer.Serialize(settings, new JsonSerializerOptions { WriteIndented = false });
+            File.WriteAllText(Path.Combine(DIRECTORY, "Settings.json"), jsonContent);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error saving settings: {ex.Message}");
+        }
     }
 
 }

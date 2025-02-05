@@ -1,0 +1,169 @@
+[gd_scene load_steps=4 format=3 uid="uid://d1ea6m645n8uw"]
+
+[ext_resource type="Theme" uid="uid://5t1dp5n81crm" path="res://theme/Default_theme.tres" id="1_wgq1y"]
+[ext_resource type="Texture2D" uid="uid://btinm74hmuhke" path="res://ressource/i-icon.png" id="2_o64pb"]
+[ext_resource type="Script" path="res://scripts/SettingsView.cs" id="2_w6bcj"]
+
+[node name="SettingsView" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_wgq1y")
+script = ExtResource("2_w6bcj")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.258824, 0.258824, 0.258824, 1)
+
+[node name="MCont" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="VBCont" type="VBoxContainer" parent="MCont"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MCont/VBCont"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MCont/VBCont/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Settings"
+
+[node name="HSeparator" type="HSeparator" parent="MCont/VBCont"]
+layout_mode = 2
+
+[node name="HBoxEmptySpace" type="HBoxContainer" parent="MCont/VBCont"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="HBSaveFolder" type="HBoxContainer" parent="MCont/VBCont"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MCont/VBCont/HBSaveFolder"]
+layout_mode = 2
+text = "Save folder : "
+
+[node name="Button" type="Button" parent="MCont/VBCont/HBSaveFolder"]
+layout_mode = 2
+text = "WIP"
+
+[node name="HBoxEmptySpace2" type="HBoxContainer" parent="MCont/VBCont"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="HBDelayConfirmation" type="HBoxContainer" parent="MCont/VBCont"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MCont/VBCont/HBDelayConfirmation"]
+layout_mode = 2
+text = "Switching \"watching\" to \"on hold\" automatically"
+
+[node name="TextureButton" type="TextureButton" parent="MCont/VBCont/HBDelayConfirmation"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+tooltip_text = "This will be used to change any serial from \"watching\" to \"on hold\" after a certain amount of days."
+button_mask = 0
+texture_normal = ExtResource("2_o64pb")
+
+[node name="Label3" type="Label" parent="MCont/VBCont/HBDelayConfirmation"]
+layout_mode = 2
+text = " : "
+
+[node name="CBoxAutoSwitch" type="CheckBox" parent="MCont/VBCont/HBDelayConfirmation"]
+layout_mode = 2
+button_pressed = true
+text = "On"
+
+[node name="HBDelayTimer" type="HBoxContainer" parent="MCont/VBCont"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MCont/VBCont/HBDelayTimer"]
+layout_mode = 2
+text = "Delay before \"On hold\""
+
+[node name="TextureButton" type="TextureButton" parent="MCont/VBCont/HBDelayTimer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+tooltip_text = "Number of days used before changing any serial from \"watching\" to \"on hold\"."
+button_mask = 0
+texture_normal = ExtResource("2_o64pb")
+
+[node name="Label3" type="Label" parent="MCont/VBCont/HBDelayTimer"]
+layout_mode = 2
+text = " : "
+
+[node name="LEditAutoSwitchTimer" type="LineEdit" parent="MCont/VBCont/HBDelayTimer"]
+layout_mode = 2
+text = "30"
+
+[node name="Label2" type="Label" parent="MCont/VBCont/HBDelayTimer"]
+layout_mode = 2
+text = "days"
+
+[node name="HBSaveFilters" type="HBoxContainer" parent="MCont/VBCont"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MCont/VBCont/HBSaveFilters"]
+layout_mode = 2
+text = "Save filters before closing"
+
+[node name="TextureButton" type="TextureButton" parent="MCont/VBCont/HBSaveFilters"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+tooltip_text = "This will keep the filters between opening of the application [WIP]"
+button_mask = 0
+texture_normal = ExtResource("2_o64pb")
+
+[node name="Label3" type="Label" parent="MCont/VBCont/HBSaveFilters"]
+layout_mode = 2
+text = " : "
+
+[node name="CBoxSaveFilters" type="CheckBox" parent="MCont/VBCont/HBSaveFilters"]
+layout_mode = 2
+button_pressed = true
+text = "On"
+
+[node name="HBCanSav" type="HBoxContainer" parent="MCont/VBCont"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+
+[node name="BtnCancel" type="Button" parent="MCont/VBCont/HBCanSav"]
+custom_minimum_size = Vector2(150, 40)
+layout_mode = 2
+text = "Cancel"
+
+[node name="BtnSave" type="Button" parent="MCont/VBCont/HBCanSav"]
+custom_minimum_size = Vector2(150, 40)
+layout_mode = 2
+text = "Save"
+
+[connection signal="pressed" from="MCont/VBCont/HBDelayConfirmation/CBoxAutoSwitch" to="." method="_on_c_box_auto_switch_pressed"]
+[connection signal="text_changed" from="MCont/VBCont/HBDelayTimer/LEditAutoSwitchTimer" to="." method="_on_l_edit_auto_switch_timer_text_submitted"]
+[connection signal="text_submitted" from="MCont/VBCont/HBDelayTimer/LEditAutoSwitchTimer" to="." method="_on_l_edit_auto_switch_timer_text_submitted"]
+[connection signal="pressed" from="MCont/VBCont/HBSaveFilters/CBoxSaveFilters" to="." method="_on_c_box_save_filters_pressed"]
+[connection signal="pressed" from="MCont/VBCont/HBCanSav/BtnCancel" to="." method="_on_btn_cancel_pressed"]
+[connection signal="pressed" from="MCont/VBCont/HBCanSav/BtnSave" to="." method="_on_btn_save_pressed"]

@@ -4,7 +4,7 @@ using Godot;
 
 class movie_app 
 {
-    private const int NBR_OF_DAYS_BEFORE_ONHOLD = -30;
+    private Settings settings;
     private Serial[] serials_list = Array.Empty<Serial>();
 
     public movie_app()
@@ -14,12 +14,19 @@ class movie_app
         try
         {
             LoadData();
-            UpdateStatusOnHold();
         }
         catch (System.Exception)
         {
             
         }
+    }
+
+    public void SetSettings(Settings settings)
+    {
+        this.settings = settings;
+
+        if (settings.autoSwitch)
+            UpdateStatusOnHold();
     }
 
     public void AddSerial(Serial serial)
@@ -95,7 +102,7 @@ class movie_app
     {
         foreach (var serial in serials_list)
         {
-            if (serial.Status == Status.Watching && serial.LatestUpdate <= DateTime.Now.AddDays(NBR_OF_DAYS_BEFORE_ONHOLD))
+            if (serial.Status == Status.Watching && serial.LatestUpdate <= DateTime.Now.AddDays(-settings.autoSwitchTime))
             {
                 serial.UpdateStatus(Status.OnHold);
                 Data_Saver.SaveSingleData(serial);

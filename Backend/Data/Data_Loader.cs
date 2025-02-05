@@ -7,30 +7,16 @@ using Godot;
 
 class Data_Loader
 {
-    const string DIRECTORY = "./Backend/Data/SavedData";
+    static string DIRECTORY = "./Backend/Data/SavedData";
+
+    internal static void SetDirectory(string directory)
+    {
+        DIRECTORY = directory;
+    }
 
     internal static Serial[] GetAllData()
     {
-        if (!Directory.Exists(DIRECTORY))
-        {
-            throw new DirectoryNotFoundException($"The directory '{DIRECTORY}' does not exist.");
-        }
-
-        var toReturn = new List<Serial>();
-
-        var jsonFile = Directory.GetFiles(DIRECTORY, "*.json");
-
-        foreach (var file in jsonFile)
-        {
-            var serialFromFile = JsonSerializer.Deserialize<List<Serial>>(File.ReadAllText(file));
-
-            if (serialFromFile != null)
-            {
-                toReturn.AddRange(serialFromFile);
-            }
-        }
-
-        return toReturn.ToArray();
+        return GetData(new Filter());
     }
 
     internal static Serial[] GetData(Filter filter)
@@ -68,6 +54,32 @@ class Data_Loader
 
         return toReturn.ToArray();
     }
+
+    internal static Settings LoadSettings()
+    {
+        if (!Directory.Exists(DIRECTORY))
+        {
+            throw new DirectoryNotFoundException($"The directory '{DIRECTORY}' does not exist.");
+        }
+
+        var jsonFiles = Directory.GetFiles(DIRECTORY, "Settings.json");
+        if (jsonFiles.Length == 0)
+        {
+            return null;
+        }
+
+        try
+        {
+            string jsonContent = File.ReadAllText(jsonFiles[0]);
+            return JsonSerializer.Deserialize<Settings>(jsonContent);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error loading settings: {ex.Message}");
+            return null;
+        }
+    }
+
 
     private static SerialType[] GetSerialList(Filter filter)
     {
