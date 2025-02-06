@@ -6,6 +6,7 @@
 - More option on simple view (UI)<br/>
 - Possibility to edit in more option ( button edit that change TextEdit enable to true/false)<br/>
 - Setting page to change some things, like the timer for onhold
+- Fix ids
 
 ### Bugfixed
 1. After using filter labels doesnt update
@@ -15,7 +16,6 @@
 - Delete series with button
 - Sort by in filter (date, status, type, alphabetic)
 - Better UI
-- Fix ids
 - Save Filter and maybe other things after closing
 - Depricated check box
 - First opening -> ask where to save files
