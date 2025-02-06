@@ -31,7 +31,7 @@ class movie_app
 
     public void AddSerial(Serial serial)
     {
-        int id = GenerateID();
+        Guid id = GenerateID();
         serial.Id = id;
 
         // TODO : If it exist already, show something
@@ -39,7 +39,7 @@ class movie_app
         LoadData();
     }
 
-    public void UpdateSerials(ButtonViewActions action, int id = -1, string name = "")
+    public void UpdateSerials(ButtonViewActions action, Guid id, string name = "")
     {
         for (int i = 0; i <= serials_list.Length - 1; i++)
         {
@@ -116,8 +116,8 @@ class movie_app
     }
 
     // TODO : Find a better way to generate ids
-    private int GenerateID()
+    private Guid GenerateID()
     {
-        return serials_list.Count();
+        return Guid.NewGuid();
     } 
 }

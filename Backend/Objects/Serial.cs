@@ -13,11 +13,11 @@ public class Serial
     public bool[] DidWatch { get; set; } = Array.Empty<bool>();
     public string Link { get; set; }
     public DateTime LatestUpdate { get; set; }
-    public int Id { get; set; }
+    public Guid Id { get; set; }
     public SerialType Type { get; set; }
     public Status Status { get; set; } = Status.NotStarted;
 
-    public Serial(string name, string alias = null, string link = null, SerialType type = SerialType.None)
+    public Serial(string name, string alias = null, string link = null, SerialType type = SerialType.Series)
     {
         Name = name;
         Alias = alias;

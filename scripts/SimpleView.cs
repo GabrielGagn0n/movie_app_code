@@ -4,13 +4,13 @@ using System;
 public partial class SimpleView : Control
 {
 	[Signal]
-	public delegate void OnBtnAddEpPressedEventHandler(int id);
+	public delegate void OnBtnAddEpPressedEventHandler(string id);
 	[Signal]
-	public delegate void OnBtnRmvEpPressedEventHandler(int id);
+	public delegate void OnBtnRmvEpPressedEventHandler(string id);
 	[Signal]
-	public delegate void OnBtnAddSeasonPressedEventHandler(int id);
+	public delegate void OnBtnAddSeasonPressedEventHandler(string id);
 	[Signal]
-	public delegate void OnBtnRmvSeasonPressedEventHandler(int id);
+	public delegate void OnBtnRmvSeasonPressedEventHandler(string id);
 	[Signal]
 	public delegate void OnMoreInfoBtnClickedEventHandler(int size_y, string Id);
 	[Signal]
@@ -229,22 +229,22 @@ public partial class SimpleView : Control
 
 	private void _on_add_ep_btn_pressed()
 	{
-		EmitSignal(SignalName.OnBtnAddEpPressed, serial.Id);
+		EmitSignal(SignalName.OnBtnAddEpPressed, serial.Id.ToString());
 	}
 
 	private void _on_rmv_ep_btn_pressed()
 	{
-		EmitSignal(SignalName.OnBtnRmvEpPressed, serial.Id);
+		EmitSignal(SignalName.OnBtnRmvEpPressed, serial.Id.ToString());
 	}
 
 	private void _on_add_season_btn_pressed()
 	{
-		EmitSignal(SignalName.OnBtnAddSeasonPressed, serial.Id);
+		EmitSignal(SignalName.OnBtnAddSeasonPressed, serial.Id.ToString());
 	}
 
 	private void _on_rmv_season_btn_pressed()
 	{
-		EmitSignal(SignalName.OnBtnRmvSeasonPressed, serial.Id);
+		EmitSignal(SignalName.OnBtnRmvSeasonPressed, serial.Id.ToString());
 	}
 
 	private void _on_more_info_btn_pressed()
@@ -255,14 +255,14 @@ public partial class SimpleView : Control
 
 		if (vBCMoreOptions.Visible)
 		{
-			EmitSignal(SignalName.OnMoreInfoBtnClicked, 50, serial.Id);
+			EmitSignal(SignalName.OnMoreInfoBtnClicked, 50, serial.Id.ToString());
 			vBCMoreOptions.Visible = false;
 			SetSize(new Vector2(1550, 50));
 			button.Icon = downArrow; 
 		}
 		else
 		{
-			EmitSignal(SignalName.OnMoreInfoBtnClicked, 250, serial.Id);
+			EmitSignal(SignalName.OnMoreInfoBtnClicked, 250, serial.Id.ToString());
 			vBCMoreOptions.Visible = true;
 			SetSize(new Vector2(1550, 250));
 			button.Icon = upArrow;
@@ -318,6 +318,6 @@ public partial class SimpleView : Control
 		btnSave.Visible = false;
 		SaveModifiedSerial();
 		ChangeEditable(false);
-		EmitSignal(SignalName.OnBtnSaveBtnClicked, serial.Id);
+		EmitSignal(SignalName.OnBtnSaveBtnClicked, serial.Id.ToString());
 	}
 }

@@ -1,7 +1,7 @@
 public enum SerialType
 {
     
-    None,
+    //None,
     Series,
     Anime,
     AnimatedSerie,
