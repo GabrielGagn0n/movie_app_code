@@ -88,6 +88,18 @@ class movie_app
         return this.serials_list;
     }
 
+    internal void DeleteSerial(Guid id)
+    {
+        for (int i = 0; i <= serials_list.Length - 1; i++)
+        {
+            if (serials_list[i].Id == id)
+            {
+                Serial serial = serials_list[i];
+                Data_Deleter.DeleteSerial(serial);
+            }
+        }
+    }
+
     private void LoadData()
     {
         serials_list = Data_Loader.GetAllData();
@@ -119,5 +131,5 @@ class movie_app
     private Guid GenerateID()
     {
         return Guid.NewGuid();
-    } 
+    }
 }

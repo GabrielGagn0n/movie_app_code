@@ -14,7 +14,7 @@ public partial class SimpleView : Control
 	[Signal]
 	public delegate void OnMoreInfoBtnClickedEventHandler(int size_y, string Id);
 	[Signal]
-	public delegate void OnBtnDeleteConfirmBtnClickedEventHandler();
+	public delegate void OnBtnDeleteConfirmBtnClickedEventHandler(string id);
 	[Signal]
 	public delegate void OnBtnSaveBtnClickedEventHandler(string id);
 	
@@ -79,6 +79,11 @@ public partial class SimpleView : Control
 		this.serial = serial;
 		ChangeLabels();
 		ChangeLink();
+	}
+
+	public void Destroy()
+	{
+		QueueFree();
 	}
 
 	public Serial GetSerial()
@@ -291,7 +296,7 @@ public partial class SimpleView : Control
 		btnDelete.Visible = false;
 		btnCancel.Visible = false;
 		btnConfirm.Visible = false;
-		EmitSignal(SignalName.OnBtnDeleteConfirmBtnClicked);
+		EmitSignal(SignalName.OnBtnDeleteConfirmBtnClicked, serial.Id.ToString());
 	}
 
 	private void _on_btn_cancel_pressed()

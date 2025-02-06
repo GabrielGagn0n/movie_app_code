@@ -75,7 +75,7 @@ class Data_Loader
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error loading settings: {ex.Message}");
+            GD.Print($"Error loading settings: {ex.Message}");
             return null;
         }
     }

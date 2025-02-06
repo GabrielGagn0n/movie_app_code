@@ -135,7 +135,7 @@ class Data_Saver
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error saving settings: {ex.Message}");
+            GD.Print($"Error saving settings: {ex.Message}");
         }
     }
 

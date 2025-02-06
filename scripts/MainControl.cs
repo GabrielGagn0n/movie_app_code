@@ -127,6 +127,7 @@ public partial class MainControl : Control
 				newSimpleView.Connect("OnBtnRmvSeasonPressed", new Callable(this, MethodName.OnBtnRmvSeasonPressedSignalReceived));
 				newSimpleView.Connect("OnMoreInfoBtnClicked", new Callable(this, MethodName.OnMoreInfoBtnClickedSignalReceived));
 				newSimpleView.Connect("OnBtnSaveBtnClicked", new Callable(this, MethodName.OnBtnSaveBtnClickedSignalReceived));
+				newSimpleView.Connect("OnBtnDeleteConfirmBtnClicked", new Callable(this, MethodName.OnBtnDeleteConfirmBtnClickedSignalReceived));
 
 				newSimpleView.LoadDataIntoView(serial);
 				vContainSimpleView.AddChild(newSimpleView);
@@ -231,5 +232,16 @@ public partial class MainControl : Control
 	private void OnBtnCancelSettingsSignalReceived()
 	{
 		ChangeScreen(0);
+	}
+
+	private void OnBtnDeleteConfirmBtnClickedSignalReceived(string id)
+	{
+		SimpleView simpleView = simpleViews.FirstOrDefault(view => view.GetSerial().Id == Guid.Parse(id));
+		if (simpleView != null)
+		{
+			Serial serial = simpleView.GetSerial();
+			backend.DeleteSerial(serial.Id);
+			simpleView.Destroy();
+		}
 	}
 }
