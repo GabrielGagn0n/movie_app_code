@@ -20,6 +20,7 @@
 - Save Filter and maybe other things after closing
 - Depricated check box
 - Readme
+- Icon + rename 
 
 
 ## BUGFIX
