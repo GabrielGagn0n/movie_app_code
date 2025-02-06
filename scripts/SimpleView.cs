@@ -37,6 +37,7 @@ public partial class SimpleView : Control
 	private Button btnModify;
 	private Button btnSave;
 	private Button btnSaveCancel;
+	private Button btnOpen;
 	
 	private bool validNbr = true;
 	private int nbrToAdd = 1;
@@ -69,6 +70,7 @@ public partial class SimpleView : Control
 		btnSave = vBCMoreOptions.GetNode<Button>("HBCBottom/HBCBottomInner/MCBtn/HBCBtn/BtnSave");
 		btnSaveCancel = vBCMoreOptions.GetNode<Button>("HBCBottom/HBCBottomInner/MCBtn/HBCBtn/BtnSaveCancel");
 		lblSeasonEpi = vBCMoreOptions.GetNode<Label>("HBCBottom/HBCBottomInner/LblSeasonEpi");
+		btnOpen = hContainer.GetNode<Button>("OpenBtn");
 	}
 
 	// Set the serial for the view, will call methods to change the labels and the link
@@ -89,6 +91,13 @@ public partial class SimpleView : Control
 		if(!string.IsNullOrEmpty(serial.Link))
 		{
 			this.link = serial.Link;
+			btnOpen.Disabled = false;
+			btnOpen.TooltipText = this.link;
+		}
+		else
+		{
+			btnOpen.Disabled = true;
+			btnOpen.TooltipText = "You don't have a link saved";
 		}
 	}
 
@@ -224,7 +233,8 @@ public partial class SimpleView : Control
 
 	private void _on_open_btn_pressed()
 	{
-		OS.ShellOpen(link);
+		if (!String.IsNullOrEmpty(link))
+			OS.ShellOpen(link);
 	}
 
 	private void _on_add_ep_btn_pressed()
