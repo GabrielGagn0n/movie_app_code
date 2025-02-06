@@ -7,7 +7,7 @@ using Godot;
 
 class Data_Deleter
 {
-    static string DIRECTORY = "./Backend/Data/SavedData";
+    static string DIRECTORY = OS.GetDataDir() + "/movie_app/SavedData";
 
     internal static void DeleteSerial(Serial serial)
     {

@@ -7,7 +7,7 @@ using Godot;
 
 class Data_Saver
 {
-    static string DIRECTORY = "./Backend/Data/SavedData";
+    static string DIRECTORY = OS.GetDataDir() + "/movie_app/SavedData";
 
     internal static void SetDirectory(string directory)
     {

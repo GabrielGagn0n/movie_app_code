@@ -7,7 +7,7 @@ using Godot;
 
 class Data_Loader
 {
-    static string DIRECTORY = "./Backend/Data/SavedData";
+    static string DIRECTORY = OS.GetDataDir() + "/movie_app/SavedData";
 
     internal static void SetDirectory(string directory)
     {
@@ -23,7 +23,14 @@ class Data_Loader
     {
         if (!Directory.Exists(DIRECTORY))
         {
-            throw new DirectoryNotFoundException($"The directory '{DIRECTORY}' does not exist.");
+            try
+            {
+                Directory.CreateDirectory(DIRECTORY);
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
         }
 
 
