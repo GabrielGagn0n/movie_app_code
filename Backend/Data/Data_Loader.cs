@@ -87,6 +87,31 @@ class Data_Loader
         }
     }
 
+    internal static Filter LoadFilter()
+    {
+        if (!Directory.Exists(DIRECTORY))
+        {
+            throw new DirectoryNotFoundException($"The directory '{DIRECTORY}' does not exist.");
+        }
+
+        var jsonFiles = Directory.GetFiles(DIRECTORY, "SavedFilter.json");
+        if (jsonFiles.Length == 0)
+        {
+            return null;
+        }
+
+        try
+        {
+            string jsonContent = File.ReadAllText(jsonFiles[0]);
+            return JsonSerializer.Deserialize<Filter>(jsonContent);
+        }
+        catch (Exception ex)
+        {
+            GD.Print($"Error loading settings: {ex.Message}");
+            return null;
+        }
+    }
+
 
     private static SerialType[] GetSerialList(Filter filter)
     {

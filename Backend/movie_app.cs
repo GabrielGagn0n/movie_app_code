@@ -5,6 +5,7 @@ using Godot;
 class movie_app 
 {
     private Settings settings;
+    private Filter filter = null;
     private Serial[] serials_list = Array.Empty<Serial>();
 
     public movie_app()
@@ -17,7 +18,7 @@ class movie_app
         }
         catch (System.Exception)
         {
-            
+            throw;
         }
     }
 
@@ -27,6 +28,32 @@ class movie_app
 
         if (settings.autoSwitch)
             UpdateStatusOnHold();
+        
+        if (settings.saveFilters)
+        {
+            SetFilter(Data_Loader.LoadFilter());
+        }
+        else
+        {
+            SetFilter(null);
+        }
+    }
+
+    public Settings GetSettings()
+    {
+        return this.settings;
+    }
+
+    public void SetFilter(Filter filter)
+    {
+        this.filter = filter;
+        if (settings.saveFilters && filter != null)
+            Data_Saver.SaveFilter(this.filter);
+    }
+
+    public Filter GetFilter()
+    {
+        return this.filter;
     }
 
     public void AddSerial(Serial serial)

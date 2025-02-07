@@ -77,7 +77,7 @@ layout_mode = 2
 [node name="AliasLbl" type="Label" parent="MContain/VContain/HContain/HLblContain/AliasC"]
 layout_mode = 2
 size_flags_horizontal = 0
-theme = ExtResource("1_mwpq1")
+theme = ExtResource("9_iuic1")
 text = "Placeholder"
 
 [node name="SeasonC" type="BoxContainer" parent="MContain/VContain/HContain/HLblContain"]
@@ -87,6 +87,7 @@ layout_mode = 2
 [node name="SeasonLbl" type="Label" parent="MContain/VContain/HContain/HLblContain/SeasonC"]
 layout_mode = 2
 size_flags_horizontal = 0
+theme = ExtResource("9_iuic1")
 text = "Season X - Episode X"
 
 [node name="DateC" type="BoxContainer" parent="MContain/VContain/HContain/HLblContain"]
@@ -96,6 +97,7 @@ layout_mode = 2
 [node name="ModifiedDateLbl" type="Label" parent="MContain/VContain/HContain/HLblContain/DateC"]
 layout_mode = 2
 size_flags_horizontal = 0
+theme = ExtResource("9_iuic1")
 text = "Modified last : X"
 
 [node name="HBtnContain" type="HBoxContainer" parent="MContain/VContain/HContain"]

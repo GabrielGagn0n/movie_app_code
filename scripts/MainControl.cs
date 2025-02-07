@@ -18,7 +18,6 @@ public partial class MainControl : Control
 	SettingsView settingsView;
 
 	SimpleView[] simpleViews = Array.Empty<SimpleView>();
-	Filter filter = null;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -96,13 +95,18 @@ public partial class MainControl : Control
 	private void LoadSimpleView()
 	{
 		var serials = Array.Empty<Serial>();
-		if (filter == null)
+		if (backend.GetSettings().saveFilters)
+		{
+			filterBar.SetFilter(backend.GetFilter());
+		}
+
+		if (backend.GetFilter() == null)
 		{
 			serials = backend.GetSerials();
 		}
 		else 
 		{
-			serials = backend.GetFilteredSerial(filter);
+			serials = backend.GetFilteredSerial(backend.GetFilter());
 		}
 
 		foreach (SimpleView sv in simpleViews)
@@ -188,7 +192,7 @@ public partial class MainControl : Control
 
 	private void OnStatusChangedSignalReceived()
 	{
-		filter = filterBar.GetFilter();
+		backend.SetFilter(filterBar.GetFilter());
 		LoadSimpleView();
 	}
 
@@ -226,6 +230,12 @@ public partial class MainControl : Control
 	private void OnBtnSaveSettingsSignalReceived()
 	{
 		backend.SetSettings(settingsView.GetSettings());
+
+		if (backend.GetSettings().saveFilters)
+			backend.SetFilter(filterBar.GetFilter());
+		else
+			Data_Deleter.DeleteFilter();
+
 		ChangeScreen(0);
 	}
 

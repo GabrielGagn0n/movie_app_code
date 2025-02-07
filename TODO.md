@@ -8,16 +8,17 @@
 - Setting page to change some things, like the timer for onhold
 - Fix ids
 - Delete series with button <br/>
--~~First opening -> ask where to save files~~ Instead i'm saving everything to .../appdata/roaming/movie_app/SavedData
+- ~~First opening -> ask where to save files~~ Instead i'm saving everything to .../appdata/roaming/movie_app/SavedData
+- Save Filter and maybe other things after closing
 
 ### Bugfixed
 1. After using filter labels doesnt update
+2. After adding new sometimes it doesnt show (id problem)
 
 ## TODO
 
 - Sort by in filter (date, status, type, alphabetic)
 - Better UI
-- Save Filter and maybe other things after closing
 - Depricated check box
 - Readme
 - Icon + rename 
@@ -25,4 +26,4 @@
 
 ## BUGFIX
 
-2. After adding new sometimes it doesnt show
+3. After deleting, filter doesnt work

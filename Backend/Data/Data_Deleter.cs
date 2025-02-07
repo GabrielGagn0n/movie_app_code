@@ -9,6 +9,38 @@ class Data_Deleter
 {
     static string DIRECTORY = OS.GetDataDir() + "/movie_app/SavedData";
 
+    internal static void DeleteFilter()
+    {
+        if (!Directory.Exists(DIRECTORY))
+        {
+            throw new DirectoryNotFoundException($"The directory '{DIRECTORY}' does not exist.");
+        }
+        string originalFilePath = Path.Combine(DIRECTORY, $"SavedFilter.json");
+
+        if (!File.Exists(originalFilePath))
+        {
+            return;
+        }
+        try
+        {
+            string json = File.ReadAllText(originalFilePath);
+        }
+        catch (Exception ex)
+        {
+            GD.Print($"Error reading or deserializing JSON: {ex.Message}");
+            return;
+        }
+
+        try
+        {
+            File.WriteAllText(originalFilePath, JsonSerializer.Serialize(new Filter(), new JsonSerializerOptions { WriteIndented = false }));
+        }
+        catch (Exception ex)
+        {
+            GD.Print($"Error writing to file: {ex.Message}");
+        }
+    }
+
     internal static void DeleteSerial(Serial serial)
     {
         if (!Directory.Exists(DIRECTORY))

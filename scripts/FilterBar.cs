@@ -33,9 +33,8 @@ public partial class FilterBar : Control
 		IListType = hBoxMoreFilter.GetNode<ItemList>("HBoxType/TypeList");
 		IListDate = hBoxMoreFilter.GetNode<ItemList>("HBoxDate/DateList");
 		IListStatus = hBoxMoreFilter.GetNode<ItemList>("HBoxStatus/StatusList");
-
-		SetOptionsStatus();
 		SetOptionsType();
+		SetOptionsStatus();
 	}
 
 	// public override void _Process(double delta)
@@ -46,27 +45,45 @@ public partial class FilterBar : Control
 	{
 		return filter;
 	}
+	
+    internal void SetFilter(Filter filter)
+    {
+        SetOptionsStatus(filter.StatusFilter);
+		SetOptionsType(filter.SerialTypeFilter);
+    }
 
-	private void SetOptionsStatus()
+	private void SetOptionsStatus(Status[] existingFilter = null)
 	{
 		IListStatus.Clear();
-		foreach (var item in Enum.GetValues(typeof(Status)))
-		{
-			IListStatus.AddItem(item.ToString());
-		}
+	    Status[] values = (Status[])Enum.GetValues(typeof(Status));
 
-		// TODO : Maybe select index of last time it was closed
+		for (int i = 0; i < values.Length; i++)
+	    {
+	        Status item = values[i];
+	        IListStatus.AddItem(item.ToString());
+	
+	        if (existingFilter != null && Array.IndexOf(existingFilter, item) >= 0)
+	        {
+	            IListStatus.Select(i, false);
+	        }
+	    }
 	}
 
-	private void SetOptionsType()
+	private void SetOptionsType(SerialType[] existingFilter = null)
 	{
-		IListType.Clear();
-		foreach (var item in Enum.GetValues(typeof(SerialType)))
-		{
-			IListType.AddItem(item.ToString());
-		}
-
-		// TODO : Maybe select index of last time it was closed
+	    IListType.Clear();
+	    SerialType[] values = (SerialType[])Enum.GetValues(typeof(SerialType));
+	
+	    for (int i = 0; i < values.Length; i++)
+	    {
+	        SerialType item = values[i];
+	        IListType.AddItem(item.ToString());
+	
+	        if (existingFilter != null && Array.IndexOf(existingFilter, item) >= 0)
+	        {
+	            IListType.Select(i, false);
+	        }
+	    }
 	}
 
 	private void _on_l_edit_name_text_submitted(string s)
@@ -149,4 +166,5 @@ public partial class FilterBar : Control
 
 		EmitSignal(SignalName.OnStatusChanged);
 	}
+
 }

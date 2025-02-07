@@ -139,4 +139,21 @@ class Data_Saver
         }
     }
 
+    internal static void SaveFilter(Filter filter)
+    {
+        if (!Directory.Exists(DIRECTORY))
+        {
+            Directory.CreateDirectory(DIRECTORY); // Ensure the directory exists
+        }
+
+        try
+        {
+            string jsonContent = JsonSerializer.Serialize(filter, new JsonSerializerOptions { WriteIndented = false });
+            File.WriteAllText(Path.Combine(DIRECTORY, "SavedFilter.json"), jsonContent);
+        }
+        catch (Exception ex)
+        {
+            GD.Print($"Error saving settings: {ex.Message}");
+        }
+    }
 }
