@@ -17,9 +17,10 @@
 
 ## TODO
 
+- Depricated check box
+- Edit nbr season and epi
 - Sort by in filter (date, status, type, alphabetic)
 - Better UI
-- Depricated check box
 - Readme
 - Icon + rename 
 
