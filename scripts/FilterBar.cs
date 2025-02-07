@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 public partial class FilterBar : Control
@@ -118,27 +119,44 @@ public partial class FilterBar : Control
 
 	private void _on_type_list_multi_selected(int i, bool b)
 	{
-		SerialType[] toChange = Array.Empty<SerialType>();
-		foreach (int selected in IListType.GetSelectedItems())
-		{
-			toChange = toChange.Append((SerialType)Enum.Parse(typeof(SerialType), IListType.GetItemText(selected), true)).ToArray();
-		}
+	    string itemText = IListType.GetItemText(i);
+	    SerialType selectedType = (SerialType)Enum.Parse(typeof(SerialType), itemText, true);
+	    List<SerialType> toChange = filter.SerialTypeFilter.ToList();
 
-		filter.SerialTypeFilter = toChange;
-		EmitSignal(SignalName.OnStatusChanged);
+	    if (toChange.Contains(selectedType))
+	    {
+	        toChange.Remove(selectedType);
+	        IListType.Deselect(i);
+	    }
+	    else
+	    {
+	        toChange.Add(selectedType);
+	    }
+
+	    filter.SerialTypeFilter = toChange.ToArray();
+	    EmitSignal(SignalName.OnStatusChanged);
 	}
 
 	private void _on_status_list_multi_selected(int i, bool b)
 	{
-		Status[] toChange = Array.Empty<Status>();
-		foreach (int selected in IListStatus.GetSelectedItems())
-		{
-			toChange = toChange.Append((Status)Enum.Parse(typeof(Status), IListStatus.GetItemText(selected), true)).ToArray();
-		}
+	    string itemText = IListStatus.GetItemText(i);
+	    Status selectedStatus = (Status)Enum.Parse(typeof(Status), itemText, true);
+	    List<Status> toChange = filter.StatusFilter.ToList();
 
-		filter.StatusFilter = toChange;
-		EmitSignal(SignalName.OnStatusChanged);
+	    if (toChange.Contains(selectedStatus))
+	    {
+	        toChange.Remove(selectedStatus);
+	        IListStatus.Deselect(i); 
+	    }
+	    else
+	    {
+	        toChange.Add(selectedStatus);
+	    }
+	
+	    filter.StatusFilter = toChange.ToArray();
+	    EmitSignal(SignalName.OnStatusChanged);
 	}
+
 
 	private void _on_date_list_item_selected(int i)
 	{
