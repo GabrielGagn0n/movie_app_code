@@ -1,0 +1,78 @@
+[gd_scene load_steps=2 format=3 uid="uid://b4gkpqkkh2fna"]
+
+[ext_resource type="Theme" uid="uid://5t1dp5n81crm" path="res://theme/Default_theme.tres" id="1_sv4hx"]
+
+[node name="InfoSeasonButtons" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1200.0
+offset_bottom = -870.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_sv4hx")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.273873, 0.273873, 0.273873, 1)
+
+[node name="MCont" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxCont" type="HBoxContainer" parent="MCont"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="LblSeason" type="Label" parent="MCont/HBoxCont"]
+layout_mode = 2
+text = "Season 1 :"
+
+[node name="BtnRemove10" type="Button" parent="MCont/HBoxCont"]
+layout_mode = 2
+tooltip_text = "Remove 10 episodes to the season"
+text = "---"
+
+[node name="BtnRemove5" type="Button" parent="MCont/HBoxCont"]
+layout_mode = 2
+tooltip_text = "Remove 5 episodes to the season"
+text = "--"
+
+[node name="BtnRemove1" type="Button" parent="MCont/HBoxCont"]
+layout_mode = 2
+tooltip_text = "Remove 1 episode to the season"
+text = "-"
+
+[node name="LineEdit" type="LineEdit" parent="MCont/HBoxCont"]
+layout_mode = 2
+text = "1"
+editable = false
+
+[node name="BtnAdd1" type="Button" parent="MCont/HBoxCont"]
+layout_mode = 2
+tooltip_text = "Add 1 episode to the season"
+text = "+"
+
+[node name="BtnAdd5" type="Button" parent="MCont/HBoxCont"]
+layout_mode = 2
+tooltip_text = "Add 5 episodes to the season"
+text = "++"
+
+[node name="BtnAdd10" type="Button" parent="MCont/HBoxCont"]
+layout_mode = 2
+tooltip_text = "Add 10 episodes to the season"
+text = "+++"

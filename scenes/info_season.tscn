@@ -1,0 +1,76 @@
+[gd_scene load_steps=3 format=3 uid="uid://dh3vy6oxfe7kd"]
+
+[ext_resource type="Script" path="res://scripts/InfoSeason.cs" id="1_fteql"]
+[ext_resource type="PackedScene" uid="uid://b4gkpqkkh2fna" path="res://scenes/info_season_buttons.tscn" id="2_kemx7"]
+
+[node name="InfoSeason" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -600.0
+offset_bottom = -400.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fteql")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.258824, 0.258824, 0.258824, 1)
+
+[node name="MVont" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="VBoxCont" type="VBoxContainer" parent="MVont"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBCTitle" type="HBoxContainer" parent="MVont/VBoxCont"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="MVont/VBoxCont/HBCTitle"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Number of seasons : "
+
+[node name="LEditNbrSeason" type="LineEdit" parent="MVont/VBoxCont/HBCTitle"]
+layout_mode = 2
+text = "1"
+editable = false
+
+[node name="HBCButtons" type="HBoxContainer" parent="MVont/VBoxCont"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="BtnAdd" type="Button" parent="MVont/VBoxCont/HBCButtons"]
+layout_mode = 2
+text = "Add"
+
+[node name="BtnRemove" type="Button" parent="MVont/VBoxCont/HBCButtons"]
+layout_mode = 2
+text = "Remove"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MVont/VBoxCont"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="InfoSeasonButtons" parent="MVont/VBoxCont/VBoxContainer" instance=ExtResource("2_kemx7")]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
