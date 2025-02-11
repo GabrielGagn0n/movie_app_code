@@ -2,7 +2,7 @@
 
 [ext_resource type="Theme" uid="uid://5t1dp5n81crm" path="res://theme/Default_theme.tres" id="1_qyk8v"]
 [ext_resource type="Script" path="res://scripts/AddSingle.cs" id="1_y21yx"]
-[ext_resource type="PackedScene" uid="uid://cgbmvsqlrjlj1" path="res://scenes/add_more_options.tscn" id="3_jvddk"]
+[ext_resource type="PackedScene" uid="uid://dh3vy6oxfe7kd" path="res://scenes/info_season.tscn" id="3_t6wa6"]
 
 [node name="AddSingle" type="Control"]
 layout_mode = 3
@@ -102,10 +102,10 @@ item_1/text = "Anime"
 layout_mode = 2
 text = "More options"
 
-[node name="more-controls" parent="adding-scrolling-container/MContain/adding-vcontainer" instance=ExtResource("3_jvddk")]
+[node name="more-controls" parent="adding-scrolling-container/MContain/adding-vcontainer" instance=ExtResource("3_t6wa6")]
 visible = false
-custom_minimum_size = Vector2(0, 250)
 layout_mode = 2
+size_flags_vertical = 3
 
 [node name="validation-container" type="HBoxContainer" parent="adding-scrolling-container/MContain/adding-vcontainer"]
 layout_mode = 2

@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://b4gkpqkkh2fna"]
+[gd_scene load_steps=3 format=3 uid="uid://b4gkpqkkh2fna"]
 
 [ext_resource type="Theme" uid="uid://5t1dp5n81crm" path="res://theme/Default_theme.tres" id="1_sv4hx"]
+[ext_resource type="Script" path="res://scripts/InfoSeasonButtons.cs" id="2_m88k4"]
 
 [node name="InfoSeasonButtons" type="Control"]
 layout_mode = 3
@@ -12,6 +13,7 @@ offset_bottom = -870.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_sv4hx")
+script = ExtResource("2_m88k4")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -76,3 +78,10 @@ text = "++"
 layout_mode = 2
 tooltip_text = "Add 10 episodes to the season"
 text = "+++"
+
+[connection signal="pressed" from="MCont/HBoxCont/BtnRemove10" to="." method="_on_btn_remove_10_pressed"]
+[connection signal="pressed" from="MCont/HBoxCont/BtnRemove5" to="." method="_on_btn_remove_5_pressed"]
+[connection signal="pressed" from="MCont/HBoxCont/BtnRemove1" to="." method="_on_btn_remove_1_pressed"]
+[connection signal="pressed" from="MCont/HBoxCont/BtnAdd1" to="." method="_on_btn_add_1_pressed"]
+[connection signal="pressed" from="MCont/HBoxCont/BtnAdd5" to="." method="_on_btn_add_5_pressed"]
+[connection signal="pressed" from="MCont/HBoxCont/BtnAdd10" to="." method="_on_btn_add_10_pressed"]

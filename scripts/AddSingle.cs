@@ -69,7 +69,7 @@ public partial class AddSingle : Control
 	{
 		if (cBtnMoreOpt.ButtonPressed)
 		{
-			AddMoreOptions moreControl = vBoxContainer.GetNode<AddMoreOptions>("more-controls");
+			InfoSeason moreControl = vBoxContainer.GetNode<InfoSeason>("more-controls");
 			return moreControl.GetNbrEpiSeason();
 		}
 		else
