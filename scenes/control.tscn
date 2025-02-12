@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cmc1me0lxbihi"]
+[gd_scene load_steps=8 format=3 uid="uid://cmc1me0lxbihi"]
 
 [ext_resource type="Script" path="res://scripts/MainControl.cs" id="1_k1ok3"]
 [ext_resource type="Theme" uid="uid://5t1dp5n81crm" path="res://theme/Default_theme.tres" id="2_52f5v"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bgcetwqqh6p3v" path="res://scenes/add_single.tscn" id="3_hb730"]
 [ext_resource type="PackedScene" uid="uid://c3kmxkplanfcv" path="res://scenes/filter_bar.tscn" id="3_mgnbk"]
 [ext_resource type="PackedScene" uid="uid://d1ea6m645n8uw" path="res://scenes/settings_view.tscn" id="6_675wr"]
+[ext_resource type="PackedScene" uid="uid://dh3vy6oxfe7kd" path="res://scenes/info_season.tscn" id="7_dsg8u"]
 
 [node name="MainControl" type="Control"]
 layout_mode = 3
@@ -101,10 +102,61 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
 
 [node name="SettingsView" parent="MSettings" instance=ExtResource("6_675wr")]
 layout_mode = 2
 
+[node name="MEditSeason" type="MarginContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="SCEdit" type="ScrollContainer" parent="MEditSeason"]
+layout_mode = 2
+
+[node name="VBoxEdit" type="VBoxContainer" parent="MEditSeason/SCEdit"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="InfoSeason" parent="MEditSeason/SCEdit/VBoxEdit" instance=ExtResource("7_dsg8u")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxButton" type="HBoxContainer" parent="MEditSeason/SCEdit/VBoxEdit"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 10
+
+[node name="BtnCancel" type="Button" parent="MEditSeason/SCEdit/VBoxEdit/HBoxButton"]
+custom_minimum_size = Vector2(50, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "Cancel"
+
+[node name="BtnSave" type="Button" parent="MEditSeason/SCEdit/VBoxEdit/HBoxButton"]
+custom_minimum_size = Vector2(50, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "Save"
+
 [connection signal="resized" from="." to="." method="_on_resized"]
 [connection signal="pressed" from="MMainContain/VContain/HBoxContainer/AddNewBtn" to="." method="_on_add_new_btn_pressed"]
 [connection signal="pressed" from="MMainContain/VContain/HBoxContainer/BtnSettings" to="." method="_on_btn_settings_pressed"]
+[connection signal="pressed" from="MEditSeason/SCEdit/VBoxEdit/HBoxButton/BtnCancel" to="." method="_on_btn_cancel_pressed"]
+[connection signal="pressed" from="MEditSeason/SCEdit/VBoxEdit/HBoxButton/BtnSave" to="." method="_on_btn_save_pressed"]

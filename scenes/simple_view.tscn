@@ -281,6 +281,19 @@ popup/item_1/id = 1
 popup/item_2/text = "Movies"
 popup/item_2/id = 2
 
+[node name="HBCSeason" type="HBoxContainer" parent="MContain/VContain/VBCMoreOptions"]
+layout_mode = 2
+theme = ExtResource("9_iuic1")
+
+[node name="Label" type="Label" parent="MContain/VContain/VBCMoreOptions/HBCSeason"]
+layout_mode = 2
+text = "Seasons : "
+
+[node name="BtnEdit" type="Button" parent="MContain/VContain/VBCMoreOptions/HBCSeason"]
+layout_mode = 2
+disabled = true
+text = "Edit"
+
 [node name="HBCBottom" type="HBoxContainer" parent="MContain/VContain/VBCMoreOptions"]
 layout_mode = 2
 size_flags_vertical = 10
@@ -301,7 +314,6 @@ custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 10
 theme_override_constants/margin_left = 50
-theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 50
 theme_override_constants/margin_bottom = 10
 
@@ -351,6 +363,7 @@ text = "Save"
 [connection signal="pressed" from="MContain/VContain/HContain/HBtnContain/AddEpBtn" to="." method="_on_add_ep_btn_pressed"]
 [connection signal="pressed" from="MContain/VContain/HContain/HBtnContain/AddSeasonBtn" to="." method="_on_add_season_btn_pressed"]
 [connection signal="pressed" from="MContain/VContain/HContain/HBtnContain/MoreInfoBtn" to="." method="_on_more_info_btn_pressed"]
+[connection signal="pressed" from="MContain/VContain/VBCMoreOptions/HBCSeason/BtnEdit" to="." method="_on_btn_edit_pressed"]
 [connection signal="pressed" from="MContain/VContain/VBCMoreOptions/HBCBottom/HBCBottomInner/MCBtn/HBCBtn/BtnDelete" to="." method="_on_btn_delete_pressed"]
 [connection signal="pressed" from="MContain/VContain/VBCMoreOptions/HBCBottom/HBCBottomInner/MCBtn/HBCBtn/BtnCancel" to="." method="_on_btn_cancel_pressed"]
 [connection signal="pressed" from="MContain/VContain/VBCMoreOptions/HBCBottom/HBCBottomInner/MCBtn/HBCBtn/BtnConfirm" to="." method="_on_btn_confirm_pressed"]

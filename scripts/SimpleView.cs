@@ -17,6 +17,8 @@ public partial class SimpleView : Control
 	public delegate void OnBtnDeleteConfirmBtnClickedEventHandler(string id);
 	[Signal]
 	public delegate void OnBtnSaveBtnClickedEventHandler(string id);
+	[Signal]
+	public delegate void OnBtnEditClickedEventHandler(string id);
 	
 	private MarginContainer mContainer;
 	private HBoxContainer hContainer;
@@ -38,6 +40,7 @@ public partial class SimpleView : Control
 	private Button btnSave;
 	private Button btnSaveCancel;
 	private Button btnOpen;
+	private Button btnEdit;
 	
 	private bool validNbr = true;
 	private int nbrToAdd = 1;
@@ -70,6 +73,8 @@ public partial class SimpleView : Control
 		btnSave = vBCMoreOptions.GetNode<Button>("HBCBottom/HBCBottomInner/MCBtn/HBCBtn/BtnSave");
 		btnSaveCancel = vBCMoreOptions.GetNode<Button>("HBCBottom/HBCBottomInner/MCBtn/HBCBtn/BtnSaveCancel");
 		lblSeasonEpi = vBCMoreOptions.GetNode<Label>("HBCBottom/HBCBottomInner/LblSeasonEpi");
+		btnEdit = vBCMoreOptions.GetNode<Button>("HBCSeason/BtnEdit");
+
 		btnOpen = hContainer.GetNode<Button>("OpenBtn");
 	}
 
@@ -218,6 +223,7 @@ public partial class SimpleView : Control
 		lEditLink.Editable = toChange;
 		oBtnStatus.Disabled = !toChange;
 		oBtnType.Disabled = !toChange;
+		btnEdit.Disabled = !toChange;
 	}
 
 	// if the value is not a number, change the box red
@@ -266,6 +272,7 @@ public partial class SimpleView : Control
 	{
 		Button button = hBtnContainer.GetNode<Button>("MoreInfoBtn");
 		ChangeEditable(false);
+		SetVisibility(btnModify: true, btnDelete: false, btnSave: false, btnSaveCancel: false);
 		LoadInfoIntoMoreOption();
 
 		if (vBCMoreOptions.Visible)
@@ -286,53 +293,55 @@ public partial class SimpleView : Control
 
 	private void _on_btn_delete_pressed()
 	{
-		btnDelete.Visible = false;
-		btnCancel.Visible = true;
-		btnConfirm.Visible = true;
+	    SetVisibility(btnDelete: false, btnCancel: true, btnConfirm: true);
 	}
 
 	private void _on_btn_confirm_pressed()
 	{
-		btnDelete.Visible = false;
-		btnCancel.Visible = false;
-		btnConfirm.Visible = false;
-		EmitSignal(SignalName.OnBtnDeleteConfirmBtnClicked, serial.Id.ToString());
+	    SetVisibility(false, false, false);
+	    EmitSignal(SignalName.OnBtnDeleteConfirmBtnClicked, serial.Id.ToString());
 	}
 
 	private void _on_btn_cancel_pressed()
 	{
-		btnDelete.Visible = false;
-		btnCancel.Visible = false;
-		btnConfirm.Visible = false;
+	    SetVisibility(false, false, false);
 	}
 
 	private void _on_btn_modify_pressed()
 	{
-		btnModify.Visible = false;
-		btnDelete.Visible = true;
-		btnSave.Visible = true;
-		btnSaveCancel.Visible = true;
-		ChangeEditable(true);
+	    SetVisibility(btnModify: false, btnDelete: true, btnSave: true, btnSaveCancel: true);
+	    ChangeEditable(true);
 	}
 
 	private void _on_btn_save_cancel_pressed()
 	{
-		btnModify.Visible = true;
-		btnDelete.Visible = false;
-		btnSaveCancel.Visible = false;
-		ChangeEditable(false);
-		LoadInfoIntoMoreOption();
-		btnSave.Visible = false;
+	    SetVisibility(btnModify: true, btnDelete: false, btnSave: false, btnSaveCancel: false);
+	    ChangeEditable(false);
+	    LoadInfoIntoMoreOption();
 	}
 
 	private void _on_btn_save_pressed()
 	{
-		btnModify.Visible = true;
-		btnDelete.Visible = false;
-		btnSaveCancel.Visible = false;
-		btnSave.Visible = false;
-		SaveModifiedSerial();
-		ChangeEditable(false);
-		EmitSignal(SignalName.OnBtnSaveBtnClicked, serial.Id.ToString());
+	    SetVisibility(btnModify: true, btnDelete: false, btnSave: false, btnSaveCancel: false);
+	    SaveModifiedSerial();
+	    ChangeEditable(false);
+	    EmitSignal(SignalName.OnBtnSaveBtnClicked, serial.Id.ToString());
 	}
+
+	private void SetVisibility(bool btnDelete = false, bool btnCancel = false, bool btnConfirm = false, 
+	                           bool btnModify = true, bool btnSave = false, bool btnSaveCancel = false)
+	{
+	    this.btnDelete.Visible = btnDelete;
+	    this.btnCancel.Visible = btnCancel;
+	    this.btnConfirm.Visible = btnConfirm;
+	    this.btnModify.Visible = btnModify;
+	    this.btnSave.Visible = btnSave;
+	    this.btnSaveCancel.Visible = btnSaveCancel;
+	}
+
+	private void _on_btn_edit_pressed()
+	{
+		EmitSignal(SignalName.OnBtnEditClicked, serial.Id.ToString());
+	}
+
 }

@@ -8,6 +8,7 @@ public partial class MainControl : Control
 	MarginContainer mainContainer;
 	MarginContainer addContainer;
 	MarginContainer settingsContainer;
+	MarginContainer editSeasonContainer;
 	MarginContainer[] containerList;
 	ScrollContainer scrollContainer;
 	AddSingle addSingle;
@@ -18,6 +19,8 @@ public partial class MainControl : Control
 	SettingsView settingsView;
 
 	SimpleView[] simpleViews = Array.Empty<SimpleView>();
+	
+	private string latestModifiedId;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -26,6 +29,7 @@ public partial class MainControl : Control
 		mainContainer = GetNode<MarginContainer>("MMainContain");
 		addContainer = GetNode<MarginContainer>("MAddContain");
 		settingsContainer = GetNode<MarginContainer>("MSettings");
+		editSeasonContainer = GetNode<MarginContainer>("MEditSeason");
 		addSingle = addContainer.GetNode<AddSingle>("AddSingle");
 		vContain = mainContainer.GetNode<VBoxContainer>("VContain");
 		scrollContainer = vContain.GetNode<ScrollContainer>("ScrollContainer");
@@ -35,7 +39,7 @@ public partial class MainControl : Control
 		settingsView = GetNode<SettingsView>("MSettings/SettingsView");
 		
 		// Small list of container
-		containerList = new MarginContainer[]{mainContainer, addContainer, settingsContainer};
+		containerList = new MarginContainer[]{mainContainer, addContainer, settingsContainer, editSeasonContainer};
 
 		// Set settings in the backend
 		backend.SetSettings(settingsView.GetSettings());
@@ -132,6 +136,7 @@ public partial class MainControl : Control
 				newSimpleView.Connect("OnMoreInfoBtnClicked", new Callable(this, MethodName.OnMoreInfoBtnClickedSignalReceived));
 				newSimpleView.Connect("OnBtnSaveBtnClicked", new Callable(this, MethodName.OnBtnSaveBtnClickedSignalReceived));
 				newSimpleView.Connect("OnBtnDeleteConfirmBtnClicked", new Callable(this, MethodName.OnBtnDeleteConfirmBtnClickedSignalReceived));
+				newSimpleView.Connect("OnBtnEditClicked", new Callable(this, MethodName.OnBtnEditClickedSignalReceived));
 
 				newSimpleView.LoadDataIntoView(serial);
 				vContainSimpleView.AddChild(newSimpleView);
@@ -253,5 +258,41 @@ public partial class MainControl : Control
 			backend.DeleteSerial(serial.Id);
 			simpleView.Destroy();
 		}
+	}
+
+	private void OnBtnEditClickedSignalReceived(string id)
+	{
+		latestModifiedId = id;
+		SimpleView simpleView = simpleViews.FirstOrDefault(view => view.GetSerial().Id == Guid.Parse(id));
+		if (simpleView != null)
+		{
+			Serial serial = simpleView.GetSerial();
+			InfoSeason editScreen = editSeasonContainer.GetNode<InfoSeason>("SCEdit/VBoxEdit/InfoSeason");
+			editScreen._Ready();
+			editScreen.Setup(serial);
+			ChangeScreen(3);
+		}
+	}
+
+	private void _on_btn_cancel_pressed()
+	{
+		latestModifiedId = "";
+		ChangeScreen(0);
+	}
+
+	private void _on_btn_save_pressed()
+	{
+		InfoSeason editScreen = editSeasonContainer.GetNode<InfoSeason>("SCEdit/VBoxEdit/InfoSeason");
+		SimpleView simpleView = simpleViews.FirstOrDefault(view => view.GetSerial().Id == Guid.Parse(latestModifiedId));
+		if (simpleView != null)
+		{
+			Serial serial = simpleView.GetSerial();
+			serial.EpisodeSeasons = editScreen.GetNbrEpiSeason();
+			simpleView.LoadDataIntoView(serial);
+			backend.UpdateSerials(ButtonViewActions.UpdateSerial, serial.Id);
+			simpleView.LoadDataIntoView(serial);
+		}
+		latestModifiedId = "";
+		ChangeScreen(0);
 	}
 }

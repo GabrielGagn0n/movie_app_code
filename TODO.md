@@ -10,6 +10,7 @@
 - Delete series with button <br/>
 - ~~First opening -> ask where to save files~~ Instead i'm saving everything to .../appdata/roaming/movie_app/SavedData
 - Save Filter and maybe other things after closing
+- Edit nbr season and epi
 
 ### Bugfixed
 1. After using filter labels doesnt update
@@ -18,7 +19,6 @@
 ## TODO
 
 - Depricated check box
-- Edit nbr season and epi
 - Sort by in filter (date, status, type, alphabetic)
 - Better UI
 - Readme

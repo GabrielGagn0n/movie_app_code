@@ -12,11 +12,23 @@ public partial class InfoSeason : Control
 	public override void _Ready()
 	{
 		vBoxInfoSeasons = GetNode<VBoxContainer>("MCont/VBoxCont/SCont/VBCInfoSeason");
-		infoSeasonButtonsTemplate = vBoxInfoSeasons.GetNode<InfoSeasonButtons>("InfoSeasonButtons");
+		infoSeasonButtonsTemplate = vBoxInfoSeasons.GetNode<InfoSeasonButtons>("InfoSeasonButtonsTemplate");
 		titleLEdit = GetNode<LineEdit>("MCont/VBoxCont/HBCTitle/LEditNbrSeason");
 
 		AddNewSeason(1, 1);
-	}
+	}	
+
+    internal void Setup(Serial serial)
+    {
+	    infoSeasonButtonsList = Array.Empty<InfoSeasonButtons>();
+        RemoveAllSeason();
+		int[] seasons = serial.EpisodeSeasons;
+		
+		for (int i = 0; i <= seasons.Length - 1; i++)
+		{
+			AddNewSeason(i + 1, seasons[i]);
+		}
+    }
 
 	public int[] GetNbrEpiSeason()
 	{
@@ -39,35 +51,50 @@ public partial class InfoSeason : Control
 		infoSeasonButtonsList = infoSeasonButtonsList.Append(newInfo).ToArray();
 		vBoxInfoSeasons.AddChild(newInfo);
 		newInfo.Visible = true;
+		
+		titleLEdit.Text = infoSeasonButtonsList.Length.ToString();
 	}
 
 	private void RemoveLastSeason()
 	{
     	if (infoSeasonButtonsList.Length > 1)
     	{
-    	    string lastSeasonName = infoSeasonButtonsList[^1].GetSeason() + "infoSeason";
+    	    InfoSeasonButtons lastButton = infoSeasonButtonsList[^1];
 
     	    Node nodeToRemove = vBoxInfoSeasons.GetChildren()
-    	        .FirstOrDefault(node => node.Name == lastSeasonName);
+            	.FirstOrDefault(node => node.Name == lastButton.GetSeason() + "infoSeason");
 
-    	    if (nodeToRemove != null)
-    	    {
-    	        nodeToRemove.QueueFree();
-    	    }
+			vBoxInfoSeasons.RemoveChild(nodeToRemove);
+    	    nodeToRemove?.QueueFree();
     	    infoSeasonButtonsList = infoSeasonButtonsList.Take(infoSeasonButtonsList.Length - 1).ToArray();
     	}
+		
+		titleLEdit.Text = infoSeasonButtonsList.Length.ToString();
 	}
+
+	private void RemoveAllSeason()
+	{
+	    foreach (Node node in vBoxInfoSeasons.GetChildren().ToList()) 
+	    {
+			if (node.Name != "InfoSeasonButtonsTemplate")
+			{
+	        	node.QueueFree();
+				vBoxInfoSeasons.RemoveChild(node);
+			}
+	    }
+
+	    infoSeasonButtonsList = Array.Empty<InfoSeasonButtons>();
+	}
+
 
 	private void _on_btn_add_pressed()
 	{
 		AddNewSeason(infoSeasonButtonsList.Length + 1, 1);
-		titleLEdit.Text = infoSeasonButtonsList.Length.ToString();
 	}
 
 	private void _on_btn_remove_pressed()
 	{
 		RemoveLastSeason();
-		titleLEdit.Text = infoSeasonButtonsList.Length.ToString();
 	}
 }
 
