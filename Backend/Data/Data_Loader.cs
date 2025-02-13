@@ -4,6 +4,7 @@ using System.IO;
 using System.Text.Json;
 using System.Collections.Generic;
 using Godot;
+using System.Text.RegularExpressions;
 
 class Data_Loader
 {
@@ -48,10 +49,16 @@ class Data_Loader
         {
             var serialFromFile = JsonSerializer.Deserialize<List<Serial>>(File.ReadAllText(file));
 
-            if (serialFromFile != null && !string.IsNullOrEmpty(filter.NameFilter))
+            if (serialFromFile != null && !string.IsNullOrEmpty(filter.NameFilter) && filter.SearchOption == "contain")
             {
                 toReturn.AddRange(serialFromFile.Where(x => statuses.Contains(x.Status) && 
                     (x.Alias.ToLower().Contains(filter.NameFilter.ToLower()) || x.Name.ToLower().Contains(filter.NameFilter.ToLower()))));
+            }
+            else if (serialFromFile != null && !string.IsNullOrEmpty(filter.NameFilter) && filter.SearchOption == "strict")
+            {
+                var regex = new Regex($"^{Regex.Escape(filter.NameFilter)}", RegexOptions.IgnoreCase);
+                toReturn.AddRange(serialFromFile.Where(x => statuses.Contains(x.Status) && 
+                    (regex.IsMatch(x.Alias) || regex.IsMatch(x.Name))));
             }
             else if (serialFromFile != null)
             {

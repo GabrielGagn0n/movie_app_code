@@ -15,7 +15,10 @@ public partial class FilterBar : Control
 	VBoxContainer vBoxContainer;
 	HBoxContainer hBoxContainer;
 	HBoxContainer hBoxMoreFilter;
+	HBoxContainer searchFilter;
 	LineEdit lEditName;
+	CheckBox cBoxStrict;
+	CheckBox cBoxContain;
 	Button filterBtn;
 	ItemList IListType;
 	ItemList IListDate;
@@ -30,10 +33,13 @@ public partial class FilterBar : Control
 		hBoxContainer = vBoxContainer.GetNode<HBoxContainer>("HBoxC");
 		hBoxMoreFilter = vBoxContainer.GetNode<HBoxContainer>("HBoxMoreFilter");
 		lEditName = hBoxContainer.GetNode<LineEdit>("LEditName");
+		cBoxStrict = hBoxContainer.GetNode<CheckBox>("HBCSearch/CBoxStrict");
+		cBoxContain = hBoxContainer.GetNode<CheckBox>("HBCSearch/CBoxContain");
 		filterBtn = hBoxContainer.GetNode<Button>("FilterBtn");
 		IListType = hBoxMoreFilter.GetNode<ItemList>("HBoxType/TypeList");
 		IListDate = hBoxMoreFilter.GetNode<ItemList>("HBoxDate/DateList");
 		IListStatus = hBoxMoreFilter.GetNode<ItemList>("HBoxStatus/StatusList");
+		searchFilter = hBoxContainer.GetNode<HBoxContainer>("HBCSearch");
 		SetOptionsType();
 		SetOptionsStatus();
 	}
@@ -49,9 +55,25 @@ public partial class FilterBar : Control
 	
     internal void SetFilter(Filter filter)
     {
+		this.filter = filter;
         SetOptionsStatus(filter.StatusFilter);
 		SetOptionsType(filter.SerialTypeFilter);
+		SetOptionsSearchOption(filter.SearchOption);
     }
+
+	private void SetOptionsSearchOption(string searchOption)
+	{
+		if (searchOption == null || searchOption == "contain")
+		{
+			cBoxContain.ButtonPressed = true;
+			cBoxStrict.ButtonPressed = false;
+		}
+		else
+		{
+			cBoxContain.ButtonPressed = false;
+			cBoxStrict.ButtonPressed = true;
+		}
+	}
 
 	private void SetOptionsStatus(Status[] existingFilter = null)
 	{
@@ -105,6 +127,7 @@ public partial class FilterBar : Control
 			SetSize(new Vector2(1550, 150));
 			MoreFilter = true;
 			filterBtn.Text = "Close filters";
+			searchFilter.Visible = true;
 		}
 		else
 		{
@@ -112,7 +135,7 @@ public partial class FilterBar : Control
 			SetSize(new Vector2(1550, 40));
 			MoreFilter = false;
 			filterBtn.Text = "Open filters";
-
+			searchFilter.Visible = false;
 		}
 		hBoxMoreFilter.Visible = MoreFilter;
 	}
@@ -181,7 +204,31 @@ public partial class FilterBar : Control
 		filter.StatusFilter = Array.Empty<Status>();
 		filter.SerialTypeFilter = Array.Empty<SerialType>();
 		filter.NameFilter = null;
+		cBoxContain.ButtonPressed = true;
+		cBoxStrict.ButtonPressed = false;
 
+		EmitSignal(SignalName.OnStatusChanged);
+	}
+
+	private void _on_c_box_contain_pressed()
+	{
+		if (cBoxContain.ButtonPressed)
+			filter.SearchOption = "contain";
+		else
+			filter.SearchOption = "strict";
+			
+		cBoxStrict.ButtonPressed = !cBoxContain.ButtonPressed;
+		EmitSignal(SignalName.OnStatusChanged);
+	}
+
+	private void _on_c_box_strict_pressed()
+	{
+		if (cBoxStrict.ButtonPressed)
+			filter.SearchOption = "strict";
+		else
+			filter.SearchOption = "contain";
+
+		cBoxContain.ButtonPressed = !cBoxStrict.ButtonPressed;
 		EmitSignal(SignalName.OnStatusChanged);
 	}
 

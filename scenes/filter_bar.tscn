@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://c3kmxkplanfcv"]
+[gd_scene load_steps=6 format=3 uid="uid://c3kmxkplanfcv"]
 
 [ext_resource type="Theme" uid="uid://5t1dp5n81crm" path="res://theme/Default_theme.tres" id="1_ij820"]
 [ext_resource type="Texture2D" uid="uid://caf5l8m77jfjy" path="res://ressource/simpleview-text.png" id="2_0jgro"]
 [ext_resource type="Script" path="res://scripts/FilterBar.cs" id="2_hy4ul"]
+[ext_resource type="Theme" uid="uid://22an43i208pm" path="res://theme/Default_theme_light.tres" id="4_ph21m"]
+[ext_resource type="Theme" uid="uid://dbpkxurxg7eyi" path="res://theme/Default_theme_hover_button.tres" id="5_l0vlj"]
 
 [node name="FilterBar" type="Control"]
 z_index = 1
@@ -13,7 +15,7 @@ anchor_bottom = 1.0
 offset_bottom = -860.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_ij820")
+theme = ExtResource("4_ph21m")
 script = ExtResource("2_hy4ul")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
@@ -48,6 +50,7 @@ layout_mode = 2
 [node name="HBoxC" type="HBoxContainer" parent="MCon/VBoxC"]
 layout_mode = 2
 size_flags_vertical = 4
+theme = ExtResource("4_ph21m")
 
 [node name="LEditName" type="LineEdit" parent="MCon/VBoxC/HBoxC"]
 custom_minimum_size = Vector2(300, 30)
@@ -55,6 +58,26 @@ layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
 placeholder_text = "Search for name"
+
+[node name="HBCSearch" type="HBoxContainer" parent="MCon/VBoxC/HBoxC"]
+visible = false
+layout_mode = 2
+theme = ExtResource("5_l0vlj")
+
+[node name="CBoxStrict" type="CheckBox" parent="MCon/VBoxC/HBoxC/HBCSearch"]
+layout_mode = 2
+size_flags_horizontal = 2
+tooltip_text = "Results will start with the entered text."
+theme = ExtResource("5_l0vlj")
+text = "Strict"
+
+[node name="CBoxContain" type="CheckBox" parent="MCon/VBoxC/HBoxC/HBCSearch"]
+layout_mode = 2
+size_flags_horizontal = 0
+tooltip_text = "Seach results will include any matches containing the text."
+theme = ExtResource("5_l0vlj")
+button_pressed = true
+text = "Contain"
 
 [node name="OBtnType" type="OptionButton" parent="MCon/VBoxC/HBoxC"]
 visible = false
@@ -99,24 +122,29 @@ text = "Open filters"
 [node name="HBoxMoreFilter" type="HBoxContainer" parent="MCon/VBoxC"]
 visible = false
 layout_mode = 2
+theme = ExtResource("4_ph21m")
 
 [node name="HBoxType" type="HBoxContainer" parent="MCon/VBoxC/HBoxMoreFilter"]
 layout_mode = 2
 size_flags_horizontal = 6
+theme = ExtResource("4_ph21m")
 
 [node name="Label" type="Label" parent="MCon/VBoxC/HBoxMoreFilter/HBoxType"]
 layout_mode = 2
+theme = ExtResource("4_ph21m")
 text = "Filter by type : "
 
 [node name="TypeList" type="ItemList" parent="MCon/VBoxC/HBoxMoreFilter/HBoxType"]
 custom_minimum_size = Vector2(150, 100)
 layout_mode = 2
 size_flags_horizontal = 6
+theme = ExtResource("5_l0vlj")
 select_mode = 1
 
 [node name="HBoxStatus" type="HBoxContainer" parent="MCon/VBoxC/HBoxMoreFilter"]
 layout_mode = 2
 size_flags_horizontal = 6
+theme = ExtResource("4_ph21m")
 
 [node name="Label" type="Label" parent="MCon/VBoxC/HBoxMoreFilter/HBoxStatus"]
 layout_mode = 2
@@ -126,11 +154,13 @@ text = "Filter by status : "
 custom_minimum_size = Vector2(150, 100)
 layout_mode = 2
 size_flags_horizontal = 6
+theme = ExtResource("5_l0vlj")
 select_mode = 1
 
 [node name="HBoxDate" type="HBoxContainer" parent="MCon/VBoxC/HBoxMoreFilter"]
 layout_mode = 2
 size_flags_horizontal = 6
+theme = ExtResource("4_ph21m")
 
 [node name="Label" type="Label" parent="MCon/VBoxC/HBoxMoreFilter/HBoxDate"]
 layout_mode = 2
@@ -140,6 +170,7 @@ text = "Sort by date : "
 custom_minimum_size = Vector2(200, 100)
 layout_mode = 2
 size_flags_horizontal = 6
+theme = ExtResource("5_l0vlj")
 item_count = 2
 item_0/text = "Modified last ↑"
 item_1/text = "Modified last ↓"
@@ -152,6 +183,8 @@ text = "Clear"
 
 [connection signal="text_changed" from="MCon/VBoxC/HBoxC/LEditName" to="." method="_on_l_edit_name_text_submitted"]
 [connection signal="text_submitted" from="MCon/VBoxC/HBoxC/LEditName" to="." method="_on_l_edit_name_text_submitted"]
+[connection signal="pressed" from="MCon/VBoxC/HBoxC/HBCSearch/CBoxStrict" to="." method="_on_c_box_strict_pressed"]
+[connection signal="pressed" from="MCon/VBoxC/HBoxC/HBCSearch/CBoxContain" to="." method="_on_c_box_contain_pressed"]
 [connection signal="item_selected" from="MCon/VBoxC/HBoxC/OBtnType" to="." method="_on_o_btn_type_item_selected"]
 [connection signal="item_selected" from="MCon/VBoxC/HBoxC/OBtnStatus" to="." method="_on_o_btn_status_item_selected"]
 [connection signal="item_selected" from="MCon/VBoxC/HBoxC/OBtnDate" to="." method="_on_o_btn_date_item_selected"]

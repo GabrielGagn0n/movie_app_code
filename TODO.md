@@ -12,6 +12,7 @@
 - Save Filter and maybe other things after closing
 - Edit nbr season and epi
 - Import/Export
+- Search strict or containing part of the string
 
 ### Bugfixed
 1. After using filter labels doesnt update
