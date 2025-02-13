@@ -54,6 +54,7 @@ custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 
 [node name="HBSaveFolder" type="HBoxContainer" parent="MCont/VBCont"]
+visible = false
 layout_mode = 2
 
 [node name="Label" type="Label" parent="MCont/VBCont/HBSaveFolder"]
@@ -146,6 +147,21 @@ layout_mode = 2
 button_pressed = true
 text = "On"
 
+[node name="HSeparator2" type="HSeparator" parent="MCont/VBCont"]
+layout_mode = 2
+theme_override_constants/separation = 60
+
+[node name="HBCImpExp" type="HBoxContainer" parent="MCont/VBCont"]
+layout_mode = 2
+
+[node name="BtnImport" type="Button" parent="MCont/VBCont/HBCImpExp"]
+layout_mode = 2
+text = "Import"
+
+[node name="BtnExport" type="Button" parent="MCont/VBCont/HBCImpExp"]
+layout_mode = 2
+text = "Export"
+
 [node name="HBCanSav" type="HBoxContainer" parent="MCont/VBCont"]
 layout_mode = 2
 size_flags_horizontal = 4
@@ -165,5 +181,7 @@ text = "Save"
 [connection signal="text_changed" from="MCont/VBCont/HBDelayTimer/LEditAutoSwitchTimer" to="." method="_on_l_edit_auto_switch_timer_text_submitted"]
 [connection signal="text_submitted" from="MCont/VBCont/HBDelayTimer/LEditAutoSwitchTimer" to="." method="_on_l_edit_auto_switch_timer_text_submitted"]
 [connection signal="pressed" from="MCont/VBCont/HBSaveFilters/CBoxSaveFilters" to="." method="_on_c_box_save_filters_pressed"]
+[connection signal="pressed" from="MCont/VBCont/HBCImpExp/BtnImport" to="." method="_on_btn_import_pressed"]
+[connection signal="pressed" from="MCont/VBCont/HBCImpExp/BtnExport" to="." method="_on_btn_export_pressed"]
 [connection signal="pressed" from="MCont/VBCont/HBCanSav/BtnCancel" to="." method="_on_btn_cancel_pressed"]
 [connection signal="pressed" from="MCont/VBCont/HBCanSav/BtnSave" to="." method="_on_btn_save_pressed"]

@@ -14,18 +14,6 @@ class Data_Saver
         DIRECTORY = directory;
     }
 
-    internal static void SaveAllData(Serial[] serials_list)
-    {
-        foreach (SerialType type in Enum.GetValues(typeof(SerialType)))
-        {
-            Serial[] serialToSave = serials_list.Where(serial => serial.Type == type).ToArray();
-            if (serialToSave.Length > 0)
-            {
-                
-            }
-        }
-    }
-
     internal static void AddData(Serial serial)
     {
         if (!Directory.Exists(DIRECTORY))
@@ -47,7 +35,7 @@ class Data_Saver
         }
         else
         {
-            throw new Exception("The serial already exists.");
+            GD.Print(serial.Name + " already exist");
         }
     }
 

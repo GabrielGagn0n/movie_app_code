@@ -11,6 +11,7 @@
 - ~~First opening -> ask where to save files~~ Instead i'm saving everything to .../appdata/roaming/movie_app/SavedData
 - Save Filter and maybe other things after closing
 - Edit nbr season and epi
+- Import/Export
 
 ### Bugfixed
 1. After using filter labels doesnt update
@@ -18,7 +19,6 @@
 
 ## TODO
 
-- Depricated check box
 - Sort by in filter (date, status, type, alphabetic)
 - Better UI
 - Readme

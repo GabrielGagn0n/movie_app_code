@@ -230,6 +230,7 @@ placeholder_text = "No Link"
 editable = false
 
 [node name="CBoxDepricated" type="CheckBox" parent="MContain/VContain/VBCMoreOptions/HBCLink/HBCLinkInner"]
+visible = false
 layout_mode = 2
 theme = ExtResource("9_iuic1")
 text = "Depricated site"

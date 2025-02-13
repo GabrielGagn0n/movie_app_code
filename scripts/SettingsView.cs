@@ -107,4 +107,35 @@ public partial class SettingsView : Control
 	    }
 	}
 
+	private void _on_btn_export_pressed()
+	{
+		var dialog = new FileDialog();
+		dialog.FileMode = FileDialog.FileModeEnum.OpenDir;
+		dialog.Access = FileDialog.AccessEnum.Filesystem;
+		dialog.UseNativeDialog = true;
+		dialog.Connect("dir_selected", new Callable(this, MethodName.OnDirSelected));
+		AddChild(dialog);
+		dialog.PopupCenteredRatio();
+	}
+
+	private void OnDirSelected(string path)
+	{
+		Data_Exporter.Export(path);
+	}
+
+	private void _on_btn_import_pressed()
+	{
+		var dialog = new FileDialog();
+		dialog.FileMode = FileDialog.FileModeEnum.OpenFile;
+		dialog.Access = FileDialog.AccessEnum.Filesystem;
+		dialog.UseNativeDialog = true;
+		dialog.Connect("file_selected", new Callable(this, MethodName.OnFileSelected));
+		AddChild(dialog);
+		dialog.PopupCenteredRatio();
+	}
+
+	private void OnFileSelected(string path)
+	{
+		Data_Importer.Import(path);
+	}
 }
