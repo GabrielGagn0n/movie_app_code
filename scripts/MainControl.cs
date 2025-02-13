@@ -34,7 +34,7 @@ public partial class MainControl : Control
 		vContain = mainContainer.GetNode<VBoxContainer>("VContain");
 		scrollContainer = vContain.GetNode<ScrollContainer>("ScrollContainer");
 		vContainSimpleView = vContain.GetNode<VBoxContainer>("ScrollContainer/VContainSimpleView");
-		simpleViewTemplate = vContainSimpleView.GetNode<SimpleView>("SimpleView");
+		simpleViewTemplate = vContainSimpleView.GetNode<SimpleView>("SimpleViewTemplate");
 		filterBar = vContain.GetNode<FilterBar>("FilterBar");
 		settingsView = GetNode<SettingsView>("MSettings/SettingsView");
 		
@@ -112,17 +112,30 @@ public partial class MainControl : Control
 		{
 			serials = backend.GetFilteredSerial(backend.GetFilter());
 		}
+		var newSerialName = serials.Select(x => x.Id + "SimpleView").ToHashSet();
+		var nodeToRemove = vContainSimpleView.GetChildren()
+			.OfType<SimpleView>()
+			.Where(x => !x.Name.ToString().Contains("Template") && !newSerialName.Contains(x.Name))
+			.ToList();
 
-		foreach (SimpleView sv in simpleViews)
+		foreach (SimpleView sv in nodeToRemove)
 		{
-			sv.Visible = false;
+			if (IsInstanceValid(sv))
+			{
+				vContainSimpleView.RemoveChild(sv);
+    	    	sv.QueueFree();
+			}
 		}
+		simpleViews = simpleViews
+    		.Where(view => IsInstanceValid(view) && newSerialName.Contains(view.Name))
+    		.ToArray();
 
 		foreach (var serial in serials)
 		{
-			bool exists = simpleViews.Any(view => view.Name == serial.Id + "SimpleView");
-
-			if (!exists)
+			string viewName = serial.Id + "SimpleView";
+    		SimpleView view = simpleViews.FirstOrDefault(v => v.Name == viewName);
+			
+			if (view == null)
 			{
 				SimpleView newSimpleView = (SimpleView)simpleViewTemplate.Duplicate();
 				newSimpleView.Name = serial.Id + "SimpleView";
@@ -145,8 +158,8 @@ public partial class MainControl : Control
 			else
 			{
 				SimpleView toEnable = simpleViews.FirstOrDefault(view => view.Name == serial.Id + "SimpleView");
-				toEnable.LoadDataIntoView(serial);
 				toEnable.Visible = true;
+				toEnable.LoadDataIntoView(serial);
 			}
 		}
 	}

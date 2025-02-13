@@ -58,7 +58,7 @@ custom_minimum_size = Vector2(1550, 750)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="SimpleView" parent="MMainContain/VContain/ScrollContainer/VContainSimpleView" instance=ExtResource("3_3ivpp")]
+[node name="SimpleViewTemplate" parent="MMainContain/VContain/ScrollContainer/VContainSimpleView" instance=ExtResource("3_3ivpp")]
 visible = false
 layout_mode = 2
 
