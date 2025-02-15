@@ -140,7 +140,7 @@ public partial class SimpleView : Control
 			episodePerSeason += nbreEpisode;
 		}
 
-		ChangeSeasonLbl(season, episode);
+		ChangeSeasonLbl(season, episode, serial.Type);
 		ChangeModifiedDateLbl(serial.LatestUpdate);
 	}
 
@@ -161,18 +161,24 @@ public partial class SimpleView : Control
 	}
 	
 
-	private void ChangeSeasonLbl(int season, int episode)
+	private void ChangeSeasonLbl(int season, int episode, SerialType type)
 	{
 	    var seasonLbl = hLblContainer.GetNode<Label>("SeasonC/SeasonLbl");
 	    string text;
 
 	    if (season >= 0 && episode >= 0)
 	    {
-	        text = string.Format("Season {0} - Episode {1}", season, episode);
+			if (type == SerialType.Movie)
+				text = string.Format("Movie {0}", season);
+			else
+	        	text = string.Format("Season {0} - Episode {1}", season, episode);
 	    }
 	    else
 	    {
-	        text = string.Format("Season {0} - Episode {1}", serial.EpisodeSeasons.Length, serial.EpisodeSeasons[^1]) + " (Completed)";
+			if (type == SerialType.Movie)
+				text = string.Format("Movie {0}", season + " (Completed)");
+			else
+	        	text = string.Format("Season {0} - Episode {1}", serial.EpisodeSeasons.Length, serial.EpisodeSeasons[^1]) + " (Completed)";
 	    }
 	    seasonLbl.Text = text;
 	}

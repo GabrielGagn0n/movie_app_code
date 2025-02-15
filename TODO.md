@@ -24,6 +24,7 @@
 - Better UI
 - Readme
 - Icon + rename 
+- Delete saves button
 
 
 ## BUGFIX
