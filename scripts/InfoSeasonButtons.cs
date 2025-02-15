@@ -76,4 +76,22 @@ public partial class InfoSeasonButtons : Control
 		nbrEpisodes -= 10;
 		ChangeLabelNbrEpisode();
 	}
+
+	private void _on_line_edit_text_changed(string newText)
+	{
+		if (!String.IsNullOrEmpty(newText) && int.TryParse(newText, out int result))
+		{
+			nbrEpisodes = result;
+			ChangeLabelNbrEpisode();
+		}
+		else
+		{
+			ChangeLabelNbrEpisode();
+		}
+	}
+
+	private void _on_line_edit_focus_exited()
+	{
+		_on_line_edit_text_changed(LineEditEpisode.Text);
+	}
 }

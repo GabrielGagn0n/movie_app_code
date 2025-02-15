@@ -62,7 +62,6 @@ text = "-"
 [node name="LineEdit" type="LineEdit" parent="MCont/HBoxCont"]
 layout_mode = 2
 text = "1"
-editable = false
 
 [node name="BtnAdd1" type="Button" parent="MCont/HBoxCont"]
 layout_mode = 2
@@ -82,6 +81,8 @@ text = "+++"
 [connection signal="pressed" from="MCont/HBoxCont/BtnRemove10" to="." method="_on_btn_remove_10_pressed"]
 [connection signal="pressed" from="MCont/HBoxCont/BtnRemove5" to="." method="_on_btn_remove_5_pressed"]
 [connection signal="pressed" from="MCont/HBoxCont/BtnRemove1" to="." method="_on_btn_remove_1_pressed"]
+[connection signal="focus_exited" from="MCont/HBoxCont/LineEdit" to="." method="_on_line_edit_focus_exited"]
+[connection signal="text_submitted" from="MCont/HBoxCont/LineEdit" to="." method="_on_line_edit_text_changed"]
 [connection signal="pressed" from="MCont/HBoxCont/BtnAdd1" to="." method="_on_btn_add_1_pressed"]
 [connection signal="pressed" from="MCont/HBoxCont/BtnAdd5" to="." method="_on_btn_add_5_pressed"]
 [connection signal="pressed" from="MCont/HBoxCont/BtnAdd10" to="." method="_on_btn_add_10_pressed"]

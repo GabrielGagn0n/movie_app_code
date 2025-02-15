@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cgbmvsqlrjlj1"]
 
-[ext_resource type="Theme" uid="uid://5t1dp5n81crm" path="res://theme/Default_theme.tres" id="1_4wngo"]
-[ext_resource type="Script" path="res://scripts/AddMoreOptions.cs" id="2_lvw2u"]
+[ext_resource type="Theme" uid="uid://5t1dp5n81crm" path="res://theme/Default_theme.tres" id="1_rmd05"]
+[ext_resource type="Script" path="res://scripts/AddMoreOptions.cs" id="2_fn0le"]
 
 [node name="AddMoreOptions" type="Control"]
 layout_mode = 3
@@ -12,8 +12,8 @@ offset_right = -983.0
 offset_bottom = -699.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_4wngo")
-script = ExtResource("2_lvw2u")
+theme = ExtResource("1_rmd05")
+script = ExtResource("2_fn0le")
 
 [node name="adding-more-options-scrolling-container" type="ScrollContainer" parent="."]
 layout_mode = 1
@@ -43,11 +43,11 @@ editable = false
 [node name="button-container" type="HBoxContainer" parent="adding-more-options-scrolling-container/more-opt-vcontainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-theme = ExtResource("1_4wngo")
+theme = ExtResource("1_rmd05")
 
 [node name="btn-add" type="Button" parent="adding-more-options-scrolling-container/more-opt-vcontainer/button-container"]
 layout_mode = 2
-theme = ExtResource("1_4wngo")
+theme = ExtResource("1_rmd05")
 text = "Add"
 
 [node name="btn-remove" type="Button" parent="adding-more-options-scrolling-container/more-opt-vcontainer/button-container"]
@@ -57,7 +57,7 @@ text = "Remove"
 [node name="info-season" type="HBoxContainer" parent="adding-more-options-scrolling-container/more-opt-vcontainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-theme = ExtResource("1_4wngo")
+theme = ExtResource("1_rmd05")
 
 [node name="NbrSeasonLbl" type="Label" parent="adding-more-options-scrolling-container/more-opt-vcontainer/info-season"]
 layout_mode = 2

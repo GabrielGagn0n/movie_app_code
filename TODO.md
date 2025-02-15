@@ -25,6 +25,7 @@
 - Readme
 - Icon + rename 
 - Delete saves button
+- Add icon or something to indicate what type of seriel in simpleview
 
 
 ## BUGFIX
