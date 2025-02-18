@@ -13,10 +13,12 @@
 - Edit nbr season and epi
 - Import/Export
 - Search strict or containing part of the string
+- Delete saves button
 
 ### Bugfixed
 1. After using filter labels doesnt update
 2. After adding new sometimes it doesnt show (id problem)
+3. After deleting, filter doesnt work (maybe fixed after the update of the load simpleview)
 
 ## TODO
 
@@ -24,10 +26,8 @@
 - Better UI
 - Readme
 - Icon + rename 
-- Delete saves button
 - Add icon or something to indicate what type of seriel in simpleview
 
 
 ## BUGFIX
 
-3. After deleting, filter doesnt work

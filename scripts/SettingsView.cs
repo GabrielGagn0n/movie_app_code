@@ -15,6 +15,8 @@ public partial class SettingsView : Control
 	public delegate void OnBtnSaveSettingsEventHandler();
 	[Signal]
 	public delegate void OnBtnCancelSettingsEventHandler();
+	[Signal]
+	public delegate void CloseAppEventHandler();
 	
 	public override void _Ready()
 	{
@@ -121,6 +123,7 @@ public partial class SettingsView : Control
 	private void OnDirSelected(string path)
 	{
 		Data_Exporter.Export(path);
+		EmitSignal(SignalName.OnBtnSaveSettings);
 	}
 
 	private void _on_btn_import_pressed()
@@ -137,5 +140,48 @@ public partial class SettingsView : Control
 	private void OnFileSelected(string path)
 	{
 		Data_Importer.Import(path);
+		EmitSignal(SignalName.OnBtnSaveSettings);
+	}
+
+	private void _on_btn_delete_pressed()
+	{
+		var label = vBoxContainer.GetNode<Label>("HBCDeleteData/LblDeleteData");
+		var buttonConfirm = vBoxContainer.GetNode<Button>("HBCDeleteData/BtnConfirm");
+		var buttonCancel = vBoxContainer.GetNode<Button>("HBCDeleteData/BtnCancel");
+		var buttonDelete = vBoxContainer.GetNode<Button>("HBCDeleteData/BtnDelete");
+
+		label.Text = "Are you sure? The app will close after...";
+		buttonConfirm.Visible = true;
+		buttonCancel.Visible = true;
+		buttonDelete.Visible = false;
+	}
+
+	private void _on_btn_delete_cancel_pressed()
+	{
+		var label = vBoxContainer.GetNode<Label>("HBCDeleteData/LblDeleteData");
+		var buttonConfirm = vBoxContainer.GetNode<Button>("HBCDeleteData/BtnConfirm");
+		var buttonCancel = vBoxContainer.GetNode<Button>("HBCDeleteData/BtnCancel");
+		var buttonDelete = vBoxContainer.GetNode<Button>("HBCDeleteData/BtnDelete");
+
+		label.Text = "Delete all saved data : ";
+		buttonConfirm.Visible = false;
+		buttonCancel.Visible = false;
+		buttonDelete.Visible = true;
+	}
+
+	private void _on_btn_delete_confirm_pressed()
+	{
+		var label = vBoxContainer.GetNode<Label>("HBCDeleteData/LblDeleteData");
+		var buttonConfirm = vBoxContainer.GetNode<Button>("HBCDeleteData/BtnConfirm");
+		var buttonCancel = vBoxContainer.GetNode<Button>("HBCDeleteData/BtnCancel");
+		var buttonDelete = vBoxContainer.GetNode<Button>("HBCDeleteData/BtnDelete");
+
+		label.Text = "Alright... done";
+		buttonConfirm.Visible = false;
+		buttonCancel.Visible = false;
+		buttonDelete.Visible = true;
+
+		Data_Deleter.DeleteAll();
+		EmitSignal(SignalName.CloseApp);
 	}
 }

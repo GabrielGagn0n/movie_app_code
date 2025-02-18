@@ -55,7 +55,14 @@ public partial class FilterBar : Control
 	
     internal void SetFilter(Filter filter)
     {
-		this.filter = filter;
+		if (filter != null)
+		{
+			this.filter = filter;
+		}
+		else
+		{
+			filter = new();
+		}
         SetOptionsStatus(filter.StatusFilter);
 		SetOptionsType(filter.SerialTypeFilter);
 		SetOptionsSearchOption(filter.SearchOption);
@@ -157,6 +164,7 @@ public partial class FilterBar : Control
 	    }
 
 	    filter.SerialTypeFilter = toChange.ToArray();
+		SetOptionsType(filter.SerialTypeFilter);
 	    EmitSignal(SignalName.OnStatusChanged);
 	}
 
@@ -177,6 +185,7 @@ public partial class FilterBar : Control
 	    }
 	
 	    filter.StatusFilter = toChange.ToArray();
+		SetOptionsStatus(filter.StatusFilter);
 	    EmitSignal(SignalName.OnStatusChanged);
 	}
 

@@ -113,7 +113,7 @@ class Data_Saver
     {
         if (!Directory.Exists(DIRECTORY))
         {
-            Directory.CreateDirectory(DIRECTORY); // Ensure the directory exists
+            Directory.CreateDirectory(DIRECTORY); 
         }
 
         try
@@ -131,7 +131,7 @@ class Data_Saver
     {
         if (!Directory.Exists(DIRECTORY))
         {
-            Directory.CreateDirectory(DIRECTORY); // Ensure the directory exists
+            Directory.CreateDirectory(DIRECTORY);
         }
 
         try

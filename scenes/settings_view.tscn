@@ -66,7 +66,20 @@ layout_mode = 2
 text = "WIP"
 
 [node name="HBoxEmptySpace2" type="HBoxContainer" parent="MCont/VBCont"]
+visible = false
 custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MCont/VBCont"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MCont/VBCont/HBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "General settings"
+
+[node name="HBoxEmptySpace5" type="HBoxContainer" parent="MCont/VBCont"]
+custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
 
 [node name="HBDelayConfirmation" type="HBoxContainer" parent="MCont/VBCont"]
@@ -151,16 +164,72 @@ text = "On"
 layout_mode = 2
 theme_override_constants/separation = 60
 
+[node name="HBoxContainer3" type="HBoxContainer" parent="MCont/VBCont"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MCont/VBCont/HBoxContainer3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Saved Data settings"
+
+[node name="HBoxEmptySpace4" type="HBoxContainer" parent="MCont/VBCont"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+
 [node name="HBCImpExp" type="HBoxContainer" parent="MCont/VBCont"]
 layout_mode = 2
 
-[node name="BtnImport" type="Button" parent="MCont/VBCont/HBCImpExp"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MCont/VBCont/HBCImpExp"]
 layout_mode = 2
-text = "Import"
 
-[node name="BtnExport" type="Button" parent="MCont/VBCont/HBCImpExp"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MCont/VBCont/HBCImpExp/VBoxContainer"]
 layout_mode = 2
-text = "Export"
+
+[node name="Label" type="Label" parent="MCont/VBCont/HBCImpExp/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Select file to import : "
+
+[node name="BtnImport" type="Button" parent="MCont/VBCont/HBCImpExp/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Browse..."
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MCont/VBCont/HBCImpExp/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MCont/VBCont/HBCImpExp/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Select folder to export to : "
+
+[node name="BtnExport" type="Button" parent="MCont/VBCont/HBCImpExp/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Browse..."
+
+[node name="HBoxEmptySpace3" type="HBoxContainer" parent="MCont/VBCont"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="HBCDeleteData" type="HBoxContainer" parent="MCont/VBCont"]
+layout_mode = 2
+
+[node name="LblDeleteData" type="Label" parent="MCont/VBCont/HBCDeleteData"]
+layout_mode = 2
+text = "Delete all saved data : "
+
+[node name="BtnDelete" type="Button" parent="MCont/VBCont/HBCDeleteData"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 0, 0, 1)
+text = "Delete"
+
+[node name="BtnCancel" type="Button" parent="MCont/VBCont/HBCDeleteData"]
+visible = false
+layout_mode = 2
+text = "Cancel"
+
+[node name="BtnConfirm" type="Button" parent="MCont/VBCont/HBCDeleteData"]
+visible = false
+layout_mode = 2
+text = "Confirm"
 
 [node name="HBCanSav" type="HBoxContainer" parent="MCont/VBCont"]
 layout_mode = 2
@@ -181,7 +250,10 @@ text = "Save"
 [connection signal="text_changed" from="MCont/VBCont/HBDelayTimer/LEditAutoSwitchTimer" to="." method="_on_l_edit_auto_switch_timer_text_submitted"]
 [connection signal="text_submitted" from="MCont/VBCont/HBDelayTimer/LEditAutoSwitchTimer" to="." method="_on_l_edit_auto_switch_timer_text_submitted"]
 [connection signal="pressed" from="MCont/VBCont/HBSaveFilters/CBoxSaveFilters" to="." method="_on_c_box_save_filters_pressed"]
-[connection signal="pressed" from="MCont/VBCont/HBCImpExp/BtnImport" to="." method="_on_btn_import_pressed"]
-[connection signal="pressed" from="MCont/VBCont/HBCImpExp/BtnExport" to="." method="_on_btn_export_pressed"]
+[connection signal="pressed" from="MCont/VBCont/HBCImpExp/VBoxContainer/HBoxContainer/BtnImport" to="." method="_on_btn_import_pressed"]
+[connection signal="pressed" from="MCont/VBCont/HBCImpExp/VBoxContainer/HBoxContainer2/BtnExport" to="." method="_on_btn_export_pressed"]
+[connection signal="pressed" from="MCont/VBCont/HBCDeleteData/BtnDelete" to="." method="_on_btn_delete_pressed"]
+[connection signal="pressed" from="MCont/VBCont/HBCDeleteData/BtnCancel" to="." method="_on_btn_delete_cancel_pressed"]
+[connection signal="pressed" from="MCont/VBCont/HBCDeleteData/BtnConfirm" to="." method="_on_btn_delete_confirm_pressed"]
 [connection signal="pressed" from="MCont/VBCont/HBCanSav/BtnCancel" to="." method="_on_btn_cancel_pressed"]
 [connection signal="pressed" from="MCont/VBCont/HBCanSav/BtnSave" to="." method="_on_btn_save_pressed"]

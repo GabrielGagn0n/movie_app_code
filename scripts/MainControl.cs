@@ -43,7 +43,10 @@ public partial class MainControl : Control
 
 		// Set settings in the backend
 		backend.SetSettings(settingsView.GetSettings());
-		// Load the different simpleView
+		if (backend.GetSettings().saveFilters)
+		{
+			filterBar.SetFilter(backend.GetFilter());
+		}
 		LoadSimpleView();
 
 		addSingle.Connect("OnBtnAddPressed", new Callable(this, MethodName.OnBtnAddPressedSignalReceived));
@@ -51,7 +54,8 @@ public partial class MainControl : Control
 		filterBar.Connect("OnStatusChanged", new Callable(this, MethodName.OnStatusChangedSignalReceived));
 		filterBar.Connect("OnMoreOptBtnClicked", new Callable(this, MethodName.OnMoreOptBtnClickedSignalReceived));
 		settingsView.Connect("OnBtnSaveSettings", new Callable(this, MethodName.OnBtnSaveSettingsSignalReceived));
-		settingsView.Connect("OnBtnCancelSettings", new Callable(this, MethodName.OnBtnCancelSettingsSignalReceived));		
+		settingsView.Connect("OnBtnCancelSettings", new Callable(this, MethodName.OnBtnCancelSettingsSignalReceived));
+		settingsView.Connect("CloseApp", new Callable(this, MethodName.CloseAppSignalReceived));		
 	}
 
 	public void _on_add_new_btn_pressed()
@@ -99,10 +103,6 @@ public partial class MainControl : Control
 	private void LoadSimpleView()
 	{
 		var serials = Array.Empty<Serial>();
-		if (backend.GetSettings().saveFilters)
-		{
-			filterBar.SetFilter(backend.GetFilter());
-		}
 
 		if (backend.GetFilter() == null)
 		{
@@ -254,6 +254,7 @@ public partial class MainControl : Control
 		else
 			Data_Deleter.DeleteFilter();
 
+		LoadSimpleView();
 		ChangeScreen(0);
 	}
 
@@ -307,5 +308,10 @@ public partial class MainControl : Control
 		}
 		latestModifiedId = "";
 		ChangeScreen(0);
+	}
+
+	private void CloseAppSignalReceived()
+	{
+		GetTree().Quit();
 	}
 }

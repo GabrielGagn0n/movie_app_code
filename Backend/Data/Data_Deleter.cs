@@ -9,6 +9,19 @@ class Data_Deleter
 {
     static string DIRECTORY = OS.GetDataDir() + "/movie_app/SavedData";
 
+    internal static void DeleteAll()
+    {
+        string folderPath = Path.Combine(OS.GetDataDir(), "movie_app");
+
+        if (!Directory.Exists(folderPath))
+        {
+            throw new DirectoryNotFoundException($"The directory '{folderPath}' does not exist.");
+        }
+
+        Directory.Delete(folderPath, true);
+    }
+
+
     internal static void DeleteFilter()
     {
         if (!Directory.Exists(DIRECTORY))

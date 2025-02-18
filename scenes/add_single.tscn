@@ -103,6 +103,7 @@ layout_mode = 2
 text = "More options"
 
 [node name="more-controls" parent="adding-scrolling-container/MContain/adding-vcontainer" instance=ExtResource("3_t6wa6")]
+visible = false
 custom_minimum_size = Vector2(0, 400)
 layout_mode = 2
 size_flags_vertical = 3
