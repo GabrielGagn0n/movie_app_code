@@ -166,14 +166,16 @@ theme = ExtResource("4_ph21m")
 layout_mode = 2
 text = "Sort by date : "
 
-[node name="DateList" type="ItemList" parent="MCon/VBoxC/HBoxMoreFilter/HBoxDate"]
+[node name="SortList" type="ItemList" parent="MCon/VBoxC/HBoxMoreFilter/HBoxDate"]
 custom_minimum_size = Vector2(200, 100)
 layout_mode = 2
 size_flags_horizontal = 6
 theme = ExtResource("5_l0vlj")
-item_count = 2
-item_0/text = "Modified last ↑"
-item_1/text = "Modified last ↓"
+item_count = 4
+item_0/text = "Alphabetical ↓"
+item_1/text = "Alphabetical ↑"
+item_2/text = "Modified last ↑"
+item_3/text = "Modified last ↓"
 
 [node name="ClearBtn" type="Button" parent="MCon/VBoxC/HBoxMoreFilter"]
 layout_mode = 2
@@ -191,5 +193,5 @@ text = "Clear"
 [connection signal="pressed" from="MCon/VBoxC/HBoxC/FilterBtn" to="." method="_on_type_btn_pressed"]
 [connection signal="multi_selected" from="MCon/VBoxC/HBoxMoreFilter/HBoxType/TypeList" to="." method="_on_type_list_multi_selected"]
 [connection signal="multi_selected" from="MCon/VBoxC/HBoxMoreFilter/HBoxStatus/StatusList" to="." method="_on_status_list_multi_selected"]
-[connection signal="item_selected" from="MCon/VBoxC/HBoxMoreFilter/HBoxDate/DateList" to="." method="_on_date_list_item_selected"]
+[connection signal="item_selected" from="MCon/VBoxC/HBoxMoreFilter/HBoxDate/SortList" to="." method="_on_date_list_item_selected"]
 [connection signal="pressed" from="MCon/VBoxC/HBoxMoreFilter/ClearBtn" to="." method="_on_clear_btn_pressed"]

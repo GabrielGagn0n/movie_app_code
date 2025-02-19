@@ -112,56 +112,38 @@ public partial class MainControl : Control
 		{
 			serials = backend.GetFilteredSerial(backend.GetFilter());
 		}
-		var newSerialName = serials.Select(x => x.Id + "SimpleView").ToHashSet();
-		var nodeToRemove = vContainSimpleView.GetChildren()
-			.OfType<SimpleView>()
-			.Where(x => !x.Name.ToString().Contains("Template") && !newSerialName.Contains(x.Name))
-			.ToList();
-
-		foreach (SimpleView sv in nodeToRemove)
+		
+		foreach (SimpleView sv in vContainSimpleView.GetChildren().OfType<SimpleView>().ToList())
 		{
-			if (IsInstanceValid(sv))
-			{
-				vContainSimpleView.RemoveChild(sv);
-    	    	sv.QueueFree();
-			}
+		    if (!sv.Name.ToString().Contains("Template"))
+		    {
+		        vContainSimpleView.RemoveChild(sv);
+		        sv.QueueFree();
+		    }
 		}
-		simpleViews = simpleViews
-    		.Where(view => IsInstanceValid(view) && newSerialName.Contains(view.Name))
-    		.ToArray();
+		simpleViews = Array.Empty<SimpleView>();
 
 		foreach (var serial in serials)
 		{
-			string viewName = serial.Id + "SimpleView";
-    		SimpleView view = simpleViews.FirstOrDefault(v => v.Name == viewName);
-			
-			if (view == null)
-			{
-				SimpleView newSimpleView = (SimpleView)simpleViewTemplate.Duplicate();
-				newSimpleView.Name = serial.Id + "SimpleView";
-				newSimpleView.Visible = true;
-				newSimpleView._Ready();
+		    SimpleView newSimpleView = (SimpleView)simpleViewTemplate.Duplicate();
+		    newSimpleView.Name = serial.Id + "SimpleView";
+		    newSimpleView.Visible = true;
+		    newSimpleView._Ready();
 
-				newSimpleView.Connect("OnBtnAddEpPressed", new Callable(this, MethodName.OnBtnAddEpPressedSignalReceived));
-				newSimpleView.Connect("OnBtnRmvEpPressed", new Callable(this, MethodName.OnBtnRmvEpPressedSignalReceived));
-				newSimpleView.Connect("OnBtnAddSeasonPressed", new Callable(this, MethodName.OnBtnAddSeasonPressedSignalReceived));
-				newSimpleView.Connect("OnBtnRmvSeasonPressed", new Callable(this, MethodName.OnBtnRmvSeasonPressedSignalReceived));
-				newSimpleView.Connect("OnMoreInfoBtnClicked", new Callable(this, MethodName.OnMoreInfoBtnClickedSignalReceived));
-				newSimpleView.Connect("OnBtnSaveBtnClicked", new Callable(this, MethodName.OnBtnSaveBtnClickedSignalReceived));
-				newSimpleView.Connect("OnBtnDeleteConfirmBtnClicked", new Callable(this, MethodName.OnBtnDeleteConfirmBtnClickedSignalReceived));
-				newSimpleView.Connect("OnBtnEditClicked", new Callable(this, MethodName.OnBtnEditClickedSignalReceived));
+		    newSimpleView.Connect("OnBtnAddEpPressed", new Callable(this, MethodName.OnBtnAddEpPressedSignalReceived));
+		    newSimpleView.Connect("OnBtnRmvEpPressed", new Callable(this, MethodName.OnBtnRmvEpPressedSignalReceived));
+		    newSimpleView.Connect("OnBtnAddSeasonPressed", new Callable(this, MethodName.OnBtnAddSeasonPressedSignalReceived));
+		    newSimpleView.Connect("OnBtnRmvSeasonPressed", new Callable(this, MethodName.OnBtnRmvSeasonPressedSignalReceived));
+		    newSimpleView.Connect("OnMoreInfoBtnClicked", new Callable(this, MethodName.OnMoreInfoBtnClickedSignalReceived));
+		    newSimpleView.Connect("OnBtnSaveBtnClicked", new Callable(this, MethodName.OnBtnSaveBtnClickedSignalReceived));
+		    newSimpleView.Connect("OnBtnDeleteConfirmBtnClicked", new Callable(this, MethodName.OnBtnDeleteConfirmBtnClickedSignalReceived));
+		    newSimpleView.Connect("OnBtnEditClicked", new Callable(this, MethodName.OnBtnEditClickedSignalReceived));
 
-				newSimpleView.LoadDataIntoView(serial);
-				vContainSimpleView.AddChild(newSimpleView);
-				simpleViews = simpleViews.Append(newSimpleView).ToArray();
-			}
-			else
-			{
-				SimpleView toEnable = simpleViews.FirstOrDefault(view => view.Name == serial.Id + "SimpleView");
-				toEnable.Visible = true;
-				toEnable.LoadDataIntoView(serial);
-			}
+		    newSimpleView.LoadDataIntoView(serial);
+		    vContainSimpleView.AddChild(newSimpleView);
+		    simpleViews = simpleViews.Append(newSimpleView).ToArray();
 		}
+
 	}
 
 	private void OnBtnAddEpPressedSignalReceived(string id)

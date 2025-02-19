@@ -106,12 +106,14 @@ class movie_app
 
     public Serial[] GetSerials()
     {
+        SortData(filter, serials_list);
         return this.serials_list;
     }
 
     public Serial[] GetFilteredSerial(Filter filter)
     {
         LoadDataFiltered(filter);
+        SortData(filter, serials_list);
         return this.serials_list;
     }
 
@@ -146,6 +148,26 @@ class movie_app
                 serial.UpdateStatus(Status.OnHold);
                 Data_Saver.SaveSingleData(serial);
             }
+        }
+    }
+
+    private void SortData(Filter filter, Serial[] serial)
+    {
+        if ((int) filter.SortOption == 0)
+        {
+            serials_list = serial.OrderBy(serial => serial.Name).ToArray();
+        }
+        else if ((int) filter.SortOption == 1)
+        {
+            serials_list = serial.OrderByDescending(serial => serial.Name).ToArray();
+        }
+        else if ((int) filter.SortOption == 2)
+        {
+            serials_list = serial.OrderBy(serial => serial.LatestUpdate).ToArray();
+        }
+        else if ((int)filter.SortOption == 3)
+        {
+            serials_list = serial.OrderByDescending(serial => serial.LatestUpdate).ToArray();
         }
     }
 

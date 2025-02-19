@@ -14,6 +14,7 @@
 - Import/Export
 - Search strict or containing part of the string
 - Delete saves button
+- Sort by in filter (date, status, type, alphabetic)
 
 ### Bugfixed
 1. After using filter labels doesnt update
@@ -22,7 +23,6 @@
 
 ## TODO
 
-- Sort by in filter (date, status, type, alphabetic)
 - Better UI
 - Readme
 - Icon + rename 

@@ -23,6 +23,7 @@ public partial class FilterBar : Control
 	ItemList IListType;
 	ItemList IListDate;
 	ItemList IListStatus;
+	ItemList sortList;
 	Filter filter = new();
 	bool MoreFilter = false;
 
@@ -37,8 +38,8 @@ public partial class FilterBar : Control
 		cBoxContain = hBoxContainer.GetNode<CheckBox>("HBCSearch/CBoxContain");
 		filterBtn = hBoxContainer.GetNode<Button>("FilterBtn");
 		IListType = hBoxMoreFilter.GetNode<ItemList>("HBoxType/TypeList");
-		IListDate = hBoxMoreFilter.GetNode<ItemList>("HBoxDate/DateList");
 		IListStatus = hBoxMoreFilter.GetNode<ItemList>("HBoxStatus/StatusList");
+		sortList = hBoxMoreFilter.GetNode<ItemList>("HBoxDate/SortList");
 		searchFilter = hBoxContainer.GetNode<HBoxContainer>("HBCSearch");
 		SetOptionsType();
 		SetOptionsStatus();
@@ -66,9 +67,15 @@ public partial class FilterBar : Control
         SetOptionsStatus(filter.StatusFilter);
 		SetOptionsType(filter.SerialTypeFilter);
 		SetOptionsSearchOption(filter.SearchOption);
+		SetSortOption(filter.SortOption);
     }
 
-	private void SetOptionsSearchOption(string searchOption)
+    private void SetSortOption(SortOptions sortOption)
+    {
+		sortList.Select((int)sortOption, true);
+    }
+
+    private void SetOptionsSearchOption(string searchOption)
 	{
 		if (searchOption == null || searchOption == "contain")
 		{
@@ -192,14 +199,7 @@ public partial class FilterBar : Control
 
 	private void _on_date_list_item_selected(int i)
 	{
-		if (i == 0)
-		{
-			filter.DateFilter = "asc";
-		}
-		else
-		{
-			filter.DateFilter = "desc";
-		}
+		filter.SortOption = (SortOptions)i;
 		EmitSignal(SignalName.OnStatusChanged);
 	}
 
