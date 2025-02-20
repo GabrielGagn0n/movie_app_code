@@ -15,6 +15,7 @@
 - Search strict or containing part of the string
 - Delete saves button
 - Sort by in filter (date, status, type, alphabetic)
+- Readme
 
 ### Bugfixed
 1. After using filter labels doesnt update
@@ -24,7 +25,6 @@
 ## TODO
 
 - Better UI
-- Readme
 - Icon + rename 
 - Add icon or something to indicate what type of seriel in simpleview
 
