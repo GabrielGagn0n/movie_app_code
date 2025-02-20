@@ -153,7 +153,7 @@ class movie_app
 
     private void SortData(Filter filter, Serial[] serial)
     {
-        if ((int) filter.SortOption == 0)
+        if (filter == null || (int) filter.SortOption == 0)
         {
             serials_list = serial.OrderBy(serial => serial.Name).ToArray();
         }
