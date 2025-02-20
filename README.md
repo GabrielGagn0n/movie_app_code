@@ -13,6 +13,12 @@ This application is developed using **C#** for the core logic and **Godot 4.3** 
 
 
 ## Installation
+You can download the exe and all necessary files directly on github via the release
+1. Go to 
+   https://github.com/GabrielGagn0n/Movie_App
+2. Download the zip
+![download instructions](ressource/instructions2.png)
+
 You can download the exe and all necessary files directly on github
 1. Go to 
    https://github.com/GabrielGagn0n/Movie_App
