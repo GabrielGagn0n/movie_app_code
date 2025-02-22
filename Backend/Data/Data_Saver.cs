@@ -63,6 +63,7 @@ class Data_Saver
             toModify.EpisodeSeasons = serial.EpisodeSeasons;
             toModify.DidWatch = serial.DidWatch;
             toModify.LatestUpdate = serial.LatestUpdate;
+            toModify.AlreadyWatched = serial.AlreadyWatched;
 
             File.WriteAllText(originalFilePath, JsonSerializer.Serialize(existingSerials, new JsonSerializerOptions { WriteIndented = false }));
             return;

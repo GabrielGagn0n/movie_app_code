@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bkjlnae6yrd3i"]
+[gd_scene load_steps=11 format=3 uid="uid://bkjlnae6yrd3i"]
 
 [ext_resource type="Theme" uid="uid://5t1dp5n81crm" path="res://theme/Default_theme.tres" id="1_mwpq1"]
 [ext_resource type="Texture2D" uid="uid://caf5l8m77jfjy" path="res://ressource/simpleview-text.png" id="2_8u2ol"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://dsgewyck02hl6" path="res://ressource/plus-green.png" id="6_fyyj7"]
 [ext_resource type="Texture2D" uid="uid://bl8082qbahyu5" path="res://ressource/down-arrow.png" id="7_fom7d"]
 [ext_resource type="Theme" uid="uid://22an43i208pm" path="res://theme/Default_theme_light.tres" id="9_iuic1"]
+[ext_resource type="Texture2D" uid="uid://byrnlfawyypg" path="res://ressource/loop.png" id="10_arprq"]
 
 [node name="SimpleView" type="Control"]
 custom_minimum_size = Vector2(0, 50)
@@ -189,6 +190,19 @@ layout_mode = 2
 theme = ExtResource("1_mwpq1")
 editable = false
 
+[node name="HBoxContainer" type="HBoxContainer" parent="MContain/VContain/VBCMoreOptions/HBCTop"]
+layout_mode = 2
+theme = ExtResource("9_iuic1")
+
+[node name="Label" type="Label" parent="MContain/VContain/VBCMoreOptions/HBCTop/HBoxContainer"]
+layout_mode = 2
+text = "Rewatch : "
+
+[node name="BtnRewatch" type="Button" parent="MContain/VContain/VBCMoreOptions/HBCTop/HBoxContainer"]
+layout_mode = 2
+icon = ExtResource("10_arprq")
+icon_alignment = 1
+
 [node name="HBCAlias" type="HBoxContainer" parent="MContain/VContain/VBCMoreOptions"]
 layout_mode = 2
 
@@ -364,6 +378,7 @@ text = "Save"
 [connection signal="pressed" from="MContain/VContain/HContain/HBtnContain/AddEpBtn" to="." method="_on_add_ep_btn_pressed"]
 [connection signal="pressed" from="MContain/VContain/HContain/HBtnContain/AddSeasonBtn" to="." method="_on_add_season_btn_pressed"]
 [connection signal="pressed" from="MContain/VContain/HContain/HBtnContain/MoreInfoBtn" to="." method="_on_more_info_btn_pressed"]
+[connection signal="pressed" from="MContain/VContain/VBCMoreOptions/HBCTop/HBoxContainer/BtnRewatch" to="." method="_on_btn_rewatch_pressed"]
 [connection signal="pressed" from="MContain/VContain/VBCMoreOptions/HBCSeason/BtnEdit" to="." method="_on_btn_edit_pressed"]
 [connection signal="pressed" from="MContain/VContain/VBCMoreOptions/HBCBottom/HBCBottomInner/MCBtn/HBCBtn/BtnDelete" to="." method="_on_btn_delete_pressed"]
 [connection signal="pressed" from="MContain/VContain/VBCMoreOptions/HBCBottom/HBCBottomInner/MCBtn/HBCBtn/BtnCancel" to="." method="_on_btn_cancel_pressed"]

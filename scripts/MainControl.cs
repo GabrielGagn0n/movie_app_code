@@ -138,6 +138,7 @@ public partial class MainControl : Control
 		    newSimpleView.Connect("OnBtnSaveBtnClicked", new Callable(this, MethodName.OnBtnSaveBtnClickedSignalReceived));
 		    newSimpleView.Connect("OnBtnDeleteConfirmBtnClicked", new Callable(this, MethodName.OnBtnDeleteConfirmBtnClickedSignalReceived));
 		    newSimpleView.Connect("OnBtnEditClicked", new Callable(this, MethodName.OnBtnEditClickedSignalReceived));
+			newSimpleView.Connect("OnBtnRewatchClicked", new Callable(this, MethodName.OnBtnRewatchClickedSignalReceived));
 
 		    newSimpleView.LoadDataIntoView(serial);
 		    vContainSimpleView.AddChild(newSimpleView);
@@ -148,46 +149,34 @@ public partial class MainControl : Control
 
 	private void OnBtnAddEpPressedSignalReceived(string id)
 	{
-		SimpleView simpleView = simpleViews.FirstOrDefault(view => view.GetSerial().Id == Guid.Parse(id));
-		if (simpleView != null)
-		{
-			Serial serial = simpleView.GetSerial();
-			backend.UpdateSerials(ButtonViewActions.AddEpisode, serial.Id);
-			simpleView.LoadDataIntoView(serial);
-		}
+		SimpleView simpleView = GetSimpleViewById(id);
+		Serial serial = simpleView.GetSerial();
+		backend.UpdateSerials(ButtonViewActions.AddEpisode, serial.Id);
+		simpleView.LoadDataIntoView(serial);
 	}
 
 	private void OnBtnRmvEpPressedSignalReceived(string id)
 	{
-		SimpleView simpleView = simpleViews.FirstOrDefault(view => view.GetSerial().Id == Guid.Parse(id));
-		if (simpleView != null)
-		{
-			Serial serial = simpleView.GetSerial();
-			backend.UpdateSerials(ButtonViewActions.RemoveEpisode, serial.Id);
-			simpleView.LoadDataIntoView(serial);
-		}
+		SimpleView simpleView = GetSimpleViewById(id);
+		Serial serial = simpleView.GetSerial();
+		backend.UpdateSerials(ButtonViewActions.RemoveEpisode, serial.Id);
+		simpleView.LoadDataIntoView(serial);
 	}
 
 	private void OnBtnAddSeasonPressedSignalReceived(string id)
 	{
-		SimpleView simpleView = simpleViews.FirstOrDefault(view => view.GetSerial().Id == Guid.Parse(id));
-		if (simpleView != null)
-		{
-			Serial serial = simpleView.GetSerial();
-			backend.UpdateSerials(ButtonViewActions.AddSeason, serial.Id);
-			simpleView.LoadDataIntoView(serial);
-		}
+		SimpleView simpleView = GetSimpleViewById(id);
+		Serial serial = simpleView.GetSerial();
+		backend.UpdateSerials(ButtonViewActions.AddSeason, serial.Id);
+		simpleView.LoadDataIntoView(serial);
 	}
 
 	private void OnBtnRmvSeasonPressedSignalReceived(string id)
 	{
-		SimpleView simpleView = simpleViews.FirstOrDefault(view => view.GetSerial().Id == Guid.Parse(id));
-		if (simpleView != null)
-		{
-			Serial serial = simpleView.GetSerial();
-			backend.UpdateSerials(ButtonViewActions.RemoveSeason, serial.Id);
-			simpleView.LoadDataIntoView(serial);
-		}
+		SimpleView simpleView = GetSimpleViewById(id);
+		Serial serial = simpleView.GetSerial();
+		backend.UpdateSerials(ButtonViewActions.RemoveSeason, serial.Id);
+		simpleView.LoadDataIntoView(serial);
 	}
 
 	private void OnStatusChangedSignalReceived()
@@ -203,23 +192,19 @@ public partial class MainControl : Control
 		filterBar.Position = new Vector2(0,0);
 	}
 
-	private void OnMoreInfoBtnClickedSignalReceived(int size_y, string Id)
+	private void OnMoreInfoBtnClickedSignalReceived(int size_y, string id)
 	{
 		//vContainSimpleView.CustomMinimumSize = new Vector2(1550, 800 - size_y);
-		SimpleView simpleView = simpleViews.FirstOrDefault(view => view.Name == Id + "SimpleView");
-		if (simpleView != null)
-			simpleView.CustomMinimumSize = new Vector2(1550, size_y);
+		SimpleView simpleView = GetSimpleViewById(id);
+		simpleView.CustomMinimumSize = new Vector2(1550, size_y);
 	}
 
 	private void OnBtnSaveBtnClickedSignalReceived(string id)
 	{
-		SimpleView simpleView = simpleViews.FirstOrDefault(view => view.GetSerial().Id == Guid.Parse(id));
-		if (simpleView != null)
-		{
-			Serial serial = simpleView.GetSerial();
-			backend.UpdateSerials(ButtonViewActions.UpdateSerial, serial.Id);
-			simpleView.LoadDataIntoView(serial);
-		}
+		SimpleView simpleView = GetSimpleViewById(id);
+		Serial serial = simpleView.GetSerial();
+		backend.UpdateSerials(ButtonViewActions.UpdateSerial, serial.Id);
+		simpleView.LoadDataIntoView(serial);
 	}
 
 	private void _on_btn_settings_pressed()
@@ -247,27 +232,21 @@ public partial class MainControl : Control
 
 	private void OnBtnDeleteConfirmBtnClickedSignalReceived(string id)
 	{
-		SimpleView simpleView = simpleViews.FirstOrDefault(view => view.GetSerial().Id == Guid.Parse(id));
-		if (simpleView != null)
-		{
-			Serial serial = simpleView.GetSerial();
-			backend.DeleteSerial(serial.Id);
-			simpleView.Destroy();
-		}
+		SimpleView simpleView = GetSimpleViewById(id);
+		Serial serial = simpleView.GetSerial();
+		backend.DeleteSerial(serial.Id);
+		simpleView.Destroy();
 	}
 
 	private void OnBtnEditClickedSignalReceived(string id)
 	{
 		latestModifiedId = id;
-		SimpleView simpleView = simpleViews.FirstOrDefault(view => view.GetSerial().Id == Guid.Parse(id));
-		if (simpleView != null)
-		{
-			Serial serial = simpleView.GetSerial();
-			InfoSeason editScreen = editSeasonContainer.GetNode<InfoSeason>("SCEdit/VBoxEdit/InfoSeason");
-			editScreen._Ready();
-			editScreen.Setup(serial);
-			ChangeScreen(3);
-		}
+		SimpleView simpleView = GetSimpleViewById(id);
+		Serial serial = simpleView.GetSerial();
+		InfoSeason editScreen = editSeasonContainer.GetNode<InfoSeason>("SCEdit/VBoxEdit/InfoSeason");
+		editScreen._Ready();
+		editScreen.Setup(serial);
+		ChangeScreen(3);
 	}
 
 	private void _on_btn_cancel_pressed()
@@ -279,15 +258,12 @@ public partial class MainControl : Control
 	private void _on_btn_save_pressed()
 	{
 		InfoSeason editScreen = editSeasonContainer.GetNode<InfoSeason>("SCEdit/VBoxEdit/InfoSeason");
-		SimpleView simpleView = simpleViews.FirstOrDefault(view => view.GetSerial().Id == Guid.Parse(latestModifiedId));
-		if (simpleView != null)
-		{
-			Serial serial = simpleView.GetSerial();
-			serial.EpisodeSeasons = editScreen.GetNbrEpiSeason();
-			simpleView.LoadDataIntoView(serial);
-			backend.UpdateSerials(ButtonViewActions.UpdateSerial, serial.Id);
-			simpleView.LoadDataIntoView(serial);
-		}
+		SimpleView simpleView = GetSimpleViewById(latestModifiedId);
+		Serial serial = simpleView.GetSerial();
+		serial.EpisodeSeasons = editScreen.GetNbrEpiSeason();
+		simpleView.LoadDataIntoView(serial);
+		backend.UpdateSerials(ButtonViewActions.UpdateSerial, serial.Id);
+		simpleView.LoadDataIntoView(serial);
 		latestModifiedId = "";
 		ChangeScreen(0);
 	}
@@ -295,5 +271,23 @@ public partial class MainControl : Control
 	private void CloseAppSignalReceived()
 	{
 		GetTree().Quit();
+	}
+
+	private void OnBtnRewatchClickedSignalReceived(string id)
+	{
+		SimpleView simpleView = GetSimpleViewById(id);
+		Serial serial = simpleView.GetSerial();
+		backend.UpdateSerials(ButtonViewActions.Rewatch, serial.Id);
+		simpleView.LoadDataIntoView(serial);
+	}
+
+	private SimpleView GetSimpleViewById(string id)
+	{
+		SimpleView simpleView = simpleViews.FirstOrDefault(view => view.GetSerial().Id == Guid.Parse(id));
+		if (simpleView == null)
+		{
+			OS.Alert("Error getting the serial used.");
+		}
+		return simpleView;
 	}
 }

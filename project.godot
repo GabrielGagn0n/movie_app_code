@@ -12,10 +12,10 @@ config_version=5
 
 config/name="Movie_app"
 config/description="An application to keep track of any series you watch. Using the buttons you can keep track which episode and season you are currently at."
-config/version="1.0"
+config/version="1.02"
 run/main_scene="res://scenes/control.tscn"
 config/features=PackedStringArray("4.3", "C#", "Forward Plus")
-config/icon="res://ressource/movie.png"
+config/icon="res://ressource/icon.png"
 
 [display]
 

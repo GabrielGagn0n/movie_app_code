@@ -16,6 +16,7 @@ public class Serial
     public Guid Id { get; set; }
     public SerialType Type { get; set; }
     public Status Status { get; set; } = Status.NotStarted;
+    public bool AlreadyWatched { get; set; } = false;
 
     public Serial(string name, string alias = null, string link = null, SerialType type = SerialType.Series)
     {
@@ -145,6 +146,16 @@ public class Serial
         }
     }
 
+    public void Rewatch()
+    {
+        int lastest = GetIndexLatestWatchedEpisode();
+        AlreadyWatched = true;
+        for (int i = 0; i <= lastest - 1; i++)
+        {
+            DidWatch[i] = false;
+        }
+    }
+
     public void UpdateStatus(Status status)
     {
         this.Status = status;
@@ -182,4 +193,5 @@ public class Serial
         }
         return DidWatch.Length;
     }
+
 }

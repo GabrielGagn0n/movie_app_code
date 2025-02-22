@@ -4,5 +4,6 @@ public enum ButtonViewActions
     RemoveEpisode,
     AddSeason,
     RemoveSeason,
-    UpdateSerial
+    UpdateSerial,
+    Rewatch
 }

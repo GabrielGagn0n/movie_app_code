@@ -96,6 +96,10 @@ class movie_app
                     case ButtonViewActions.UpdateSerial:
                         serial.LatestUpdate = DateTime.Now;
                         break;
+                    case ButtonViewActions.Rewatch:
+                        serial.Rewatch();
+                        serial.LatestUpdate = DateTime.Now;
+                        break;
                 }
                 Data_Saver.SaveSingleData(serial);
                 break;

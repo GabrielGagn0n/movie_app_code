@@ -19,6 +19,8 @@ public partial class SimpleView : Control
 	public delegate void OnBtnSaveBtnClickedEventHandler(string id);
 	[Signal]
 	public delegate void OnBtnEditClickedEventHandler(string id);
+	[Signal]
+	public delegate void OnBtnRewatchClickedEventHandler(string id);
 	
 	private MarginContainer mContainer;
 	private HBoxContainer hContainer;
@@ -210,7 +212,11 @@ public partial class SimpleView : Control
 		}
 		oBtnType.Select((int)serial.Type);
 		var seasonLbl = hLblContainer.GetNode<Label>("SeasonC/SeasonLbl");
-		lblSeasonEpi.Text = seasonLbl.Text;
+
+		if (serial.AlreadyWatched)
+			lblSeasonEpi.Text = serial.Name + " *Prestiged*";
+		else
+			lblSeasonEpi.Text = serial.Name;
 	}
 
 	private void SaveModifiedSerial()
@@ -350,4 +356,9 @@ public partial class SimpleView : Control
 		EmitSignal(SignalName.OnBtnEditClicked, serial.Id.ToString());
 	}
 
+	private void _on_btn_rewatch_pressed()
+	{
+		lblSeasonEpi.Text = serial.Name + " *Prestiged*";
+		EmitSignal(SignalName.OnBtnRewatchClicked, serial.Id.ToString());
+	}
 }
